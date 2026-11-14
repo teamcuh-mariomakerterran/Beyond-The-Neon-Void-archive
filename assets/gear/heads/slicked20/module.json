@@ -96,21 +96,84 @@
 		"SE": {
 			"uncertain": 0,
 			"missing": [],
+			"touchup": [
+				[
+					22,
+					21
+				],
+				[
+					23,
+					21
+				],
+				[
+					24,
+					22
+				],
+				[
+					25,
+					22
+				],
+				[
+					28,
+					26
+				],
+				[
+					37,
+					23
+				]
+			],
 			"skeleton_disagrees_px": 0.0
 		},
 		"SW": {
 			"uncertain": 0,
 			"missing": [],
+			"touchup": [
+				[
+					21,
+					22
+				],
+				[
+					30,
+					26
+				],
+				[
+					33,
+					22
+				],
+				[
+					34,
+					22
+				],
+				[
+					35,
+					21
+				],
+				[
+					36,
+					21
+				]
+			],
 			"skeleton_disagrees_px": 0.0
 		},
 		"NE": {
 			"uncertain": 0,
 			"missing": [],
+			"touchup": [
+				[
+					25,
+					25
+				],
+				[
+					35,
+					23
+				]
+			],
 			"skeleton_disagrees_px": 0.0
 		},
 		"NW": {
 			"uncertain": 0,
 			"missing": [],
+			"touchup": [],
 			"skeleton_disagrees_px": 0.0
 		}
 	}

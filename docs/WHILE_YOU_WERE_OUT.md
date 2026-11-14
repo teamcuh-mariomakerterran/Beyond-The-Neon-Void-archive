@@ -16,27 +16,24 @@ You marked the first cut as wrong: flat bottoms, hair poking out, the old helmet
   - Uncertain pixels are flagged until someone decides them.
 - **Pixels are exact copies.** Nothing is smoothed or invented. Head plus body rebuilds the source, checked on every extract.
 - **Registration comes from the pixels** (the feet against the base). The stored skeleton is only checked against it, and the disagreement is recorded.
-- **Neck ownership:** the neck and collar belong to the body. The module ends at the chin or the helmet rim.
 
-**First pair, for your review:** slicked20's own head and the winged (jumpjet) helmet, all 4 facings. I reviewed every uncertain pixel by hand; the edits are in the edit files.
-![modules](screenshots/helmets/modules_slicked20_dragoon_wings.png)
-The columns are:
-- **A:** source with the mask (cyan) and uncertain pixels (yellow).
-- **B:** the module alone.
-- **C:** the headless body.
-- **D:** body plus its own head; it equals the source in all 4 facings.
-- **E:** body plus the winged module, with its own head off.
+**slicked20's own head, after your review** (the winged armor is left out of head swapping: too much of an edge case).
+![modules](screenshots/helmets/modules_slicked20.png)
+- **Your marks, applied:**
+  - SE/SW: the chin underside is head; stray pixels left of the ear and jaw are gone.
+  - SW: the area under the cyber-eye, right of the chin, is body.
+  - NE: the nape is head again.
+  - NW wasn't in your picture; I did the same as NE there. Please check it.
+- **Neck rule, now:** the neck belongs to the head module, down to the collar line. The collar is body.
+- **Touch-up flags** (orange in column C): collar pixels PixelLab painted in the head's skin colours. There are 6 in SE, 6 in SW, 2 in NE and 0 in NW.
+  - Paint the fix on a copy of `assets/gear/heads/slicked20/body_<F>.png`, saved as `body_touchup_<F>.png`.
+  - Composition then uses it, and the original export stays untouched.
+  - The flag only catches the head's exact skin colours. Other near-skin shades in the collar are for your eye.
 
-**Still flagged (not filled; your call):**
-- **Jaw guard (your fix):** the plates under the visor, with their own outline, now belong to the helmet in SW and in SE (the mirror). That closed most of E's gaps.
-- **Gaps in E** (red) are now 2, 1, 14 and 0 px in SE, SW, NE and NW. The NE back view's rim still stops short of slicked20's collar: is there a neck guard at the back I should add, or should the art be extended?
-- **dragoon_wings NW:** 1 body pixel (40, 20) was only covered by the helmet.
-- **dragoon_wings registration:** the drawing sits 2-9 px away from where its stored skeleton says. Placement uses the pixels.
-
-**Retired** (git history keeps them): the 8 overlay helmet pieces, their preview tool, and the 8 accessory helmet items. Overlaying is exactly what was wrong. Helmets come back as head-slot items once you approve this pair.
+**Retired** (git history keeps them): the 8 overlay helmet pieces, their preview tool, and the 8 accessory helmet items. Overlaying is exactly what was wrong. Helmets come back as head-slot items once the heads are approved.
 
 **Next, after your OK:**
-1. The other 13 variants (proposal, review, flags).
+1. The other 12 variants (proposal, review, flags), with the proposal's seam moved down to the collar line to match the new neck rule.
 2. The animation frames, where a mask per frame comes from the approved standing mask plus a review of the frames that move the head (hit, death).
 3. The game's head slot, with explicit modes: `replace` for these modules, and `overlay` for future hats.
 

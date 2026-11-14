@@ -12,7 +12,7 @@ PixelLab exports (never modified) and writes beside them.
     python3 -I tools/gear/heads.py undo|redo <variant> <F>
     python3 -I tools/gear/heads.py show <variant> <F> [x0,y0,x1,y1]   text map: H head, b body, ? uncertain
     python3 -I tools/gear/heads.py extract <variant> [F ...]     head_<F>.png, body_<F>.png, module.json
-    python3 -I tools/gear/heads.py preview <base> <helmet> out.png   diagnostics A-E, all four facings
+    python3 -I tools/gear/heads.py preview <base> <helmet|-> out.png   diagnostics A-E, all four facings
     python3 -I tools/gear/heads.py check                         every extracted variant: head + body == source,
                                                                  the files match the masks, open flags listed
 
@@ -41,11 +41,15 @@ The proposal (review it; it is not the answer):
      crown: crests, horns, spikes), and joined to the head through head
      pixels. Wings and shoulder plates reach farther and sit nearer the
      body. Near ties and the REACH edge are marked uncertain.
-  Neck ownership: the neck and collar belong to the BODY; the head module ends
-  at the chin / helmet rim (the seam).
+  Neck ownership (Brian, 2026-11-14): the neck belongs to the HEAD module, down
+  to the collar line; the collar belongs to the body. (The proposal's seam
+  still sits near the chin; reviewed edits carry the neck down.)
 Flags: uncertain (ownership near a tie, or the seam where head and body
-touch) and missing (body pixels that only the old head covered: holes inside
-the body after removal; artwork to paint, never filled here).
+touch), missing (body pixels that only the old head covered: holes inside
+the body after removal) and touchup (body pixels near the neck painted in the
+head's own skin colours: PixelLab drew skin into the collar). Missing and
+touchup are artwork to paint, never filled here: paint the fix on a copy of
+body_<F>.png saved as body_touchup_<F>.png and composition uses it.
 """
 import io
 import json
@@ -77,6 +81,8 @@ VARIANTS = {
 	"hood_0101": ("outfit_states_r3.zip", "0101", True),
 	"armor_009": ("outfit_states_r3.zip", "009", True),
 }
+# Left out of head swapping (Brian, 2026-11-14): too much of an edge case (wings, jaw guard, neck).
+SKIP = {"dragoon_wings"}
 HEAD_POINTS = ["LEFT EYE", "RIGHT EYE", "NOSE", "LEFT EAR", "RIGHT EAR"]
 ANCHOR = "NECK"
 TIE = 1.5  # px: distance margin under which ownership is marked uncertain
@@ -311,6 +317,8 @@ def final(variant, F):
 
 
 def do_propose(variant, Fs):
+	if variant in SKIP:
+		sys.exit("%s is left out of head swapping (SKIP)" % variant)
 	d = folder(variant)
 	for F in Fs:
 		im, off, _ = source(variant, F)
@@ -367,6 +375,21 @@ def missing(body_pix, removed):
 	return {p for p in removed if p not in out}
 
 
+def touchup(im, head_mask, body_pix):
+	"""Body pixels within 4 px below/beside the head module that use one of the head's skin colours."""
+	a = im.load()
+	skin = set()
+	for p in head_mask:
+		r, g, b = a[p][:3]
+		if r >= 140 and r > g > b and g >= 0.55 * r and b >= 0.4 * r:
+			skin.add(a[p][:3])
+	low = {}
+	for x, y in head_mask:
+		low[x] = max(low.get(x, -1), y)
+	near = lambda x, y: any(xx in low and 0 <= y - low[xx] <= 4 for xx in range(x - 4, x + 5))
+	return {p for p in body_pix if a[p][:3] in skin and near(*p)}
+
+
 def do_extract(variant, Fs):
 	from PIL import Image
 	d = folder(variant)
@@ -393,12 +416,13 @@ def do_extract(variant, Fs):
 		head.save(os.path.join(d, "head_%s.png" % F))
 		body.save(os.path.join(d, "body_%s.png" % F))
 		miss = missing(opaque(body), m & opaque(im))
+		tu = touchup(im, m & opaque(im), opaque(body))
 		reg = registration(variant, F)
 		meta.setdefault("canvas", {})[F] = list(im.size)
 		meta.setdefault("canvas_offset", {})[F] = list(off)
 		meta.setdefault("anchor", {})[F] = [round(kp[ANCHOR][0], 2), round(kp[ANCHOR][1], 2)]
 		meta.setdefault("registration", {})[F] = reg
-		meta.setdefault("flags", {})[F] = {"uncertain": len(unc), "missing": sorted(miss),
+		meta.setdefault("flags", {})[F] = {"uncertain": len(unc), "missing": sorted(miss), "touchup": sorted(tu),
 			"skeleton_disagrees_px": max(reg.values())}
 		print(variant, F, "head", len(m), "uncertain", len(unc), "missing", len(miss), "registration", max(reg.values()))
 	json.dump(meta, open(mp, "w"), indent="\t")
@@ -414,7 +438,8 @@ def compose(body_variant, head_variant, F):
 	bm = json.load(open(os.path.join(OUT, body_variant, "module.json")))
 	hv = head_variant or body_variant
 	hm = json.load(open(os.path.join(OUT, hv, "module.json")))
-	body = Image.open(os.path.join(OUT, body_variant, "body_%s.png" % F)).convert("RGBA")
+	fixed = os.path.join(OUT, body_variant, "body_touchup_%s.png" % F)
+	body = Image.open(fixed if os.path.exists(fixed) else os.path.join(OUT, body_variant, "body_%s.png" % F)).convert("RGBA")
 	head = Image.open(os.path.join(OUT, hv, "head_%s.png" % F)).convert("RGBA")
 	# shared -> body canvas: minus the body's offset; the head's anchor (shared) -> body anchor (shared)
 	ba, ha = bm["anchor"][F], hm["anchor"][F]
@@ -456,8 +481,8 @@ def do_preview(base_v, helm_v, out):
 	C headless base body | D body + base head | E body + helmet (base head off)."""
 	from PIL import Image, ImageDraw
 	K, CW, CH = 5, 44, 40
-	cols = ["A %s mask" % base_v, "B %s head" % base_v, "A %s mask" % helm_v, "B %s module" % helm_v,
-		"C headless body", "D body + own head", "E body + %s" % helm_v]
+	cols = ["A %s mask" % base_v, "B %s head" % base_v] + (["A %s mask" % helm_v, "B %s module" % helm_v] if helm_v else []) + \
+		["C headless body (orange: touch up)", "D body + own head"] + (["E body + %s" % helm_v] if helm_v else [])
 	o = Image.new("RGBA", (len(cols) * CW * K, 4 * CH * K + 24), (24, 25, 34, 255))
 	dr = ImageDraw.Draw(o)
 	for i, c in enumerate(cols):
@@ -487,12 +512,12 @@ def do_preview(base_v, helm_v, out):
 				else:
 					px[x, y] = (c[0] // 3, c[1] // 3, c[2] // 3, 255)
 		return t
-	def flagged(im, gaps):
+	def flagged(im, gaps, col=(255, 0, 0, 255)):
 		t = im.copy()
 		px = t.load()
 		for p in gaps:
 			if 0 <= p[0] < t.width and 0 <= p[1] < t.height:
-				px[p] = (255, 0, 0, 255)
+				px[p] = col
 		return t
 	for r, F in enumerate(["SE", "SW", "NE", "NW"]):
 		bm = json.load(open(os.path.join(OUT, base_v, "module.json")))
@@ -506,21 +531,26 @@ def do_preview(base_v, helm_v, out):
 			o.alpha_composite(cell.resize((CW * K, CH * K), Image.NEAREST), (i * CW * K, 24 + r * CH * K))
 		put(0, tinted(base_v, F))
 		put(1, Image.open(os.path.join(OUT, base_v, "head_%s.png" % F)))
-		hm = json.load(open(os.path.join(OUT, helm_v, "module.json")))
-		ho = hm["canvas_offset"][F]
-		hoff = (ho[0] * -1 + bo[0], ho[1] * -1 + bo[1])
-		put(2, tinted(helm_v, F), hoff)
-		put(3, Image.open(os.path.join(OUT, helm_v, "head_%s.png" % F)), hoff)
+		col = 2
+		if helm_v:
+			hm = json.load(open(os.path.join(OUT, helm_v, "module.json")))
+			ho = hm["canvas_offset"][F]
+			hoff = (ho[0] * -1 + bo[0], ho[1] * -1 + bo[1])
+			put(2, tinted(helm_v, F), hoff)
+			put(3, Image.open(os.path.join(OUT, helm_v, "head_%s.png" % F)), hoff)
+			col = 4
 		body = Image.open(os.path.join(OUT, base_v, "body_%s.png" % F))
 		miss = set(tuple(p) for p in bm["flags"][F]["missing"])
-		put(4, flagged(body, miss))
+		tu = set(tuple(p) for p in bm["flags"][F].get("touchup", []))
+		put(col, flagged(flagged(body, tu, (255, 140, 0, 255)), miss))
 		d_img, d_gap = compose(base_v, None, F)
-		put(5, flagged(d_img, d_gap))
-		e_img, e_gap = compose(base_v, helm_v, F)
-		put(6, flagged(e_img, e_gap))
+		put(col + 1, flagged(d_img, d_gap))
+		if helm_v:
+			e_img, e_gap = compose(base_v, helm_v, F)
+			put(col + 2, flagged(e_img, e_gap))
 		src, _, _ = source(base_v, F)
 		same = d_img.tobytes() == src.tobytes()
-		dr.text((5 * CW * K + 4, 24 + r * CH * K + 4), "%s  D == source: %s" % (F, "yes" if same else "NO"),
+		dr.text(((col + 1) * CW * K + 4, 24 + r * CH * K + 4), "%s  D == source: %s  touch-up px: %d" % (F, "yes" if same else "NO", len(tu)),
 			fill=(120, 255, 120) if same else (255, 80, 80))
 	o.save(out)
 	print(out)
@@ -567,6 +597,6 @@ if __name__ == "__main__":
 	elif a[0] == "extract":
 		do_extract(a[1], a[2:] or list(FD))
 	elif a[0] == "preview":
-		do_preview(a[1], a[2], a[3])
+		do_preview(a[1], a[2] if a[2] != "-" else None, a[3])
 	elif a[0] == "check":
 		sys.exit(do_check())
