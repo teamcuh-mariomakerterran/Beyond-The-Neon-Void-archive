@@ -28,7 +28,8 @@ The columns are:
 - **E:** body plus the winged module, with its own head off.
 
 **Still flagged (not filled; your call):**
-- **Gaps in E** (red): the winged helmet's rim stops short of slicked20's collar. That is 16, 18 and 14 px of air in SE, SW and NE; NW has none. Either extend the helmet art down, or let helmet modules own the neck.
+- **Jaw guard (your fix):** the plates under the visor, with their own outline, now belong to the helmet in SW and in SE (the mirror). That closed most of E's gaps.
+- **Gaps in E** (red) are now 2, 1, 14 and 0 px in SE, SW, NE and NW. The NE back view's rim still stops short of slicked20's collar: is there a neck guard at the back I should add, or should the art be extended?
 - **dragoon_wings NW:** 1 body pixel (40, 20) was only covered by the helmet.
 - **dragoon_wings registration:** the drawing sits 2-9 px away from where its stored skeleton says. Placement uses the pixels.
 
