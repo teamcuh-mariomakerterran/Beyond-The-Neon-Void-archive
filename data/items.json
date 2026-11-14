@@ -1047,5 +1047,1194 @@
 		"stat_modifiers": {
 			"accuracy": 3
 		}
+	},
+	{
+		"id": "wpn_neon_pistol_01",
+		"display_name": "Neon Pistol 01",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_01",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_02",
+		"display_name": "Neon Pistol 02",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_02",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_03",
+		"display_name": "Neon Pistol 03",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_03",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_04",
+		"display_name": "Neon Pistol 04",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_04",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_05",
+		"display_name": "Neon Pistol 05",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_05",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_06",
+		"display_name": "Neon Pistol 06",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_06",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_07",
+		"display_name": "Neon Pistol 07",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_07",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_08",
+		"display_name": "Neon Pistol 08",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_08",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_09",
+		"display_name": "Neon Pistol 09",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_09",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_10",
+		"display_name": "Neon Pistol 10",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_10",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_11",
+		"display_name": "Neon Pistol 11",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_11",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_12",
+		"display_name": "Neon Pistol 12",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_12",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_13",
+		"display_name": "Neon Pistol 13",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_13",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_14",
+		"display_name": "Neon Pistol 14",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_14",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_15",
+		"display_name": "Neon Pistol 15",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_15",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_16",
+		"display_name": "Neon Pistol 16",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_16",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_17",
+		"display_name": "Neon Pistol 17",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_17",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_18",
+		"display_name": "Neon Pistol 18",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_18",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_19",
+		"display_name": "Neon Pistol 19",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_19",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_20",
+		"display_name": "Neon Pistol 20",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_20",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_21",
+		"display_name": "Neon Pistol 21",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_21",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_22",
+		"display_name": "Neon Pistol 22",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_22",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_23",
+		"display_name": "Neon Pistol 23",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_23",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_24",
+		"display_name": "Neon Pistol 24",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_24",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_25",
+		"display_name": "Neon Pistol 25",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_25",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_26",
+		"display_name": "Neon Pistol 26",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_26",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_27",
+		"display_name": "Neon Pistol 27",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_27",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_28",
+		"display_name": "Neon Pistol 28",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_28",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_29",
+		"display_name": "Neon Pistol 29",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_29",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_30",
+		"display_name": "Neon Pistol 30",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_30",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_31",
+		"display_name": "Neon Pistol 31",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_31",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_32",
+		"display_name": "Neon Pistol 32",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_32",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_33",
+		"display_name": "Neon Pistol 33",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_33",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_34",
+		"display_name": "Neon Pistol 34",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_34",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_35",
+		"display_name": "Neon Pistol 35",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_35",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_36",
+		"display_name": "Neon Pistol 36",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_36",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_37",
+		"display_name": "Neon Pistol 37",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_37",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_38",
+		"display_name": "Neon Pistol 38",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_38",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_39",
+		"display_name": "Neon Pistol 39",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_39",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_40",
+		"display_name": "Neon Pistol 40",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_40",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_41",
+		"display_name": "Neon Pistol 41",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_41",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_42",
+		"display_name": "Neon Pistol 42",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_42",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_43",
+		"display_name": "Neon Pistol 43",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_43",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_44",
+		"display_name": "Neon Pistol 44",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_44",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_45",
+		"display_name": "Neon Pistol 45",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_45",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_46",
+		"display_name": "Neon Pistol 46",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_46",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_47",
+		"display_name": "Neon Pistol 47",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_47",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_48",
+		"display_name": "Neon Pistol 48",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_48",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "wpn_neon_pistol_49",
+		"display_name": "Neon Pistol 49",
+		"category": "WEAPON",
+		"value": 150,
+		"description": "",
+		"equip_type": "pistol",
+		"stat_modifiers": {
+			"attack": 6
+		},
+		"stat_growth": {
+			"attack": 1.5
+		},
+		"weapon_range": 5,
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/weapons/neon_pistol_49",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_armor_009",
+		"display_name": "Cyan Visor Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_armor_009",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_armor_6142",
+		"display_name": "Red Visor Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_armor_6142",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_dragoon_helm",
+		"display_name": "Dragoon Visor Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_dragoon_helm",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_dragoon_wings",
+		"display_name": "Jumpjet Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_dragoon_wings",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_hood_0101",
+		"display_name": "Assassin Hood",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_hood_0101",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_neon_coat",
+		"display_name": "Neon Visor Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_neon_coat",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_samurai",
+		"display_name": "Kabuto Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_samurai",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
+	},
+	{
+		"id": "acc_helmet_tinkerer",
+		"display_name": "Scrap Grille Helm",
+		"category": "ACCESSORY",
+		"value": 200,
+		"description": "",
+		"equip_type": "helmet",
+		"stat_modifiers": {
+			"defense": 2
+		},
+		"stat_growth": {
+			"defense": 0.2
+		},
+		"rarity": "COMMON",
+		"wear_path": "res://assets/gear/armor/helmet_tinkerer",
+		"tags": [
+			"gear_art_set",
+			"placeholder_stats"
+		]
 	}
 ]

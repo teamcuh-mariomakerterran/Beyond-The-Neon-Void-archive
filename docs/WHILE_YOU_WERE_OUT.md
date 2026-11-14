@@ -1,3 +1,30 @@
+# Nov 14: helmets and pistols are items (no credits spent)
+
+## Helmets as head pieces
+- 8 pieces in `assets/gear/armor/helmet_<unit>/`: samurai, tinkerer, dragoon_helm, neon_coat, dragoon_wings, armor_6142, hood_0101 (the hood) and armor_009. Each is cut in all 8 facings from the outfit's standing rotations (`tools/gear/cut_helmets.py`).
+- **How the cut works:**
+  - Each helmet is cut off at the bald base body's neck row; the skeleton's neck point is lower, at the collar.
+  - Below the eyes, only the skull's own width is kept, which leaves wings, backpack pipes and shoulder pads out.
+  - `attach.json` pins the piece to the rig's `head` point by the eyes' midpoint, so it seats on any body.
+- ![cut](screenshots/helmets/cut.png)
+- **Riding other bodies:** they follow the head through the whole walk. `docs/screenshots/helmets/ride_walk.gif` shows slicked20 + kabuto, heavy40 + armor_009, longcoat + hood and samurai + tinkerer, made with `tools/gear/preview_helmets.py`.
+- **Known gaps:**
+  - Big hair (heavy40) and the samurai's own horns poke out round a helmet. The fix is to hide the body's head pixels outside the helmet when one is worn. That is a shader mask in the game, which changes the look, so it needs a before/after for you first.
+  - Jumpjet helm: a few wing-root pixels at the lower corners of the back views.
+- The names ("Kabuto Helm" and so on) are plain placeholders, not lore.
+
+## Items
+- `tools/gear/add_gear_items.py` adds them to `data/items.json`. It is safe to rerun and touches only its own items (tag `gear_art_set`).
+- **49 pistols:** `wpn_neon_pistol_01`..`49`, pistol weapons whose `wear_path` is their art set. For now they all copy Scrap Revolver's stats (tag `placeholder_stats`).
+- **8 helmets:** `acc_helmet_<unit>`, worn in the **accessory** slot (+2 defense placeholder), because the game has no head slot.
+- **ASK BRIAN:**
+  - Do you want an FFT-style head slot (weapon / armor / head / accessory)? That means a new slot in `EquipmentManager`, the menus and saves.
+  - Pistol stats or tiers: set them in the Forge, or tell me a spread.
+- Test: `test_gear_items` (every gear item is an art set on the right point, with a picture and grip in all 4 facings). `validate_data.py` passes (128 items); Godot isn't installed here, so the test hasn't run yet.
+
+## Next
+- Grenades and mines: wiring in. **Please send the explosion animation file.**
+
 # While you were at work (Nov 13, day and evening)
 
 All pushed to `claude/optimistic-fermat-pie49w`. Nothing was wired into abilities, items or characters yet; this is art plus tools.

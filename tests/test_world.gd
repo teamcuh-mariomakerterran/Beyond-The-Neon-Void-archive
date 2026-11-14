@@ -28,6 +28,7 @@ func run(p_tree: SceneTree) -> int:
 	test_dev_console()
 	await test_pixel_matrix()
 	await test_gear_attach()
+	test_gear_items()
 	test_aim_kick()
 	test_ui_icons()
 	test_cover()
@@ -1309,6 +1310,29 @@ func test_aim_kick() -> void:
 	var shp: Variant = GearAttach.point_at(rig, "shoulder_r", "aim_rifle_SE", 7, "SE", 96.0)
 	check(shp != null and (pa["cover"] as Rect2).grow(0.5).has_point(Vector2((shp as Vector3).x, (shp as Vector3).y)), "aim: rifle stock tucked under the arm (cover reaches the shoulder)")
 	spr.free()
+
+
+## Brian's cut gear as items (tools/gear/add_gear_items.py): 49 sheet pistols
+## held in the right hand, 8 helmets seated on the head point.
+func test_gear_items() -> void:
+	var pistols := 0
+	var helmets := 0
+	for it: ItemResource in ContentDB.get_all("items"):
+		if not it.tags.has("gear_art_set"):
+			continue
+		check(GearAttach.is_art(it.wear_path), "%s: wear_path is an attach art set" % it.id)
+		var art := GearAttach.load_art(it.wear_path)
+		var want := "head" if it.equip_type == "helmet" else "hand_r"
+		check(str(art.get("point", "")) == want, "%s: pinned to %s" % [it.id, want])
+		for f: String in ["SE", "SW", "NE", "NW"]:
+			check(FileAccess.file_exists(str(GearAttach.art_for(art, f)[0])) and (art["grips"] as Dictionary).has(f), "%s: picture and grip for %s" % [it.id, f])
+		if it.equip_type == "pistol":
+			pistols += 1
+			check(it.slot_name() == "weapon" and (art["pics"] as Dictionary).has("NW"), "%s: a weapon with its drawn back view" % it.id)
+		elif it.equip_type == "helmet":
+			helmets += 1
+			check(it.slot_name() == "accessory", "%s: worn in the accessory slot (no head slot yet)" % it.id)
+	check(pistols == 49 and helmets == 8, "gear items: 49 pistols and 8 helmets (got %d, %d)" % [pistols, helmets])
 
 
 func test_gear_attach() -> void:
