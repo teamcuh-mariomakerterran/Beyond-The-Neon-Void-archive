@@ -1313,7 +1313,8 @@ func test_aim_kick() -> void:
 
 
 ## Brian's cut gear as items (tools/gear/add_gear_items.py): 49 sheet pistols
-## held in the right hand, 8 helmets seated on the head point.
+## held in the right hand. Helmets are head modules that replace the head
+## (tools/gear/heads.py), so no item may draw one over a body as an accessory.
 func test_gear_items() -> void:
 	var pistols := 0
 	var helmets := 0
@@ -1331,8 +1332,7 @@ func test_gear_items() -> void:
 			check(it.slot_name() == "weapon" and (art["pics"] as Dictionary).has("NW"), "%s: a weapon with its drawn back view" % it.id)
 		elif it.equip_type == "helmet":
 			helmets += 1
-			check(it.slot_name() == "accessory", "%s: worn in the accessory slot (no head slot yet)" % it.id)
-	check(pistols == 49 and helmets == 8, "gear items: 49 pistols and 8 helmets (got %d, %d)" % [pistols, helmets])
+	check(pistols == 49 and helmets == 0, "gear items: 49 pistols, no overlay helmets (got %d, %d)" % [pistols, helmets])
 
 
 func test_gear_attach() -> void:

@@ -1,26 +1,50 @@
-# Nov 14: helmets and pistols are items (no credits spent)
+# Nov 14: pistols are items; helmets are head modules (no credits spent)
 
-## Helmets as head pieces
-- 8 pieces in `assets/gear/armor/helmet_<unit>/`: samurai, tinkerer, dragoon_helm, neon_coat, dragoon_wings, armor_6142, hood_0101 (the hood) and armor_009. Each is cut in all 8 facings from the outfit's standing rotations (`tools/gear/cut_helmets.py`).
-- **How the cut works:**
-  - Each helmet is cut off at the bald base body's neck row; the skeleton's neck point is lower, at the collar.
-  - Below the eyes, only the skull's own width is kept, which leaves wings, backpack pipes and shoulder pads out.
-  - `attach.json` pins the piece to the rig's `head` point by the eyes' midpoint, so it seats on any body.
-- ![cut](screenshots/helmets/cut.png)
-- **Riding other bodies:** they follow the head through the whole walk. `docs/screenshots/helmets/ride_walk.gif` shows slicked20 + kabuto, heavy40 + armor_009, longcoat + hood and samurai + tinkerer, made with `tools/gear/preview_helmets.py`.
-- **Known gaps:**
-  - Big hair (heavy40) and the samurai's own horns poke out round a helmet. The fix is to hide the body's head pixels outside the helmet when one is worn. That is a shader mask in the game, which changes the look, so it needs a before/after for you first.
-  - Jumpjet helm: a few wing-root pixels at the lower corners of the back views.
-- The names ("Kabuto Helm" and so on) are plain placeholders, not lore.
+## Helmets: head modules that replace the head (redone after your review)
+You marked the first cut as wrong: flat bottoms, hair poking out, the old helmet showing under the new one. The cause, by stage:
+- **Mask ownership:** a fixed neck row and a box cut, plus colour rules.
+- **Extraction:** invented outline pixels.
+- **Alignment:** the stored skeleton was trusted; it is up to 9 px off for the winged outfit.
+- **Composition:** the helmet was drawn over the full head.
+
+**How it works now** (`tools/gear/heads.py`, files in `assets/gear/heads/<variant>/`):
+- **One head slot, one module.** The head slot holds either the character's own head (hair and face) or a whole helmeted head. The body has its head removed, and exactly one module is drawn. Never a helmet over a head.
+- **Masks are pixel masks per facing,** a proposal plus your edits:
+  - `mask_auto_<F>.png` is the proposal.
+  - `edits_<F>.json` holds add/remove/resolve operations, with undo/redo.
+  - Or paint `mask_<F>.png` in any pixel editor.
+  - Uncertain pixels are flagged until someone decides them.
+- **Pixels are exact copies.** Nothing is smoothed or invented. Head plus body rebuilds the source, checked on every extract.
+- **Registration comes from the pixels** (the feet against the base). The stored skeleton is only checked against it, and the disagreement is recorded.
+- **Neck ownership:** the neck and collar belong to the body. The module ends at the chin or the helmet rim.
+
+**First pair, for your review:** slicked20's own head and the winged (jumpjet) helmet, all 4 facings. I reviewed every uncertain pixel by hand; the edits are in the edit files.
+![modules](screenshots/helmets/modules_slicked20_dragoon_wings.png)
+The columns are:
+- **A:** source with the mask (cyan) and uncertain pixels (yellow).
+- **B:** the module alone.
+- **C:** the headless body.
+- **D:** body plus its own head; it equals the source in all 4 facings.
+- **E:** body plus the winged module, with its own head off.
+
+**Still flagged (not filled; your call):**
+- **Gaps in E** (red): the winged helmet's rim stops short of slicked20's collar. That is 16, 18 and 14 px of air in SE, SW and NE; NW has none. Either extend the helmet art down, or let helmet modules own the neck.
+- **dragoon_wings NW:** 1 body pixel (40, 20) was only covered by the helmet.
+- **dragoon_wings registration:** the drawing sits 2-9 px away from where its stored skeleton says. Placement uses the pixels.
+
+**Retired** (git history keeps them): the 8 overlay helmet pieces, their preview tool, and the 8 accessory helmet items. Overlaying is exactly what was wrong. Helmets come back as head-slot items once you approve this pair.
+
+**Next, after your OK:**
+1. The other 13 variants (proposal, review, flags).
+2. The animation frames, where a mask per frame comes from the approved standing mask plus a review of the frames that move the head (hit, death).
+3. The game's head slot, with explicit modes: `replace` for these modules, and `overlay` for future hats.
 
 ## Items
 - `tools/gear/add_gear_items.py` adds them to `data/items.json`. It is safe to rerun and touches only its own items (tag `gear_art_set`).
 - **49 pistols:** `wpn_neon_pistol_01`..`49`, pistol weapons whose `wear_path` is their art set. For now they all copy Scrap Revolver's stats (tag `placeholder_stats`).
-- **8 helmets:** `acc_helmet_<unit>`, worn in the **accessory** slot (+2 defense placeholder), because the game has no head slot.
-- **ASK BRIAN:**
-  - Do you want an FFT-style head slot (weapon / armor / head / accessory)? That means a new slot in `EquipmentManager`, the menus and saves.
-  - Pistol stats or tiers: set them in the Forge, or tell me a spread.
-- Test: `test_gear_items` (every gear item is an art set on the right point, with a picture and grip in all 4 facings). `validate_data.py` passes (128 items); Godot isn't installed here, so the test hasn't run yet.
+- **Helmets:** no items yet (see above). You said yes to a separate head slot; it comes with the head modules.
+- **Stats:** you'll set the pistol and helmet stats in the Forge.
+- **Test:** `test_gear_items` checks that every gear item is an art set on the right point, with a picture and grip in all 4 facings, and that no helmet is an overlay item. `validate_data.py` passes (120 items). Godot isn't installed here, so the test hasn't run yet.
 
 ## Next
 - Grenades and mines: wiring in. **Please send the explosion animation file.**
