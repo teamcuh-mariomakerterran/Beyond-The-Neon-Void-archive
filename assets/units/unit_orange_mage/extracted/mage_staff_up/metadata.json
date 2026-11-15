@@ -1,0 +1,36 @@
+{
+  "group_id": "1d891e2d-2b65-49db-8cf4-d3e3a79dbad4",
+  "states": [
+    {
+      "character": {
+        "id": "641f6582-6d48-4112-a07a-315deb8f0f3a",
+        "name": "raising staff up int",
+        "prompt": "ff tactic style cyberpunk mage neon orange",
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "high top-down",
+        "created_at": "2026-10-10T07:54:35.305713+00:00"
+      },
+      "folder": "raising_staff_up_int",
+      "frames": {
+        "rotations": {
+          "south": "raising_staff_up_int/rotations/south.png",
+          "south-east": "raising_staff_up_int/rotations/south-east.png",
+          "east": "raising_staff_up_int/rotations/east.png",
+          "north-east": "raising_staff_up_int/rotations/north-east.png",
+          "north": "raising_staff_up_int/rotations/north.png",
+          "north-west": "raising_staff_up_int/rotations/north-west.png",
+          "west": "raising_staff_up_int/rotations/west.png",
+          "south-west": "raising_staff_up_int/rotations/south-west.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T15:18:29.341076"
+}

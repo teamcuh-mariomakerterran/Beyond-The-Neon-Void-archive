@@ -1848,7 +1848,15 @@ func test_pixellab() -> void:
 		for f: String in ["SE", "SW", "NE", "NW"]:
 			if not ff.has_animation(act + "_" + f):
 				fmiss.append(act + "_" + f)
-	check(LatticeClip.resolve(us, "death", "NW") == ["death_NE", true], "the daemon has no NW death in PixelLab: facing NW plays NE mirrored")
+	check(LatticeClip.resolve(us, "death", "NW") == ["death_NW", false] and str(us["actions"]["death"]).begins_with("Idle/Flap_wings"), "the daemon's second export brings its own NW death (pinned)")
+	var mg := PixelLab.unit_set("res://assets/units/unit_orange_mage")
+	var mgf: SpriteFrames = mg["frames"]
+	var mmiss: Array[String] = []
+	for act: String in ["idle", "walk", "attack", "cast", "jump"]:
+		for f: String in ["SE", "SW", "NE", "NW"]:
+			if not mgf.has_animation(act + "_" + f):
+				mmiss.append(act + "_" + f)
+	check(mg["ok"] and mmiss.is_empty() and str(mg["actions"]["cast"]).begins_with("channeling/"), "Orange mage: idle, walk, fireball attack, channel spell and jump in every facing (missing %s)" % [mmiss])
 	var dn := PixelLab.unit_set("res://assets/units/enemy_diginecro")
 	var hs := PixelLab.unit_set("res://assets/units/enemy_hologram_summon")
 	check(dn["ok"] and (dn["frames"] as SpriteFrames).has_animation("walk_NW") and (dn["frames"] as SpriteFrames).has_animation("idle_S"), "Diginecro walks in every facing")

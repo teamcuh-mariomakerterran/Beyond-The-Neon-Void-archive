@@ -1,0 +1,7 @@
+{
+	"_about": "Hooded orange mage (Brian's PixelLab exports 'ff tactic style cyberpunk', 2026-11-15). Spells play the channel: the staff floating free is intentional, it's when the spell's effect plays on the target (Brian). The fireball cast is his basic attack.",
+	"actions": {
+		"attack": "Idle/casting_spell_variant_alt",
+		"cast": "channeling/casting_spell"
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"_about": "The daemon (Brian's PixelLab exports). Death and idle from the second export (it has the NW death); lunge and flinch from the first. Every take stays in extracted/ as a kit.",
+	"actions": {
+		"death": "Idle/Flap_wings_rhythmically_w_faa35f",
+		"idle": "Idle/idle_position",
+		"attack": "daemon/Lunge_Attack",
+		"hit": "daemon/Hover_Flinch",
+		"cast": "Idle/attack_animation_spell_animation"
+	}
+}
