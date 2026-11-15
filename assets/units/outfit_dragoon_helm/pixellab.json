@@ -1,10 +1,10 @@
 {
-	"_about": "Outfit unit on the base_male_hi body; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
+	"_about": "Outfit unit; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
 	"fps": 10,
 	"frames_from": {
 		"walk": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_walk2_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/walk/SE",
 				"frames": [
 					0,
 					7
@@ -12,7 +12,7 @@
 				"loop": true
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_walk2_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/walk/SW",
 				"frames": [
 					0,
 					7
@@ -20,7 +20,7 @@
 				"loop": true
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_walk2_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/walk/NE",
 				"frames": [
 					0,
 					7
@@ -28,7 +28,7 @@
 				"loop": true
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_walk2_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/walk/NW",
 				"frames": [
 					0,
 					7
@@ -38,28 +38,28 @@
 		},
 		"hit": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_hit_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/hit/SE",
 				"frames": [
 					0,
 					5
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_hit_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/hit/SW",
 				"frames": [
 					0,
 					5
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_hit_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/hit/NE",
 				"frames": [
 					0,
 					5
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_hit_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/hit/NW",
 				"frames": [
 					0,
 					5
@@ -68,28 +68,28 @@
 		},
 		"death": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_death_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/death/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_death_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/death/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_death_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/death/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_death_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/death/NW",
 				"frames": [
 					0,
 					7
@@ -98,28 +98,28 @@
 		},
 		"jump": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_jump_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/jump/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_jump_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/jump/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_jump_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/jump/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_jump_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/jump/NW",
 				"frames": [
 					0,
 					7
@@ -128,28 +128,28 @@
 		},
 		"cast": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_use_item_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/cast/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_use_item_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/cast/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_use_item_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/cast/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_use_item_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/cast/NW",
 				"frames": [
 					0,
 					7
@@ -158,28 +158,28 @@
 		},
 		"throw": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_throw_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/throw/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_throw_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/throw/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_throw_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/throw/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_throw_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/throw/NW",
 				"frames": [
 					0,
 					7
@@ -188,28 +188,28 @@
 		},
 		"aim": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/NW",
 				"frames": [
 					0,
 					7
@@ -218,28 +218,28 @@
 		},
 		"attack": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_pistol_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim/NW",
 				"frames": [
 					0,
 					7
@@ -248,7 +248,7 @@
 		},
 		"rest_rifle": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_rest_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/rest_rifle/SE",
 				"frames": [
 					0,
 					2
@@ -256,7 +256,7 @@
 				"loop": true
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_rest_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/rest_rifle/SW",
 				"frames": [
 					0,
 					2
@@ -264,7 +264,7 @@
 				"loop": true
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_rest_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/rest_rifle/NE",
 				"frames": [
 					0,
 					2
@@ -272,7 +272,7 @@
 				"loop": true
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_rest_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/rest_rifle/NW",
 				"frames": [
 					0,
 					2
@@ -282,28 +282,28 @@
 		},
 		"aim_rifle": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_raise_SE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim_rifle/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_raise_SW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim_rifle/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_raise_NE_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim_rifle/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/dragoon_helm_rifle_raise_NW_clean",
+				"dir": "res://assets/units/outfit_dragoon_helm/frames/aim_rifle/NW",
 				"frames": [
 					0,
 					7

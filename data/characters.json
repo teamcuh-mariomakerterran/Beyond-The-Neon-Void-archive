@@ -461,8 +461,8 @@
 		},
 		"ai_behavior": "tactical",
 		"learned_ability_ids": [],
-		"sprite_frames_path": "res://assets/units/test_character_001",
-		"portrait_path": "res://assets/units/test_character_001/extracted/cyberpunk_male_isometric-run/run/portrait.png"
+		"sprite_frames_path": "res://assets/units/outfit_undercut",
+		"portrait_path": "res://assets/units/outfit_undercut/export/undercut/rotations/south.png"
 	},
 	{
 		"id": "test_enemy_001",
@@ -486,8 +486,8 @@
 			"tx_uppercut",
 			"tx_force_blast"
 		],
-		"sprite_frames_path": "res://assets/units/test_enemy_001",
-		"portrait_path": "res://assets/units/test_enemy_001/extracted/Enemy_001/idle_breathing/portrait.png"
+		"sprite_frames_path": "res://assets/units/enemy_daemon",
+		"portrait_path": "res://assets/units/enemy_daemon/extracted/enemy_daemon/daemon/rotations/south.png"
 	},
 	{
 		"id": "test_enemy_002",
@@ -511,7 +511,7 @@
 		"learned_ability_ids": [
 			"tx_field_patch"
 		],
-		"sprite_frames_path": "res://assets/units/test_enemy_002"
+		"sprite_frames_path": "res://assets/units/enemy_digimage_digisummoner"
 	},
 	{
 		"id": "doctrine_relay",

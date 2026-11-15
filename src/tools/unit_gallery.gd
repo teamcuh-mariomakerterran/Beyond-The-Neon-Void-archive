@@ -11,7 +11,8 @@ extends Node2D
 
 const SCENE := "res://scenes/test/unit_gallery.tscn"
 const ROOT := "res://assets/units"
-const BLADE := "res://assets/gear/weapons/pilot_blade"
+## The weapon the W toggle pins on rigged bodies (swords come later).
+const WEAPON := "res://assets/gear/weapons/neon_pistol_01"
 const FACINGS := ["S", "SE", "E", "NE", "N", "NW", "W", "SW"]
 const CELL := Vector2(150, 190)
 const LEFT := 230.0
@@ -42,6 +43,15 @@ static func unit_dirs() -> Array[String]:
 		var d := ROOT.path_join(n)
 		if PixelLab.is_root(d) or PixelMatrix.is_root(d):
 			out.append(d)
+	# Colour variants (data/recolors.json) after their source unit.
+	for vid: String in Recolors.ids():
+		var vd := ROOT.path_join(vid)
+		var at := out.find(Recolors.source(vid))
+		if at >= 0 and not out.has(vd):
+			var j := at + 1
+			while j < out.size() and out[j].get_file().begins_with(out[at].get_file() + "_"):
+				j += 1
+			out.insert(j, vd)
 	return out
 
 
@@ -136,13 +146,13 @@ func _refresh_weapons() -> void:
 				ch.queue_free()
 			if not weapons:
 				continue
-			var g := GearAttach.attach_to(spr, str(r["dir"]), [BLADE])
+			var g := GearAttach.attach_to(spr, str(r["dir"]), [WEAPON])
 			if g:
 				(r["gear"] as Array).append(g)
 
 
 func _update_hud() -> void:
-	var with_rig := rows.filter(func(r: Dictionary) -> bool: return FileAccess.file_exists(str(r["dir"]).path_join("rig.json"))).size()
+	var with_rig := rows.filter(func(r: Dictionary) -> bool: return not GearAttach.load_rig(str(r["dir"])).is_empty()).size()
 	_hud.text = "UNIT GALLERY  ·  %d units  ·  action: %s  (%d / %d)   ·   weapon %s (%d with a rig)\n← → action   W weapon   wheel / ↑ ↓ scroll   Esc back" % [
 		rows.size(), action.to_upper(), actions.find(action) + 1, actions.size(), "ON" if weapons else "OFF", with_rig]
 

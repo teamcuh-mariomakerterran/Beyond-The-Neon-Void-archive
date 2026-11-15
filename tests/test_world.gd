@@ -56,6 +56,7 @@ func run(p_tree: SceneTree) -> int:
 	test_ui_theme()
 	await test_unit_gallery()
 	test_pixellab_padding()
+	test_recolors()
 	test_art_halo()
 	await test_title_screen()
 	await test_pause_menu()
@@ -1304,18 +1305,18 @@ func test_pixel_matrix() -> void:
 		DirAccess.remove_absolute(d)
 
 
-## Gun aim: #5's raise/hold frames load from frames_from, and a shot's kick
+## Gun aim: an outfit's raise/hold frames load from frames_from, and a shot's kick
 ## moves the held gun up and back (presentation only).
 func test_aim_kick() -> void:
-	var us := PixelLab.unit_set("res://assets/units/pool_005")
+	var us := PixelLab.unit_set("res://assets/units/outfit_undercut")
 	var sf: SpriteFrames = us["frames"]
 	check(sf.has_animation("aim_SE") and sf.get_frame_count("aim_SE") == 8 and not sf.get_animation_loop("aim_SE"), "aim: 8 raise/hold frames, one-shot")
 	var spr := AnimatedSprite2D.new()
 	spr.sprite_frames = sf
 	spr.animation = "aim_SE"
 	spr.frame = 7
-	var g := GearAttach.attach_to(spr, "res://assets/units/pool_005", ["res://assets/gear/weapons/pilot_pistol"])
-	check(g != null, "aim: pistol attaches to #5")
+	var g := GearAttach.attach_to(spr, "res://assets/units/outfit_undercut", ["res://assets/gear/weapons/neon_pistol_01"])
+	check(g != null, "aim: pistol attaches to the undercut outfit")
 	if g:
 		var piece: Sprite2D = g.pieces[0]["node"]
 		var rest := piece.position
@@ -1324,11 +1325,11 @@ func test_aim_kick() -> void:
 		check(is_equal_approx(d.x, -GearAttach.KICK_BACK) and is_equal_approx(d.y, -GearAttach.KICK_UP) and piece.rotation_degrees < 0.0, "aim: kick moves the gun up and back, muzzle up")
 		g._set_kick(0.0)
 		check(piece.position == rest, "aim: gun settles back")
-	var rig := GearAttach.load_rig("res://assets/units/pool_005")
-	var rifle := GearAttach.load_art("res://assets/gear/weapons/pilot_rifle")
+	var rig := GearAttach.load_rig("res://assets/units/outfit_undercut")
+	var rifle := GearAttach.load_art("res://assets/gear/weapons/cyberpunk_assault_rifle_001")
 	var pl := GearAttach.place(rig, rifle, "aim_rifle_SE", 7, false, Vector2.ZERO, Vector2(96, 96))
 	check(not pl.is_empty() and (pl["cover_l"] as Rect2).has_area(), "aim: two-hand rifle redraws the front fist over the barrel")
-	var pp := GearAttach.place(rig, GearAttach.load_art("res://assets/gear/weapons/pilot_pistol"), "aim_SE", 7, false, Vector2.ZERO, Vector2(96, 96))
+	var pp := GearAttach.place(rig, GearAttach.load_art("res://assets/gear/weapons/neon_pistol_01"), "aim_SE", 7, false, Vector2.ZERO, Vector2(96, 96))
 	check(not (pp["cover_l"] as Rect2).has_area(), "aim: one-hand pistol has no front-fist cover")
 	# Two-hand guns turn so the support grip lands on the support hand.
 	var ar := GearAttach.load_art("res://assets/gear/weapons/cyberpunk_assault_rifle_001")
@@ -1343,8 +1344,8 @@ func test_aim_kick() -> void:
 	var spr2 := AnimatedSprite2D.new()
 	spr2.sprite_frames = sf
 	spr2.animation = "rest_rifle_SE"
-	var g_r := GearAttach.attach_to(spr2, "res://assets/units/pool_005", ["res://assets/gear/weapons/cyberpunk_assault_rifle_001"])
-	var g_p := GearAttach.attach_to(spr2, "res://assets/units/pool_005", ["res://assets/gear/weapons/cyberpunk_handgun_003"])
+	var g_r := GearAttach.attach_to(spr2, "res://assets/units/outfit_undercut", ["res://assets/gear/weapons/cyberpunk_assault_rifle_001"])
+	var g_p := GearAttach.attach_to(spr2, "res://assets/units/outfit_undercut", ["res://assets/gear/weapons/cyberpunk_handgun_003"])
 	check(g_r != null and g_r.two_handed() and g_p != null and not g_p.two_handed(), "aim: rifles idle in the rest pose, handguns don't")
 	spr2.free()
 	var shp: Variant = GearAttach.point_at(rig, "shoulder_r", "aim_rifle_SE", 7, "SE", 96.0)
@@ -1375,12 +1376,12 @@ func test_gear_items() -> void:
 	check(pistols == 49 and helmets == 0, "gear items: 49 pistols, no overlay helmets (got %d, %d)" % [pistols, helmets])
 
 
-## The 14 base_male_hi outfits packaged as units (tools/pixellab/outfit_units.py):
+## The 14 outfits packaged as units (frames in each outfit's own frames/ folder):
 ## every clip in all four battle facings, idle from the standing poses, and
 ## rig points for the gun clips so pistols and rifles sit in the hands.
 func test_outfit_units() -> void:
 	var dirs := Array(DirAccess.get_directories_at("res://assets/units")).filter(func(d: String) -> bool: return d.begins_with("outfit_"))
-	dirs = dirs.filter(func(d: String) -> bool: return not d.ends_with(("_red", "_gold", "_green", "_cyan", "_violet", "_pink")[0]) and not (d.get_slice("_", d.get_slice_count("_") - 1) in ["red", "gold", "green", "cyan", "violet", "pink"]))
+	dirs = dirs.filter(func(d: String) -> bool: return not (d.get_slice("_", d.get_slice_count("_") - 1) in ["red", "gold", "green", "cyan", "violet", "pink"]))
 	check(dirs.size() == 14, "14 outfit units packaged (got %d)" % dirs.size())
 	for d: String in dirs:
 		var root := "res://assets/units/" + d
@@ -1809,18 +1810,18 @@ func test_pixellab() -> void:
 		and PixelLab.classify("throwing_up_item_to_heal", "The_right_hand_reaches") == "cast" and PixelLab.classify("run", "Running") == "run"
 		and PixelLab.classify("walking_forward", "Walking") == "walk" and PixelLab.classify("idle_breathing", "Breathing_Idle") == "idle", "PixelLab names map to game actions")
 	check(PixelLab.classify("Idle", "taking_a_punch") == "hit" and PixelLab.classify("Idle", "falling_backward") == "death" and PixelLab.classify("Idle", "two_footed_jump") == "jump" and PixelLab.classify("Idle", "cross_punch_attack") == "attack", "PixelLab template names: hurt, death, jump, attack")
-	var dir := "res://assets/units/test_enemy_001"
+	var dir := "res://assets/units/enemy_daemon"
 	if not PixelLab.is_root(dir):
-		check(false, "test_enemy_001 PixelLab export present")
+		check(false, "enemy_daemon PixelLab export present")
 		return
 	var us := PixelLab.unit_set(dir)
 	var sf: SpriteFrames = us["frames"]
-	check(us["ok"] and sf.has_animation("walk_SE") and sf.has_animation("attack_NW") and sf.has_animation("hit_SW") and sf.has_animation("idle_S"), "Bulwark Brawler: walk / attack / hit by facing, idle in all 8")
-	check(sf.has_animation("roundhouse_kick_SE") and sf.has_animation("uppercut_NE"), "extra animations keep their own names for abilities")
-	check(not sf.get_animation_loop("attack_SE") and sf.get_animation_loop("walk_SE"), "attacks play once, walks loop")
-	var a: Vector2 = us["anchors"]["walk_SE"]
-	var cell: Vector2 = us["cells"]["walk_SE"]
-	check(a.x == cell.x * 0.5 and a.y > cell.y * 0.6 and a.y < cell.y, "anchor on the feet (%s in %s)" % [a, cell])
+	check(us["ok"] and sf.has_animation("attack_SE") and sf.has_animation("hit_NW") and sf.has_animation("death_SE") and sf.has_animation("idle_S"), "Daemon: lunge attack / flinch / death by facing, idle in all 8")
+	check(str(us["actions"]["attack"]).ends_with("Lunge_Attack") and str(us["actions"]["hit"]).ends_with("Hover_Flinch"), "PixelLab template names map to attack and hit")
+	check(not sf.get_animation_loop("attack_SE") and sf.get_animation_loop("idle_SE"), "attacks play once, idles loop")
+	var a: Vector2 = us["anchors"]["attack_SE"]
+	var cell: Vector2 = us["cells"]["attack_SE"]
+	check(a.x == cell.x * 0.5 and a.y > cell.y * 0.5 and a.y <= cell.y, "anchor on the feet (%s in %s)" % [a, cell])
 	var g := IsometricGrid.new()
 	g.setup(6, 6)
 	g.tile_width = 128.0
@@ -1831,13 +1832,13 @@ func test_pixellab() -> void:
 	tree.root.add_child(u)
 	u.place_at(Vector2i(2, 2))
 	check(u.sprite != null and is_equal_approx(u.sprite.scale.x, 1.5), "PixelLab unit drawn at 1.5× on 128-wide tiles")
-	var kick := ContentDB.get_ability("tx_roundhouse_kick")
-	check(kick != null and u.anim_for(kick) == "roundhouse_kick" and u.anim_for(ContentDB.get_ability("basic_attack")) == "attack", "abilities pick their animation (kick → roundhouse_kick)")
+	check(u.anim_for(ContentDB.get_ability("basic_attack")) == "attack", "abilities pick their animation (basic attack → attack)")
 	var gunner := Unit.new()
 	gunner.setup(ContentDB.get_character("test_enemy_002"), Unit.Team.ENEMY, 3)
 	gunner.grid = g
 	tree.root.add_child(gunner)
-	check(gunner.anim_for(ContentDB.get_ability("tx_field_patch")) == "cast" and str(PixelLab.unit_set("res://assets/units/test_enemy_002")["actions"]["walk"]).begins_with("walking_forward"), "Corp Gunner: patch plays the item animation, plain walk pinned by pixellab.json")
+	var gs := PixelLab.unit_set("res://assets/units/enemy_digimage_digisummoner")
+	check(gunner.anim_for(ContentDB.get_ability("tx_field_patch")) == "cast" and (gs["frames"] as SpriteFrames).has_animation("hologram_ball_spell_SE"), "Digisummoner: the patch plays its cast, extra spells keep their own names")
 	u.queue_free()
 	gunner.queue_free()
 	var m := ContentDB.get_mission("test_pixellab_skirmish")
@@ -2717,7 +2718,7 @@ func test_ui_theme() -> void:
 	# A Lattice 9-slice frame swaps in without touching any screen.
 	var keep: Dictionary = NeonTheme._data
 	NeonTheme._data = keep.duplicate(true)
-	(NeonTheme._data["button"]["hover"] as Dictionary)["texture"] = "res://assets/ui/icons_004.png"
+	(NeonTheme._data["button"]["hover"] as Dictionary)["texture"] = "res://assets/ui/icons/framed/attack.png"
 	NeonTheme._theme = null
 	var sb := NeonTheme.get_theme().get_stylebox("hover", "Button")
 	check(sb is StyleBoxTexture and (sb as StyleBoxTexture).texture_margin_left == 8.0, "a texture turns a style into a 9-slice frame")
@@ -2747,10 +2748,45 @@ func test_unit_gallery() -> void:
 	check(g.action != "idle" and g.actions.has(g.action) and str(first.animation) != "" and (str(first.animation) != before or not (g.rows[0]["actions"] as Array).has(g.action)), "stepping the action replays every cell")
 	g.weapons = true
 	g.play()
-	var rigged := g.rows.filter(func(r: Dictionary) -> bool: return FileAccess.file_exists(str(r["dir"]).path_join("rig.json")))
-	check(rigged.is_empty() or not (rigged[0]["gear"] as Array).is_empty(), "the weapon toggle pins the blade on rigged bodies")
+	var rigged := g.rows.filter(func(r: Dictionary) -> bool: return not GearAttach.load_rig(str(r["dir"])).is_empty())
+	check(rigged.is_empty() or not (rigged[0]["gear"] as Array).is_empty(), "the weapon toggle pins the gun on rigged bodies")
 	g.queue_free()
 	await tree.process_frame
+
+
+## Colour variants are data (data/recolors.json), recoloured as they load,
+## with recolor.py's exact maths (values below come from the Python tool).
+func test_recolors() -> void:
+	var r := [{"hue": [160, 230], "to": 0}]
+	check(Recolors.recolor_rgb(63, 210, 255, r) == 0xff3f42 and Recolors.recolor_rgb(76, 254, 236, r) == 0xfe4c8a and Recolors.recolor_rgb(10, 180, 250, r) == 0xfa140a, "cyan band moves to red, same values as recolor.py")
+	check(Recolors.recolor_rgb(20, 20, 30, r) == 0x14141e and Recolors.recolor_rgb(200, 40, 40, r) == 0xc82828, "greys and colours outside the band stay")
+	check(Recolors.recolor_rgb(255, 20, 120, [{"hue": [310, 20], "to": 130, "sat": 0.8, "val": 1.2}]) == 0x45ff43, "a band wrapping past 360, with saturation / brightness scaling")
+	check(Recolors.round_even(2.5) == 2 and Recolors.round_even(3.5) == 4 and Recolors.round_even(3.4) == 3, "rounding matches Python's")
+	var ids := Recolors.ids()
+	check(ids.size() >= 56 and ids.has("outfit_samurai_cyan") and ids.has("pool_003_pink"), "the kept variants are listed")
+	for vid: String in ids:
+		if not PixelLab.is_root(Recolors.source(vid)):
+			check(false, "variant %s comes from a unit in the game" % vid)
+			return
+	var vdir := "res://assets/units/outfit_samurai_cyan"
+	if not DirAccess.dir_exists_absolute(vdir):
+		check(PixelLab.is_root(vdir), "a variant path loads like a unit folder")
+		var vs := PixelLab.unit_set(vdir)
+		var bs := PixelLab.unit_set(Recolors.source(vdir))
+		var vf: SpriteFrames = vs["frames"]
+		var bf: SpriteFrames = bs["frames"]
+		check(vs["ok"] and vf.get_animation_names().size() == bf.get_animation_names().size() and vf.has_animation("aim_rifle_SE"), "the variant has every animation of its source")
+		check(vf.get_frame_texture("idle_SE", 0).get_image().get_data() != bf.get_frame_texture("idle_SE", 0).get_image().get_data(), "and its colours differ")
+		check(GearAttach.load_rig(vdir) == GearAttach.load_rig(Recolors.source(vdir)) and not GearAttach.load_rig(vdir).is_empty(), "variants hold guns with their source's rig")
+	check(UnitGallery.unit_dirs().has(vdir), "the unit gallery lists variants")
+	# The studio: a variant made from rules, previewed, then removed again.
+	var studio := ForgeRecolors.new()
+	tree.root.add_child(studio)
+	studio.open_base(Recolors.source(vdir))
+	studio.add_rule({"hue": [160, 230], "to": 90})
+	check(studio._after[0].texture != null and studio._after[0].texture != studio._before[0].texture, "the studio previews the rules on the facings")
+	check(studio.unique_id("outfit_samurai_cyan") == "outfit_samurai_cyan_2", "studio ids never clash with a variant or folder")
+	studio.queue_free()
 
 
 ## Skeleton-mode takes come on a bigger canvas than the standing pose (96 vs 60 px).
@@ -2761,7 +2797,7 @@ func test_pixellab_padding() -> void:
 	check(GearAttach.point_at(rig, "hand_r", "walk_SE", 0, "SE", 96.0) == Vector3(38, 60, 1), "a still-pose hand point moves with the padding on a 96 px take")
 	check(GearAttach.point_at(rig, "hand_r", "walk_SW", 0, "SW", 96.0) == Vector3(58, 60, 1), "mirrored points mirror in the pose's cell, then pad")
 	check(GearAttach.point_at(rig, "hand_r", "attack_SE", 0, "SE", 96.0) == Vector3(50, 60, 1), "per-frame points are already in the take's own cell")
-	var dir := "res://assets/units/pool_005"
+	var dir := "res://assets/units/pool_003"
 	if not PixelLab.is_root(dir):
 		return
 	var us := PixelLab.unit_set(dir)

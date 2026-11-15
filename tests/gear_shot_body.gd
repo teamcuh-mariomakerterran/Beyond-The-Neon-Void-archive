@@ -8,14 +8,14 @@ func run(tree: SceneTree) -> void:
 	var args := OS.get_cmdline_user_args()
 	var mode: String = args[0] if args.size() > 0 else "closeup"
 	var out: String = args[1] if args.size() > 1 else "user://gear.png"
-	var art: String = args[2] if args.size() > 2 else "res://assets/gear/weapons/pilot_blade"
+	var art: String = args[2] if args.size() > 2 else "res://assets/gear/weapons/neon_pistol_01"
 	if art != "-":
 		ContentDB.inject("items", {"id": "shot_blade", "display_name": "Pilot Blade", "category": "WEAPON",
 			"equip_type": "sword", "wear_path": art}, false)
 	if mode == "battle":
 		await _battle(tree, art != "-")
 	else:
-		var bodies: Array = args.slice(3) if args.size() > 3 else ["res://assets/units/test_enemy_001", "res://assets/units/test_character_001"]
+		var bodies: Array = args.slice(3) if args.size() > 3 else ["res://assets/units/outfit_undercut", "res://assets/units/enemy_daemon"]
 		await _closeup(tree, bodies, art != "-")
 	for i in 30:
 		await tree.process_frame

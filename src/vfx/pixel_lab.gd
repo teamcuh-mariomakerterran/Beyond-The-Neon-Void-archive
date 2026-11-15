@@ -68,6 +68,16 @@ static var _cache: Dictionary = {}
 static var _roots: Dictionary = {}
 
 
+## Drops cached sets and roots under `prefix` (after data changes, e.g. a recolour saved).
+static func forget(prefix: String) -> void:
+	for d: String in _cache.keys():
+		if d.begins_with(prefix):
+			_cache.erase(d)
+	for r: String in _roots.keys():
+		if r.begins_with(prefix):
+			_roots.erase(r)
+
+
 ## True if `dir` holds PixelLab exports (zips or unpacked). Cached.
 static func is_root(dir: String) -> bool:
 	if _roots.has(dir):
@@ -77,6 +87,9 @@ static func is_root(dir: String) -> bool:
 
 
 static func _is_root(dir: String) -> bool:
+	var rc := Recolors.source(dir) if dir.begins_with(Recolors.UNITS) else ""
+	if rc != "" and not DirAccess.dir_exists_absolute(dir):
+		return is_root(rc)  # a colour variant (data/recolors.json)
 	if dir == "" or dir.get_extension() != "" or not DirAccess.dir_exists_absolute(dir):
 		return false
 	for f in DirAccess.get_files_at(dir):
@@ -301,6 +314,11 @@ static func _feet(path: String) -> Vector2:
 ## per_tile (draw scale per tile width), actions {action: "state/Anim"}}.
 static func unit_set(dir: String) -> Dictionary:
 	if _cache.has(dir):
+		return _cache[dir]
+	# A colour variant (data/recolors.json): its source unit, recoloured.
+	var rc := Recolors.source(dir) if dir.begins_with(Recolors.UNITS) else ""
+	if rc != "" and not DirAccess.dir_exists_absolute(dir):
+		_cache[dir] = Recolors.apply(unit_set(rc), Recolors.rules(dir))
 		return _cache[dir]
 	unpack(dir)
 	var conf := _read_conf(dir)

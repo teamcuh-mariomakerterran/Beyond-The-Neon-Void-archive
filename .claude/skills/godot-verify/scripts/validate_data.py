@@ -206,6 +206,34 @@ def check_ui_theme(root, R):
             R.warn(W, f"colors.{k} missing (the built-in colour is used)")
 
 
+def check_recolors(root, R):
+    """data/recolors.json: each colour variant comes from a unit folder (or another
+    variant), doesn't clash with a real folder, and has well-formed hue rules."""
+    p = os.path.join(root, "data", "recolors.json")
+    if not os.path.exists(p):
+        return
+    W = "data/recolors.json"
+    d = jload(p, R, W)
+    if not isinstance(d, dict):
+        return
+    units = os.path.join(root, "assets", "units")
+    for vid, v in d.items():
+        if vid.startswith("_"):
+            continue
+        if not isinstance(v, dict):
+            R.err(W, f"{vid}: must be an object")
+            continue
+        src = str(v.get("from", ""))
+        if not os.path.isdir(os.path.join(units, src)) and src not in d:
+            R.err(W, f"{vid}: from '{src}' is not a unit folder")
+        if os.path.isdir(os.path.join(units, vid)):
+            R.err(W, f"{vid}: a real unit folder has this name (the folder wins)")
+        for i, r in enumerate(v.get("rules", [])):
+            hue = r.get("hue") if isinstance(r, dict) else None
+            if not (isinstance(hue, list) and len(hue) == 2 and all(isinstance(x, (int, float)) for x in hue)) or not isinstance(r.get("to"), (int, float)):
+                R.err(W, f"{vid}: rule {i + 1} needs \"hue\": [from, to] and \"to\" (degrees)")
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     root = os.path.abspath(args[0] if args else ".")
@@ -229,6 +257,7 @@ def main():
                 if d is not None and not isinstance(d, (dict, list)):
                     R.err(f"data/{name}.json", "must be a JSON object")
         check_ui_theme(root, R)
+        check_recolors(root, R)
         seen = {}
         for p in sorted(glob.glob(os.path.join(D, "maps", "*.json"))):
             W = "data/maps/" + os.path.basename(p)

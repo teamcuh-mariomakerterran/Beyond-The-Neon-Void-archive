@@ -3,12 +3,13 @@
 
     python3 -I tools/pixellab/recolor.py propose out.png [unit ...]   accent swaps to pick from (standing poses only)
     python3 -I tools/pixellab/recolor.py preview out.png              every variant in recolors.json, before | after
-    python3 -I tools/pixellab/recolor.py bake [id ...]                write the unit folders for these variants
+    python3 -I tools/pixellab/recolor.py bake [id ...]                write image folders for these variants (only
+                                                                    for exporting; the game recolours as it loads)
 
-Variants live in tools/pixellab/recolors.json:
-  [{"id": "outfit_samurai_jade", "from": "outfit_samurai",
-    "rules": [{"hue": [330, 30], "to": 140, "min_sat": 0.45, "sat": 1.0, "val": 1.0}],
-    "swap": {"#ff0000": "#00ff00"}}]
+Since 2026-11-15 variants are data: data/recolors.json, which the game reads
+(src/vfx/recolors.gd, same maths) and Neon Forge's RECOLOUR STUDIO edits:
+  {"outfit_samurai_jade": {"from": "outfit_samurai",
+    "rules": [{"hue": [330, 30], "to": 140, "min_sat": 0.45, "sat": 1.0, "val": 1.0}]}}
 A rule moves every pixel whose hue is inside [from, to] degrees (wrapping past
 360) and whose saturation is at least min_sat (default 0.45, which keeps skin,
 greys and outlines as they are), so the band's middle lands on "to"; sat / val
@@ -31,7 +32,15 @@ import sys
 import zipfile
 
 UNITS = os.path.join("assets", "units")
-SPEC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "recolors.json")
+SPEC = os.path.join("data", "recolors.json")
+
+
+def load_spec():
+	"""data/recolors.json as a list of {"id", "from", "rules", ...}."""
+	if not os.path.exists(SPEC):
+		return []
+	d = json.load(open(SPEC))
+	return [dict(v, id=k) for k, v in d.items() if not k.startswith("_")]
 FACINGS = {"south-east": "SE", "south-west": "SW", "north-east": "NE", "north-west": "NW"}
 
 
@@ -159,7 +168,7 @@ def propose(out, units):
 
 def preview(out):
 	from PIL import Image, ImageDraw
-	spec = json.load(open(SPEC)) if os.path.exists(SPEC) else []
+	spec = load_spec()
 	K = 3
 	o = Image.new("RGBA", (8 * 64 * K + 10, max(1, len(spec)) * 64 * K + 10), (24, 25, 34, 255))
 	d = ImageDraw.Draw(o)
@@ -239,7 +248,7 @@ def main():
 	elif a[0] == "preview":
 		preview(a[1])
 	elif a[0] == "bake":
-		spec = json.load(open(SPEC))
+		spec = load_spec()
 		for v in spec:
 			if not a[1:] or v["id"] in a[1:]:
 				bake(v)

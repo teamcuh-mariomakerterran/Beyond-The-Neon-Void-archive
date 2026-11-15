@@ -2966,7 +2966,7 @@
 	"objects": [
 		{
 			"id": "obj_neo_kowloon_hub_0",
-			"asset": "res://assets/structures/27_neon_bar.png",
+			"asset": "res://assets/props/facades/cyberpunk_building_facade_with_modular_building_pi_01.png",
 			"cell": [
 				5,
 				5
@@ -2976,7 +2976,7 @@
 				0,
 				0
 			],
-			"scale": 0.3,
+			"scale": 1.0,
 			"flip": false,
 			"layer": 0,
 			"kind": "location",
@@ -2997,7 +2997,7 @@
 		},
 		{
 			"id": "obj_neo_kowloon_hub_1",
-			"asset": "res://assets/structures/09_cyber_bar_transparent.png",
+			"asset": "res://assets/props/facades/cyberpunk_building_facade_with_modular_building_pi_02.png",
 			"cell": [
 				12,
 				5
@@ -3007,7 +3007,7 @@
 				0,
 				0
 			],
-			"scale": 0.3,
+			"scale": 1.0,
 			"flip": false,
 			"layer": 0,
 			"kind": "location",
@@ -3028,7 +3028,7 @@
 		},
 		{
 			"id": "obj_neo_kowloon_hub_2",
-			"asset": "res://assets/structures/26_black_market_stall.png",
+			"asset": "res://assets/props/facades/cyberpunk_building_facade_with_modular_building_pi_03.png",
 			"cell": [
 				5,
 				12
@@ -3038,7 +3038,7 @@
 				0,
 				0
 			],
-			"scale": 0.3,
+			"scale": 1.0,
 			"flip": false,
 			"layer": 0,
 			"kind": "location",

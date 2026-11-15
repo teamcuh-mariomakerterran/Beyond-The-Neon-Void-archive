@@ -62,6 +62,11 @@ static func load_rig(body_dir: String) -> Dictionary:
 	if _rigs.has(body_dir):
 		return _rigs[body_dir]
 	var out := {}
+	var rc := Recolors.source(body_dir) if body_dir.begins_with(Recolors.UNITS) else ""
+	if rc != "" and not DirAccess.dir_exists_absolute(body_dir):
+		out = load_rig(rc)  # colour variants share their source's rig
+		_rigs[body_dir] = out
+		return out
 	var p := body_dir.path_join("rig.json")
 	if body_dir != "" and FileAccess.file_exists(p):
 		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(p))

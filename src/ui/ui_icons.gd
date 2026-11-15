@@ -142,7 +142,9 @@ static func item(it: ItemResource) -> Texture2D:
 		# wpn_<type>_<n> → <type>
 		var t := id.substr(4)
 		t = t.substr(0, t.rfind("_")) if t.rfind("_") > 0 else t
-		return named(t)
+		var own := named(t)
+		# wpn_neon_pistol_07 has no "neon_pistol" art: use its weapon type's.
+		return own if own else named(it.equip_type)
 	if id.begins_with("acc_"):
 		return named("accessory")
 	if id.begins_with("dsk_"):

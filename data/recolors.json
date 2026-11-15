@@ -1,0 +1,675 @@
+{
+	"_note": "Colour variants of units, recoloured in the game as they load (src/vfx/recolors.gd); no image files. A unit's sprite_frames_path can name a variant (res://assets/units/<id>) like any unit folder. rules: pixels whose hue is inside [from, to] degrees (wrapping past 360) and saturation >= min_sat (default 0.45) move so the band's middle lands on \"to\"; optional sat / val scale saturation and brightness. Same maths as tools/pixellab/recolor.py.",
+	"outfit_armor_009_red": {
+		"from": "outfit_armor_009",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_armor_009_gold": {
+		"from": "outfit_armor_009",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_armor_009_green": {
+		"from": "outfit_armor_009",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_armor_009_violet": {
+		"from": "outfit_armor_009",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_armor_6142_gold": {
+		"from": "outfit_armor_6142",
+		"rules": [
+			{
+				"hue": [
+					310,
+					20
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_armor_6142_green": {
+		"from": "outfit_armor_6142",
+		"rules": [
+			{
+				"hue": [
+					310,
+					20
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_armor_6142_cyan": {
+		"from": "outfit_armor_6142",
+		"rules": [
+			{
+				"hue": [
+					310,
+					20
+				],
+				"to": 185
+			}
+		]
+	},
+	"outfit_armor_6142_violet": {
+		"from": "outfit_armor_6142",
+		"rules": [
+			{
+				"hue": [
+					310,
+					20
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_dragoon_red": {
+		"from": "outfit_dragoon",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_dragoon_gold": {
+		"from": "outfit_dragoon",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_dragoon_green": {
+		"from": "outfit_dragoon",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_dragoon_violet": {
+		"from": "outfit_dragoon",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_dragoon_helm_red": {
+		"from": "outfit_dragoon_helm",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_dragoon_helm_gold": {
+		"from": "outfit_dragoon_helm",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_dragoon_helm_violet": {
+		"from": "outfit_dragoon_helm",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_dragoon_helm_pink": {
+		"from": "outfit_dragoon_helm",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_dragoon_wings_green": {
+		"from": "outfit_dragoon_wings",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_dragoon_wings_cyan": {
+		"from": "outfit_dragoon_wings",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 185
+			}
+		]
+	},
+	"outfit_dragoon_wings_violet": {
+		"from": "outfit_dragoon_wings",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_dragoon_wings_pink": {
+		"from": "outfit_dragoon_wings",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_heavy40_green": {
+		"from": "outfit_heavy40",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_heavy40_cyan": {
+		"from": "outfit_heavy40",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 185
+			}
+		]
+	},
+	"outfit_heavy40_violet": {
+		"from": "outfit_heavy40",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_heavy40_pink": {
+		"from": "outfit_heavy40",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_longcoat_red": {
+		"from": "outfit_longcoat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_longcoat_gold": {
+		"from": "outfit_longcoat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_longcoat_green": {
+		"from": "outfit_longcoat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_longcoat_violet": {
+		"from": "outfit_longcoat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_medic_buns_red": {
+		"from": "outfit_medic_buns",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_medic_buns_gold": {
+		"from": "outfit_medic_buns",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_medic_buns_violet": {
+		"from": "outfit_medic_buns",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_medic_buns_pink": {
+		"from": "outfit_medic_buns",
+		"rules": [
+			{
+				"hue": [
+					130,
+					200
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_neon_coat_red": {
+		"from": "outfit_neon_coat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_neon_coat_gold": {
+		"from": "outfit_neon_coat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_neon_coat_green": {
+		"from": "outfit_neon_coat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_neon_coat_violet": {
+		"from": "outfit_neon_coat",
+		"rules": [
+			{
+				"hue": [
+					160,
+					230
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_samurai_green": {
+		"from": "outfit_samurai",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_samurai_cyan": {
+		"from": "outfit_samurai",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 185
+			}
+		]
+	},
+	"outfit_samurai_violet": {
+		"from": "outfit_samurai",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_samurai_pink": {
+		"from": "outfit_samurai",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_slicked20_green": {
+		"from": "outfit_slicked20",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_slicked20_cyan": {
+		"from": "outfit_slicked20",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 185
+			}
+		]
+	},
+	"outfit_slicked20_violet": {
+		"from": "outfit_slicked20",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_slicked20_pink": {
+		"from": "outfit_slicked20",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_tinkerer_green": {
+		"from": "outfit_tinkerer",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_tinkerer_cyan": {
+		"from": "outfit_tinkerer",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 185
+			}
+		]
+	},
+	"outfit_tinkerer_violet": {
+		"from": "outfit_tinkerer",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 280
+			}
+		]
+	},
+	"outfit_tinkerer_pink": {
+		"from": "outfit_tinkerer",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		]
+	},
+	"outfit_undercut_red": {
+		"from": "outfit_undercut",
+		"rules": [
+			{
+				"hue": [
+					250,
+					320
+				],
+				"to": 0
+			}
+		]
+	},
+	"outfit_undercut_gold": {
+		"from": "outfit_undercut",
+		"rules": [
+			{
+				"hue": [
+					250,
+					320
+				],
+				"to": 45
+			}
+		]
+	},
+	"outfit_undercut_green": {
+		"from": "outfit_undercut",
+		"rules": [
+			{
+				"hue": [
+					250,
+					320
+				],
+				"to": 130
+			}
+		]
+	},
+	"outfit_undercut_cyan": {
+		"from": "outfit_undercut",
+		"rules": [
+			{
+				"hue": [
+					250,
+					320
+				],
+				"to": 185
+			}
+		]
+	},
+	"pool_003_green": {
+		"from": "pool_003",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 130
+			}
+		]
+	},
+	"pool_003_cyan": {
+		"from": "pool_003",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 185
+			}
+		]
+	},
+	"pool_003_violet": {
+		"from": "pool_003",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 280
+			}
+		]
+	},
+	"pool_003_pink": {
+		"from": "pool_003",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		]
+	}
+}

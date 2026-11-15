@@ -1,4 +1,13 @@
-# Hard asset reset: keep / cut list (for Brian's OK; nothing deleted yet)
+# Hard asset reset: keep / cut list
+
+DONE 2026-11-15 (Brian: "lets just use the in engine color swap"). Every removed
+file is listed in 2026-11-15_hard_reset_removed.txt (still in git history).
+- Colour variants are data (data/recolors.json), recoloured as they load; checked
+  against the baked PNGs before they were cut: 16,128 frames, 0 pixels different.
+- The 14 outfits' chosen frames now live in assets/units/<outfit>/frames/<clip>/<facing>/.
+- Test units → kept art: test_hero = outfit_undercut, Bulwark Brawler = enemy_daemon,
+  Corp Gunner = enemy_digimage_digisummoner, Kade = outfit_neon_coat.
+- Neon Forge ▸ RECOLOUR STUDIO makes new variants (and characters / NPCs from them).
 
 Repo today: 54,060 files (52,952 of them art). After the reset: about 10,000 with
 recolours as data (recommended), or about 26,000 with every recolour baked as PNGs.

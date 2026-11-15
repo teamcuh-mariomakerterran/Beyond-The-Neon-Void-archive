@@ -1,10 +1,10 @@
 {
-	"_about": "Outfit unit on the base_male_hi body; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
+	"_about": "Outfit unit; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
 	"fps": 10,
 	"frames_from": {
 		"walk": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_walk2_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/walk/SE",
 				"frames": [
 					0,
 					7
@@ -12,7 +12,7 @@
 				"loop": true
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_walk2_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/walk/SW",
 				"frames": [
 					0,
 					7
@@ -20,7 +20,7 @@
 				"loop": true
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_walk2_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/walk/NE",
 				"frames": [
 					0,
 					7
@@ -28,7 +28,7 @@
 				"loop": true
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_walk2_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/walk/NW",
 				"frames": [
 					0,
 					7
@@ -38,28 +38,28 @@
 		},
 		"hit": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_hit_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/hit/SE",
 				"frames": [
 					0,
 					5
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_hit_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/hit/SW",
 				"frames": [
 					0,
 					5
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_hit_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/hit/NE",
 				"frames": [
 					0,
 					5
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_hit_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/hit/NW",
 				"frames": [
 					0,
 					5
@@ -68,28 +68,28 @@
 		},
 		"death": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_death_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/death/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_death_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/death/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_death_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/death/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_death_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/death/NW",
 				"frames": [
 					0,
 					7
@@ -98,28 +98,28 @@
 		},
 		"jump": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_jump_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/jump/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_jump_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/jump/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_jump_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/jump/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_jump_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/jump/NW",
 				"frames": [
 					0,
 					7
@@ -128,28 +128,28 @@
 		},
 		"cast": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_use_item_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/cast/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_use_item_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/cast/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_use_item_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/cast/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_use_item_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/cast/NW",
 				"frames": [
 					0,
 					7
@@ -158,28 +158,28 @@
 		},
 		"throw": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_throw_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/throw/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_throw_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/throw/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_throw_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/throw/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_throw_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/throw/NW",
 				"frames": [
 					0,
 					7
@@ -188,28 +188,28 @@
 		},
 		"aim": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/NW",
 				"frames": [
 					0,
 					7
@@ -218,28 +218,28 @@
 		},
 		"attack": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_pistol_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim/NW",
 				"frames": [
 					0,
 					7
@@ -248,7 +248,7 @@
 		},
 		"rest_rifle": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_rest_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/rest_rifle/SE",
 				"frames": [
 					0,
 					2
@@ -256,7 +256,7 @@
 				"loop": true
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_rest_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/rest_rifle/SW",
 				"frames": [
 					0,
 					2
@@ -264,7 +264,7 @@
 				"loop": true
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_rest_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/rest_rifle/NE",
 				"frames": [
 					0,
 					2
@@ -272,7 +272,7 @@
 				"loop": true
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_rest_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/rest_rifle/NW",
 				"frames": [
 					0,
 					2
@@ -282,28 +282,28 @@
 		},
 		"aim_rifle": {
 			"SE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_raise_SE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim_rifle/SE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"SW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_raise_SW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim_rifle/SW",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NE": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_raise_NE_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim_rifle/NE",
 				"frames": [
 					0,
 					7
 				]
 			},
 			"NW": {
-				"dir": "res://assets/units/base_male_hi/source/heavy40_rifle_raise_NW_clean",
+				"dir": "res://assets/units/outfit_heavy40/frames/aim_rifle/NW",
 				"frames": [
 					0,
 					7
