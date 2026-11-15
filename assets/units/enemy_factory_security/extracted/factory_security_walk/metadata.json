@@ -1,0 +1,83 @@
+{
+  "group_id": "12347f58-e86f-4fe4-8c0c-dfdea00e5276",
+  "states": [
+    {
+      "character": {
+        "id": "5623204f-d9c2-4fb6-aae2-210d273e9f1d",
+        "name": "walking forward",
+        "prompt": "cyberpunk corporate characters ",
+        "size": {
+          "width": 60,
+          "height": 68
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "high top-down",
+        "created_at": "2026-11-04T09:21:37.686477+00:00"
+      },
+      "folder": "walking_forward",
+      "frames": {
+        "rotations": {
+          "south": "walking_forward/rotations/south.png",
+          "south-east": "walking_forward/rotations/south-east.png",
+          "east": "walking_forward/rotations/east.png",
+          "north-east": "walking_forward/rotations/north-east.png",
+          "north": "walking_forward/rotations/north.png",
+          "north-west": "walking_forward/rotations/north-west.png",
+          "west": "walking_forward/rotations/west.png",
+          "south-west": "walking_forward/rotations/south-west.png"
+        },
+        "animations": {
+          "Shift_weight_onto_the_left_leg_while_stepping_forw": {
+            "south-east": [
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_000.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_001.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_002.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_003.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_004.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_005.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_006.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_007.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-east/frame_008.png"
+            ],
+            "north-east": [
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_000.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_001.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_002.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_003.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_004.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_005.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_006.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_007.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-east/frame_008.png"
+            ],
+            "north-west": [
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_000.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_001.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_002.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_003.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_004.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_005.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_006.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_007.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/north-west/frame_008.png"
+            ],
+            "south-west": [
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_000.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_001.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_002.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_003.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_004.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_005.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_006.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_007.png",
+              "walking_forward/animations/Shift_weight_onto_the_left_leg_while_stepping_forw/south-west/frame_008.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T12:40:59.678970"
+}

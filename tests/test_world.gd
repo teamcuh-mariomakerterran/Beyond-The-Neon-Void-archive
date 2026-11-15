@@ -1841,6 +1841,14 @@ func test_pixellab() -> void:
 	check(gunner.anim_for(ContentDB.get_ability("tx_field_patch")) == "cast" and (gs["frames"] as SpriteFrames).has_animation("hologram_ball_spell_SE"), "Digisummoner: the patch plays its cast, extra spells keep their own names")
 	u.queue_free()
 	gunner.queue_free()
+	var fs := PixelLab.unit_set("res://assets/units/enemy_factory_security")
+	var ff: SpriteFrames = fs["frames"]
+	var fmiss: Array[String] = []
+	for act: String in ["walk", "attack", "hit", "death", "jump", "uppercut", "two_punch_combo"]:
+		for f: String in ["SE", "SW", "NE", "NW"]:
+			if not ff.has_animation(act + "_" + f):
+				fmiss.append(act + "_" + f)
+	check(fs["ok"] and fmiss.is_empty() and str(fs["actions"]["death"]).begins_with("seriously_injured"), "Factory security: walk, punches, hit and the chosen death in every facing (missing %s)" % [fmiss])
 	var m := ContentDB.get_mission("test_pixellab_skirmish")
 	check(m != null and bool(m.guests[0].get("controlled", false)) and ContentDB.get_npc("kade") != null and ContentDB.vendors.has("test_vendor"), "test skirmish, Kade and his shop are in")
 

@@ -1,0 +1,131 @@
+{
+  "group_id": "12347f58-e86f-4fe4-8c0c-dfdea00e5276",
+  "states": [
+    {
+      "character": {
+        "id": "db96c5ad-edc1-43c6-9f7e-54949461ec95",
+        "name": "seriously injured an",
+        "prompt": "cyberpunk corporate characters ",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "high top-down",
+        "created_at": "2026-11-11T02:46:36.633420+00:00"
+      },
+      "folder": "seriously_injured_an",
+      "frames": {
+        "rotations": {
+          "south": "seriously_injured_an/rotations/south.png",
+          "south-east": "seriously_injured_an/rotations/south-east.png",
+          "east": "seriously_injured_an/rotations/east.png",
+          "north-east": "seriously_injured_an/rotations/north-east.png",
+          "north": "seriously_injured_an/rotations/north.png",
+          "north-west": "seriously_injured_an/rotations/north-west.png",
+          "west": "seriously_injured_an/rotations/west.png",
+          "south-west": "seriously_injured_an/rotations/south-west.png"
+        },
+        "animations": {
+          "death": {
+            "south-west": [
+              "seriously_injured_an/animations/death/south-west/frame_000.png",
+              "seriously_injured_an/animations/death/south-west/frame_001.png",
+              "seriously_injured_an/animations/death/south-west/frame_002.png",
+              "seriously_injured_an/animations/death/south-west/frame_003.png",
+              "seriously_injured_an/animations/death/south-west/frame_004.png",
+              "seriously_injured_an/animations/death/south-west/frame_005.png",
+              "seriously_injured_an/animations/death/south-west/frame_006.png",
+              "seriously_injured_an/animations/death/south-west/frame_007.png",
+              "seriously_injured_an/animations/death/south-west/frame_008.png",
+              "seriously_injured_an/animations/death/south-west/frame_009.png",
+              "seriously_injured_an/animations/death/south-west/frame_010.png",
+              "seriously_injured_an/animations/death/south-west/frame_011.png",
+              "seriously_injured_an/animations/death/south-west/frame_012.png",
+              "seriously_injured_an/animations/death/south-west/frame_013.png",
+              "seriously_injured_an/animations/death/south-west/frame_014.png",
+              "seriously_injured_an/animations/death/south-west/frame_015.png",
+              "seriously_injured_an/animations/death/south-west/frame_016.png",
+              "seriously_injured_an/animations/death/south-west/frame_017.png",
+              "seriously_injured_an/animations/death/south-west/frame_018.png",
+              "seriously_injured_an/animations/death/south-west/frame_019.png",
+              "seriously_injured_an/animations/death/south-west/frame_020.png"
+            ],
+            "north-east": [
+              "seriously_injured_an/animations/death/north-east/frame_000.png",
+              "seriously_injured_an/animations/death/north-east/frame_001.png",
+              "seriously_injured_an/animations/death/north-east/frame_002.png",
+              "seriously_injured_an/animations/death/north-east/frame_003.png",
+              "seriously_injured_an/animations/death/north-east/frame_004.png",
+              "seriously_injured_an/animations/death/north-east/frame_005.png",
+              "seriously_injured_an/animations/death/north-east/frame_006.png",
+              "seriously_injured_an/animations/death/north-east/frame_007.png",
+              "seriously_injured_an/animations/death/north-east/frame_008.png",
+              "seriously_injured_an/animations/death/north-east/frame_009.png",
+              "seriously_injured_an/animations/death/north-east/frame_010.png",
+              "seriously_injured_an/animations/death/north-east/frame_011.png",
+              "seriously_injured_an/animations/death/north-east/frame_012.png",
+              "seriously_injured_an/animations/death/north-east/frame_013.png",
+              "seriously_injured_an/animations/death/north-east/frame_014.png",
+              "seriously_injured_an/animations/death/north-east/frame_015.png",
+              "seriously_injured_an/animations/death/north-east/frame_016.png",
+              "seriously_injured_an/animations/death/north-east/frame_017.png",
+              "seriously_injured_an/animations/death/north-east/frame_018.png",
+              "seriously_injured_an/animations/death/north-east/frame_019.png",
+              "seriously_injured_an/animations/death/north-east/frame_020.png"
+            ],
+            "south-east": [
+              "seriously_injured_an/animations/death/south-east/frame_000.png",
+              "seriously_injured_an/animations/death/south-east/frame_001.png",
+              "seriously_injured_an/animations/death/south-east/frame_002.png",
+              "seriously_injured_an/animations/death/south-east/frame_003.png",
+              "seriously_injured_an/animations/death/south-east/frame_004.png",
+              "seriously_injured_an/animations/death/south-east/frame_005.png",
+              "seriously_injured_an/animations/death/south-east/frame_006.png",
+              "seriously_injured_an/animations/death/south-east/frame_007.png",
+              "seriously_injured_an/animations/death/south-east/frame_008.png",
+              "seriously_injured_an/animations/death/south-east/frame_009.png",
+              "seriously_injured_an/animations/death/south-east/frame_010.png",
+              "seriously_injured_an/animations/death/south-east/frame_011.png",
+              "seriously_injured_an/animations/death/south-east/frame_012.png",
+              "seriously_injured_an/animations/death/south-east/frame_013.png",
+              "seriously_injured_an/animations/death/south-east/frame_014.png",
+              "seriously_injured_an/animations/death/south-east/frame_015.png",
+              "seriously_injured_an/animations/death/south-east/frame_016.png",
+              "seriously_injured_an/animations/death/south-east/frame_017.png",
+              "seriously_injured_an/animations/death/south-east/frame_018.png",
+              "seriously_injured_an/animations/death/south-east/frame_019.png",
+              "seriously_injured_an/animations/death/south-east/frame_020.png"
+            ],
+            "north-west": [
+              "seriously_injured_an/animations/death/north-west/frame_000.png",
+              "seriously_injured_an/animations/death/north-west/frame_001.png",
+              "seriously_injured_an/animations/death/north-west/frame_002.png",
+              "seriously_injured_an/animations/death/north-west/frame_003.png",
+              "seriously_injured_an/animations/death/north-west/frame_004.png",
+              "seriously_injured_an/animations/death/north-west/frame_005.png",
+              "seriously_injured_an/animations/death/north-west/frame_006.png",
+              "seriously_injured_an/animations/death/north-west/frame_007.png",
+              "seriously_injured_an/animations/death/north-west/frame_008.png",
+              "seriously_injured_an/animations/death/north-west/frame_009.png",
+              "seriously_injured_an/animations/death/north-west/frame_010.png",
+              "seriously_injured_an/animations/death/north-west/frame_011.png",
+              "seriously_injured_an/animations/death/north-west/frame_012.png",
+              "seriously_injured_an/animations/death/north-west/frame_013.png",
+              "seriously_injured_an/animations/death/north-west/frame_014.png",
+              "seriously_injured_an/animations/death/north-west/frame_015.png",
+              "seriously_injured_an/animations/death/north-west/frame_016.png",
+              "seriously_injured_an/animations/death/north-west/frame_017.png",
+              "seriously_injured_an/animations/death/north-west/frame_018.png",
+              "seriously_injured_an/animations/death/north-west/frame_019.png",
+              "seriously_injured_an/animations/death/north-west/frame_020.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T12:40:56.030963"
+}
