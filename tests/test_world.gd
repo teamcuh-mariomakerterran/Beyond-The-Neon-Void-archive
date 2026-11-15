@@ -57,6 +57,7 @@ func run(p_tree: SceneTree) -> int:
 	await test_unit_gallery()
 	test_pixellab_padding()
 	test_recolors()
+	test_ground_blast()
 	test_art_halo()
 	await test_title_screen()
 	await test_pause_menu()
@@ -2785,6 +2786,29 @@ func test_unit_gallery() -> void:
 	check(rigged.is_empty() or not (rigged[0]["gear"] as Array).is_empty(), "the weapon toggle pins the gun on rigged bodies")
 	g.queue_free()
 	await tree.process_frame
+
+
+## PixelLab VFX Creator exports play as VFX clips: the ground blast for
+## grenades and mines, its behind layer under the unit, front layer over it.
+func test_ground_blast() -> void:
+	var m := "res://assets/vfx/ground_blast/manifest.json"
+	check(LatticeClip.is_pack(m) and not LatticeClip.is_pack("res://data/vfx.json"), "a VFX Creator manifest is recognised")
+	var whole := LatticeClip.load_pack(m, "whole")
+	var front := LatticeClip.load_pack(m, "front")
+	check(whole["ok"] and (whole["rects"] as Array).size() == 32 and (front["rects"] as Array).size() == 29, "every frame sliced from the sheets (32 whole, 29 front)")
+	check(whole["anchor"] == Vector2(105, 159) and whole["cell"] == Vector2(214, 203) and is_equal_approx(float(whole["total"]), 3200.0), "anchor from the manifest offset, 100 ms frames")
+	check(not LatticeClip.load_pack(m, "nope")["ok"], "an unknown clip name loads nothing")
+	var holder := Node2D.new()
+	tree.root.add_child(holder)
+	var fx := VFX.spawn(holder, "ground_blast", Vector2.ZERO, {"floor_z": 42})
+	check(fx != null, "ground_blast spawns")
+	if fx:
+		var zs: Array[int] = []
+		for p: Node in fx.get_children():
+			if p is VFXClip:
+				zs.append((p as VFXClip).z_index if not (p as VFXClip).z_as_relative else -1)
+		check(zs.has(42), "the behind layer sits on the cell's floor (floor_z) under its unit")
+	holder.queue_free()
 
 
 ## Colour variants are data (data/recolors.json), recoloured as they load,

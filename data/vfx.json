@@ -1,6 +1,14 @@
 {
 	"_readme": "VFX library (see src/vfx/vfx.gd). effects: id -> {palette, parts[], shake [i,s], hit_stop s}. Part types: sim, burst, lightning, flash, streaks, ring, pillar, decal, tear, scan, shockwave, glitch, light, trail. Colours: #hex, #hex*k (HDR glow), [r,g,b,a], $palette*k. abilities/specials/kinds/types map battle abilities to effects.",
 	"effects": {
+		"ground_blast": {
+			"_note": "Brian's PixelLab VFX Creator blast (assets/vfx/ground_blast): grenades and mines. The behind layer sits on the floor under units in the cell, the front layer over them.",
+			"parts": [
+				{"type": "clip", "path": "res://assets/vfx/ground_blast/manifest.json", "clip": "behind", "depth": "behind", "scale": 1.5, "face": false},
+				{"type": "clip", "path": "res://assets/vfx/ground_blast/manifest.json", "clip": "front", "scale": 1.5, "face": false}
+			],
+			"shake": [6, 0.25]
+		},
 		"impact_physical": {
 			"palette": {"main": "#ffc070", "core": "#ffffff*2.2"},
 			"shake": [2.0, 0.12],

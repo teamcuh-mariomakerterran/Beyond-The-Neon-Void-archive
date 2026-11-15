@@ -1,0 +1,94 @@
+{
+ "app": "PixelLab VFX Creator",
+ "name": "Ground blast",
+ "fps": 10,
+ "frame_ms": 100,
+ "frames": 32,
+ "loop": false,
+ "canvas": {
+  "w": 220,
+  "h": 209
+ },
+ "anchor": {
+  "kind": "origin",
+  "x": 108,
+  "y": 162
+ },
+ "clips": [
+  {
+   "name": "whole",
+   "title": "the whole effect, no sprite",
+   "depth": "both",
+   "loop": false,
+   "start_frame": 0,
+   "frames": 32,
+   "frame": {
+    "w": 214,
+    "h": 203
+   },
+   "sheets": [
+    {
+     "file": "whole.png",
+     "first_frame": 0,
+     "frames": 32,
+     "columns": 6,
+     "rows": 6
+    }
+   ],
+   "offset": {
+    "x": -105,
+    "y": -159
+   }
+  },
+  {
+   "name": "behind",
+   "title": "everything behind the sprite",
+   "depth": "behind",
+   "loop": false,
+   "start_frame": 0,
+   "frames": 32,
+   "frame": {
+    "w": 214,
+    "h": 164
+   },
+   "sheets": [
+    {
+     "file": "behind.png",
+     "first_frame": 0,
+     "frames": 32,
+     "columns": 6,
+     "rows": 6
+    }
+   ],
+   "offset": {
+    "x": -105,
+    "y": -159
+   }
+  },
+  {
+   "name": "front",
+   "title": "everything in front of the sprite",
+   "depth": "front",
+   "loop": false,
+   "start_frame": 0,
+   "frames": 29,
+   "frame": {
+    "w": 208,
+    "h": 159
+   },
+   "sheets": [
+    {
+     "file": "front.png",
+     "first_frame": 0,
+     "frames": 29,
+     "columns": 6,
+     "rows": 5
+    }
+   ],
+   "offset": {
+    "x": -99,
+    "y": -115
+   }
+  }
+ ]
+}

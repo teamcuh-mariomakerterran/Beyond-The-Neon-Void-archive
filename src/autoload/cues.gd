@@ -238,7 +238,9 @@ func _do_flash(step: Dictionary, _ctx: Dictionary) -> void:
 func _do_vfx(step: Dictionary, ctx: Dictionary) -> void:
 	var u: Variant = ctx.get("unit")
 	if is_instance_valid(u) and u is Node2D and (u as Node2D).get_parent():
-		VFX.spawn((u as Node2D).get_parent(), str(step.get("id", "")), (u as Node2D).position)
+		# Floor depth of the unit's cell, so "behind" layers sit under it.
+		var params := {"floor_z": IsometricGrid.draw_order(u.cell) * 2} if "cell" in u else {}
+		VFX.spawn((u as Node2D).get_parent(), str(step.get("id", "")), (u as Node2D).position, params)
 
 
 func _do_sfx(step: Dictionary, _ctx: Dictionary) -> void:

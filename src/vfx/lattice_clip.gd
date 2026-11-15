@@ -36,6 +36,60 @@ static func find_for_png(png: String) -> String:
 ## `dir` picks one facing out of a "dirs-rows" sheet (N, NE … NW).
 ## Rules follow Lattice's CLIP_FORMAT_GUIDE: holds are tick multipliers,
 ## missing loop = false, anchor falls back to pivot then bottom-centre.
+## True for a PixelLab VFX Creator export (manifest.json + spritesheets).
+static func is_pack(path: String) -> bool:
+	if not path.ends_with(".json") or not FileAccess.file_exists(path):
+		return false
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	return d is Dictionary and str(d.get("app", "")).begins_with("PixelLab VFX") and d.get("clips") is Array
+
+
+## One clip ("whole", "behind", "front", "part-<id>") of a PixelLab VFX Creator
+## export, in load_clip's shape: frames sliced from its sheets, the anchor
+## where the effect's origin sits (−offset), and "start" (seconds) for clips
+## that begin on a later frame. Cached.
+static func load_pack(path: String, clip_name: String = "whole") -> Dictionary:
+	var key := path + "@" + clip_name
+	if _cache.has(key):
+		return _cache[key]
+	var out := {"ok": false}
+	_cache[key] = out
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
+	if not (d is Dictionary):
+		return out
+	var c: Dictionary = {}
+	for cl: Variant in d.get("clips", []):
+		if cl is Dictionary and str(cl.get("name", "")) == clip_name:
+			c = cl
+	if c.is_empty():
+		return out
+	var fw := float((c.get("frame", {}) as Dictionary).get("w", 0))
+	var fh := float((c.get("frame", {}) as Dictionary).get("h", 0))
+	var sheets: Array = c.get("sheets", [])
+	if sheets.size() != 1 or fw <= 0.0 or fh <= 0.0:
+		return out  # one sheet per clip is all the VFX Creator writes today
+	var sh: Dictionary = sheets[0]
+	var tex := ForgeStore.load_texture(path.get_base_dir().path_join(str(sh.get("file", ""))))
+	if tex == null:
+		return out
+	var rects: Array[Rect2] = []
+	var cols := maxi(int(sh.get("columns", 1)), 1)
+	for i in int(sh.get("frames", c.get("frames", 1))):
+		rects.append(Rect2((i % cols) * fw, (i / cols) * fh, fw, fh))
+	var frame_ms := float(d.get("frame_ms", 1000.0 / maxf(float(d.get("fps", 10)), 0.1)))
+	var ms: Array = []
+	for i in rects.size():
+		ms.append(frame_ms)
+	var off: Dictionary = c.get("offset", {})
+	out = {"ok": true, "tex": tex, "rects": rects, "seq": range(rects.size()), "ms": ms,
+		"total": maxf(frame_ms * rects.size(), 1.0), "loop": c.get("loop") == true,
+		"anchor": Vector2(-float(off.get("x", 0)), -float(off.get("y", 0))), "cell": Vector2(fw, fh),
+		"start": float(c.get("start_frame", 0)) * frame_ms / 1000.0, "depth": str(c.get("depth", "both")),
+		"frame_ms": frame_ms, "hits": [], "title": str(d.get("name", "")), "kind": "vfx"}
+	_cache[key] = out
+	return out
+
+
 static func load_clip(path: String, facing_dir: String = "") -> Dictionary:
 	var key := path + "#" + facing_dir
 	if _cache.has(key):
