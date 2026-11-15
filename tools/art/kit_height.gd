@@ -1,7 +1,9 @@
 extends SceneTree
 ## Which wall height (1, 2 or 3 tiles) a building-kit sheet was built at.
-## The stair piece climbs exactly one tile, so its back edge is the yardstick;
-## the tallest wall edge divided by it is the set's height. Only reads.
+## In Brian's 64 px kits one tile of height is always 32 px (the 2:1 view fixes
+## it) plus a pixel or two of outline, so the tallest wall edge / 33 is the
+## set's height. The stair piece is reported as a cross-check only: in the
+## "towering" kits it rises as tall as the walls. Only reads.
 ##
 ##   godot --headless -s tools/art/kit_height.gd -- <sheet or folder of sheets>
 
@@ -26,13 +28,18 @@ func _init() -> void:
 	for f in files:
 		var r := measure(Image.load_from_file(f))
 		if r.is_empty():
-			print("%s: no stair piece found (can't tell)" % f.get_file())
+			print("%s: no wall pieces found (can't tell)" % f.get_file())
 		else:
-			print("%s: height %d  (stair rises %d px, tallest wall %d px)" % [f.get_file(), r["height"], r["rise"], r["wall"]])
+			print("%s: height %d  (tallest wall %d px, one tile = %d px; stair rises %d px)" % [f.get_file(), r["height"], r["wall"], int(TILE_PX), r["rise"]])
 	quit(0)
 
 
-## {height, rise, wall} for a sheet, or {} without a recognisable stair.
+## Screen px of one tile of height in 64 px kit art (32 + outline).
+const TILE_PX := 33.0
+
+
+## {height, rise, wall} for a sheet ({} if it has no wall pieces). rise is the
+## stair's back edge (0 without one), a cross-check only.
 static func measure(src: Image) -> Dictionary:
 	if src == null:
 		return {}
@@ -48,11 +55,11 @@ static func measure(src: Image) -> Dictionary:
 			rises.append(hi)  # a ramp shape: one side tall, the other at floor level
 		elif lo * 10 >= hi * 7:
 			wall = maxi(wall, lo)  # both sides tall: a wall or block
-	if rises.is_empty() or wall == 0:
+	if wall == 0:
 		return {}
 	rises.sort()
-	var rise := rises[rises.size() / 2]
-	return {"height": clampi(roundi(float(wall) / rise), 1, 3), "rise": rise, "wall": wall}
+	var rise := rises[rises.size() / 2] if not rises.is_empty() else 0
+	return {"height": clampi(roundi(float(wall) / TILE_PX), 1, 3), "rise": rise, "wall": wall}
 
 
 ## Opaque run (top to bottom) of one column inside a piece.

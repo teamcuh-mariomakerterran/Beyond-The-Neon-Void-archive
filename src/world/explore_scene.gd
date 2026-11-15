@@ -257,7 +257,7 @@ func _build_hud() -> void:
 	_prompt.position.y -= 60
 	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_prompt)
-	var help := NeonTheme.label("WASD / arrows / stick / click: move   ·   Shift: run   ·   M: free / classic movement   ·   E / Enter: enter · search · talk   ·   Esc: leave", 13, NeonTheme.TEXT_DIM)
+	var help := NeonTheme.label("WASD / arrows / stick / click: move   ·   Shift: run   ·   M: free / classic movement   ·   E / Enter: enter · search · talk   ·   Esc: menu", 13, NeonTheme.TEXT_DIM)
 	help.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	help.position += Vector2(16, -28)
 	_hud.add_child(help)
