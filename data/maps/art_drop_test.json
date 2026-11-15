@@ -1,0 +1,3740 @@
+{
+	"format": 2,
+	"id": "art_drop_test",
+	"name": "Art Drop Test (2026-11-15)",
+	"kind": "city",
+	"width": 16,
+	"depth": 16,
+	"tile_width": 128,
+	"tile_height": 64,
+	"height_step": 32,
+	"ambient": "#7a72b8",
+	"post": "neon_noir",
+	"tiles": {
+		"0,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_i"
+			]
+		],
+		"0,1": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"0,2": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"0,3": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ac"
+			]
+		],
+		"0,4": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ab"
+			]
+		],
+		"0,5": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"0,6": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ab"
+			]
+		],
+		"0,7": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"0,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"0,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"0,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"0,11": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_a"
+			]
+		],
+		"0,12": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_e"
+			]
+		],
+		"0,13": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_f"
+			]
+		],
+		"0,14": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_f"
+			]
+		],
+		"0,15": [
+			[
+				0,
+				"ancient_mountains/ancient_mountains_a"
+			]
+		],
+		"1,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_b"
+			]
+		],
+		"1,1": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_c"
+			]
+		],
+		"1,2": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"1,3": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ab"
+			]
+		],
+		"1,4": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_a"
+			]
+		],
+		"1,5": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"1,6": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_a"
+			]
+		],
+		"1,7": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_a"
+			]
+		],
+		"1,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"1,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"1,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"1,11": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_a"
+			]
+		],
+		"1,12": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_d"
+			]
+		],
+		"1,13": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_c"
+			]
+		],
+		"1,14": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_d"
+			]
+		],
+		"1,15": [
+			[
+				0,
+				"ancient_mountains/ancient_mountains_b"
+			]
+		],
+		"2,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_i"
+			]
+		],
+		"2,1": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ac"
+			]
+		],
+		"2,2": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ad"
+			]
+		],
+		"2,3": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"2,4": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_a"
+			]
+		],
+		"2,5": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"2,6": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"2,7": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ad"
+			]
+		],
+		"2,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"2,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"2,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"2,11": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_f"
+			]
+		],
+		"2,12": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_c"
+			]
+		],
+		"2,13": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_c"
+			]
+		],
+		"2,14": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_b"
+			]
+		],
+		"2,15": [
+			[
+				0,
+				"dense_forest_completely_filled_with_trees/dense_forest_completely_filled_with_trees_e"
+			]
+		],
+		"3,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_i"
+			]
+		],
+		"3,1": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_a"
+			]
+		],
+		"3,2": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"3,3": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"3,4": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_c"
+			]
+		],
+		"3,5": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"3,6": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ad"
+			]
+		],
+		"3,7": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_c"
+			]
+		],
+		"3,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"3,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"3,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"3,11": [
+			[
+				0,
+				"grasslands/grasslands_a"
+			]
+		],
+		"3,12": [
+			[
+				0,
+				"grasslands/grasslands_d"
+			]
+		],
+		"3,13": [
+			[
+				0,
+				"grasslands/grasslands_d"
+			]
+		],
+		"3,14": [
+			[
+				0,
+				"grasslands/grasslands_a"
+			]
+		],
+		"3,15": [
+			[
+				0,
+				"digital_flower_fields/digital_flower_fields_b"
+			]
+		],
+		"4,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_a"
+			]
+		],
+		"4,1": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_c"
+			]
+		],
+		"4,2": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_c"
+			]
+		],
+		"4,3": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"4,4": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ac"
+			]
+		],
+		"4,5": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ad"
+			]
+		],
+		"4,6": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_b"
+			]
+		],
+		"4,7": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_aa"
+			]
+		],
+		"4,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_c"
+			]
+		],
+		"4,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"4,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"4,11": [
+			[
+				0,
+				"digital_flower_fields/digital_flower_fields_a"
+			]
+		],
+		"4,12": [
+			[
+				0,
+				"grasslands/grasslands_b"
+			]
+		],
+		"4,13": [
+			[
+				0,
+				"grasslands/grasslands_c"
+			]
+		],
+		"4,14": [
+			[
+				0,
+				"grasslands/grasslands_d"
+			]
+		],
+		"4,15": [
+			[
+				0,
+				"grasslands/grasslands_b"
+			]
+		],
+		"5,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_e"
+			]
+		],
+		"5,1": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_a"
+			]
+		],
+		"5,2": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"5,3": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"5,4": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ab"
+			]
+		],
+		"5,5": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ac"
+			]
+		],
+		"5,6": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_d"
+			]
+		],
+		"5,7": [
+			[
+				0,
+				"wooden_old_dive_bar_flooring_v3/wooden_old_dive_bar_flooring_v3_ac"
+			]
+		],
+		"5,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"5,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"5,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"5,11": [
+			[
+				0,
+				"digital_flower_fields/digital_flower_fields_a"
+			]
+		],
+		"5,12": [
+			[
+				0,
+				"grasslands/grasslands_b"
+			]
+		],
+		"5,13": [
+			[
+				0,
+				"digital_flower_fields/digital_flower_fields_a"
+			]
+		],
+		"5,14": [
+			[
+				0,
+				"digital_flower_fields/digital_flower_fields_a"
+			]
+		],
+		"5,15": [
+			[
+				0,
+				"grasslands/grasslands_d"
+			]
+		],
+		"6,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_b"
+			]
+		],
+		"6,1": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_c"
+			]
+		],
+		"6,2": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"6,3": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_c"
+			]
+		],
+		"6,4": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"6,5": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"6,6": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"6,7": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"6,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"6,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ae"
+			]
+		],
+		"6,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"6,11": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"6,12": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"6,13": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"6,14": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"6,15": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"7,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_h"
+			]
+		],
+		"7,1": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"7,2": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"7,3": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"7,4": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"7,5": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"7,6": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"7,7": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"7,8": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"7,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"7,10": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"7,11": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ae"
+			]
+		],
+		"7,12": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"7,13": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"7,14": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"7,15": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"8,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_a"
+			]
+		],
+		"8,1": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"8,2": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"8,3": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"8,4": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"8,5": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"8,6": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"8,7": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"8,8": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"8,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"8,10": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ae"
+			]
+		],
+		"8,11": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"8,12": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"8,13": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"8,14": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ad"
+			]
+		],
+		"8,15": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"9,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_d"
+			]
+		],
+		"9,1": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"9,2": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"9,3": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"9,4": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"9,5": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"9,6": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_b"
+			]
+		],
+		"9,7": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"9,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"9,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"9,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"9,11": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"9,12": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"9,13": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"9,14": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"9,15": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"10,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_b"
+			]
+		],
+		"10,1": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_i"
+			]
+		],
+		"10,2": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_e"
+			]
+		],
+		"10,3": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_d"
+			]
+		],
+		"10,4": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_g"
+			]
+		],
+		"10,5": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_e"
+			]
+		],
+		"10,6": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_g"
+			]
+		],
+		"10,7": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"10,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"10,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ab"
+			]
+		],
+		"10,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_e"
+			]
+		],
+		"10,11": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_b"
+			]
+		],
+		"10,12": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_f"
+			]
+		],
+		"10,13": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_b"
+			]
+		],
+		"10,14": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_c"
+			]
+		],
+		"10,15": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_d"
+			]
+		],
+		"11,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_h"
+			]
+		],
+		"11,1": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_i"
+			]
+		],
+		"11,2": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"11,3": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"11,4": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"11,5": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_e"
+			]
+		],
+		"11,6": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_d"
+			]
+		],
+		"11,7": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_d"
+			]
+		],
+		"11,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"11,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"11,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"11,11": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_c"
+			]
+		],
+		"11,12": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_d"
+			]
+		],
+		"11,13": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_h"
+			]
+		],
+		"11,14": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_d"
+			]
+		],
+		"11,15": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_a"
+			]
+		],
+		"12,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_h"
+			]
+		],
+		"12,1": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_c"
+			]
+		],
+		"12,2": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_e"
+			]
+		],
+		"12,3": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_f"
+			]
+		],
+		"12,4": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_i"
+			]
+		],
+		"12,5": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"12,6": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_c"
+			]
+		],
+		"12,7": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"12,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_c"
+			]
+		],
+		"12,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_aa"
+			]
+		],
+		"12,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"12,11": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_c"
+			]
+		],
+		"12,12": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_f"
+			]
+		],
+		"12,13": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_i"
+			]
+		],
+		"12,14": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_c"
+			]
+		],
+		"12,15": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_a"
+			]
+		],
+		"13,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_e"
+			]
+		],
+		"13,1": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_h"
+			]
+		],
+		"13,2": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_f"
+			]
+		],
+		"13,3": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_e"
+			]
+		],
+		"13,4": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_a"
+			]
+		],
+		"13,5": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_a"
+			]
+		],
+		"13,6": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"13,7": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"13,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_d"
+			]
+		],
+		"13,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a"
+			]
+		],
+		"13,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"13,11": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_c"
+			]
+		],
+		"13,12": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_c"
+			]
+		],
+		"13,13": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_c"
+			]
+		],
+		"13,14": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_b"
+			]
+		],
+		"13,15": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_b"
+			]
+		],
+		"14,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_a"
+			]
+		],
+		"14,1": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_i"
+			]
+		],
+		"14,2": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_f"
+			]
+		],
+		"14,3": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_a"
+			]
+		],
+		"14,4": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_c"
+			]
+		],
+		"14,5": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_f"
+			]
+		],
+		"14,6": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_f"
+			]
+		],
+		"14,7": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"14,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"14,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"14,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_a"
+			]
+		],
+		"14,11": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_d"
+			]
+		],
+		"14,12": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_a"
+			]
+		],
+		"14,13": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_h"
+			]
+		],
+		"14,14": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_a"
+			]
+		],
+		"14,15": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_g"
+			]
+		],
+		"15,0": [
+			[
+				0,
+				"heavy_duty_grey_diamond_plate_steel_flooring_paint/heavy_duty_grey_diamond_plate_steel_flooring_paint_f"
+			]
+		],
+		"15,1": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"15,2": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_a"
+			]
+		],
+		"15,3": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_j"
+			]
+		],
+		"15,4": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"15,5": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"15,6": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"15,7": [
+			[
+				0,
+				"metal_server_room_flooring_v3/metal_server_room_flooring_v3_b"
+			]
+		],
+		"15,8": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_c"
+			]
+		],
+		"15,9": [
+			[
+				0,
+				"dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_ac"
+			]
+		],
+		"15,10": [
+			[
+				0,
+				"concrete_side_walk_1_flat_concrete_section_2_cur/concrete_side_walk_1_flat_concrete_section_2_cur_f"
+			]
+		],
+		"15,11": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_c"
+			]
+		],
+		"15,12": [
+			[
+				0,
+				"dark_crimson_sand_floor_scattered_with_small_volca_v4/dark_crimson_sand_floor_scattered_with_small_volca_v4_d"
+			]
+		],
+		"15,13": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_h"
+			]
+		],
+		"15,14": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_h"
+			]
+		],
+		"15,15": [
+			[
+				0,
+				"dark_ocean_water/dark_ocean_water_h"
+			]
+		]
+	},
+	"details": [],
+	"particles": {
+		"0,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"0,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"1,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"2,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"3,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"4,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"5,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"6,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"7,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"8,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"9,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"10,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"11,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"12,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"13,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,0": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,2": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,4": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,6": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,8": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,10": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,12": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"14,14": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,1": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,3": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,5": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,7": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,9": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,11": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,13": [
+			[
+				6,
+				"neon_rain"
+			]
+		],
+		"15,15": [
+			[
+				6,
+				"neon_rain"
+			]
+		]
+	},
+	"objects": [
+		{
+			"id": "obj_art_drop_test_1",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_2_store_06.png",
+			"cell": [
+				0,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_2",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_2_stor_13.png",
+			"cell": [
+				1,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_3",
+			"asset": "res://assets/props/facades/cyberpunk_redlight_district_1_building_facade_2_11.png",
+			"cell": [
+				2,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_4",
+			"asset": "res://assets/props/facades/cyberpunk_redlight_district_13.png",
+			"cell": [
+				3,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_5",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_2_stor_v_2_04.png",
+			"cell": [
+				4,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_6",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_variant_v_2_13.png",
+			"cell": [
+				5,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_7",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_2_stor_20.png",
+			"cell": [
+				6,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_8",
+			"asset": "res://assets/props/facades/cyberpunk_redlight_district_1_building_facade_2_06.png",
+			"cell": [
+				9,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_9",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_variant_18.png",
+			"cell": [
+				10,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_10",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_variant_v_2_08.png",
+			"cell": [
+				11,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_11",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_2_stor_v_2_14.png",
+			"cell": [
+				12,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_12",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_2_store_12.png",
+			"cell": [
+				13,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_13",
+			"asset": "res://assets/props/facades/cyberpunk_environment_1_storefront_facade_variant_08.png",
+			"cell": [
+				14,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_14",
+			"asset": "res://assets/props/facades/cyberpunk_redlight_district_1_building_facade_2_08.png",
+			"cell": [
+				15,
+				0
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_15",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_07.png",
+			"cell": [
+				1,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_16",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_03.png",
+			"cell": [
+				3,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_17",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_3_01.png",
+			"cell": [
+				1,
+				4
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_18",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_3_08.png",
+			"cell": [
+				3,
+				4
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_19",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_04.png",
+			"cell": [
+				5,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_20",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_3_06.png",
+			"cell": [
+				2,
+				6
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_21",
+			"asset": "res://assets/props/bar/a_high_top_cyberpunk_rectangul_5.png",
+			"cell": [
+				4,
+				6
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_22",
+			"asset": "res://assets/props/bar/cyberpunk_futuristic_bar_props_09.png",
+			"cell": [
+				5,
+				5
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_23",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_6_08.png",
+			"cell": [
+				10,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_24",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_2_05_b.png",
+			"cell": [
+				11,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_25",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_08.png",
+			"cell": [
+				12,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_26",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_03.png",
+			"cell": [
+				14,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_27",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_6_06.png",
+			"cell": [
+				10,
+				5
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_28",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_3_08.png",
+			"cell": [
+				12,
+				5
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_29",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_server_ro_2_07.png",
+			"cell": [
+				14,
+				5
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_30",
+			"asset": "res://assets/props/server/cyberpunk_futuristic_mainframe_3.png",
+			"cell": [
+				15,
+				4
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_31",
+			"asset": "res://assets/props/arcade/cyberpunk_arcade_props_2_1_is_04.png",
+			"cell": [
+				15,
+				7
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_32",
+			"asset": "res://assets/props/arcade/cyberpunk_arcade_props_2_1_is_07.png",
+			"cell": [
+				13,
+				7
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_33",
+			"asset": "res://assets/props/digimancer/teleporter.png",
+			"cell": [
+				6,
+				11
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 0.5,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_34",
+			"asset": "res://assets/props/digimancer/reactor_core.png",
+			"cell": [
+				9,
+				11
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 0.5,
+			"flip": false,
+			"layer": 0,
+			"kind": "structure",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_35",
+			"asset": "res://assets/props/plants/cyberpunk_outdoor_bushes_just_05.png",
+			"cell": [
+				3,
+				11
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_36",
+			"asset": "res://assets/props/plants/cyberpunk_plants_2_1_isometri_09.png",
+			"cell": [
+				4,
+				12
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_37",
+			"asset": "res://assets/props/plants/cyberpunk_plants_2_1_isometri_02.png",
+			"cell": [
+				5,
+				13
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_38",
+			"asset": "res://assets/props/plants/cyberpunk_outdoor_bushes_just_08.png",
+			"cell": [
+				3,
+				14
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_39",
+			"asset": "res://assets/props/plants/cyberpunk_plants_just_the_pla_02.png",
+			"cell": [
+				5,
+				15
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_40",
+			"asset": "res://assets/props/street_cover/cyberpunk_slums_alleyway_props_tactical_cover_an_03.png",
+			"cell": [
+				10,
+				11
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_41",
+			"asset": "res://assets/props/street_cover/cyberpunk_slums_alleyway_1_jury_rigged_barricades_06.png",
+			"cell": [
+				11,
+				12
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_42",
+			"asset": "res://assets/props/street_cover/cyberpunk_slums_1_concrete_wall_2_concrete_wall_04.png",
+			"cell": [
+				12,
+				11
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_43",
+			"asset": "res://assets/props/street_cover/cyberpunk_slums_alleyway_1_jury_rigged_barricades_23.png",
+			"cell": [
+				10,
+				14
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_44",
+			"asset": "res://assets/props/street_cover/cyberpunk_slums_alleyway_1_jury_rigged_barricades_19.png",
+			"cell": [
+				11,
+				15
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_45",
+			"asset": "res://assets/props/warehouse/cyberpunk_warehouse_logistics_props_1_heavy_pla_17.png",
+			"cell": [
+				12,
+				14
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_46",
+			"asset": "res://assets/props/street/cyberpunk_futuristic_street_pr_2_07.png",
+			"cell": [
+				6,
+				2
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_47",
+			"asset": "res://assets/props/street/cyberpunk_futuristic_street_pr_2_05.png",
+			"cell": [
+				9,
+				3
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_48",
+			"asset": "res://assets/props/street/cyberpunk_futuristic_street_pr_3_08.png",
+			"cell": [
+				6,
+				6
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_49",
+			"asset": "res://assets/props/street/cyberpunk_futuristic_street_pr_02_b.png",
+			"cell": [
+				9,
+				6
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_50",
+			"asset": "res://assets/props/street/cyberpunk_futuristic_street_pr_4_01.png",
+			"cell": [
+				2,
+				10
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		},
+		{
+			"id": "obj_art_drop_test_51",
+			"asset": "res://assets/props/street/cyberpunk_futuristic_street_pr_3_04.png",
+			"cell": [
+				13,
+				10
+			],
+			"z": 0,
+			"offset": [
+				0,
+				0
+			],
+			"scale": 1.0,
+			"flip": false,
+			"layer": 0,
+			"kind": "prop",
+			"anim": null,
+			"loot_item_id": "",
+			"found_text": "",
+			"empty_text": "",
+			"dialog_npc": "",
+			"location": null
+		}
+	],
+	"spawns": {
+		"player": [
+			[
+				7,
+				15
+			]
+		],
+		"enemy": []
+	},
+	"gameplay": {
+		"0,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"1,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"2,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"3,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"4,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"5,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"6,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"9,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"10,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"11,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"12,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"13,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"14,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"15,0": {
+			"walkable": false,
+			"cover": 1
+		},
+		"1,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"3,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"1,4": {
+			"walkable": false,
+			"cover": 1
+		},
+		"3,4": {
+			"walkable": false,
+			"cover": 1
+		},
+		"5,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"2,6": {
+			"walkable": false,
+			"cover": 1
+		},
+		"4,6": {
+			"walkable": false,
+			"cover": 1
+		},
+		"5,5": {
+			"walkable": false,
+			"cover": 1
+		},
+		"10,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"11,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"12,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"14,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"10,5": {
+			"walkable": false,
+			"cover": 1
+		},
+		"12,5": {
+			"walkable": false,
+			"cover": 1
+		},
+		"14,5": {
+			"walkable": false,
+			"cover": 1
+		},
+		"15,4": {
+			"walkable": false,
+			"cover": 1
+		},
+		"15,7": {
+			"walkable": false,
+			"cover": 1
+		},
+		"13,7": {
+			"walkable": false,
+			"cover": 1
+		},
+		"6,11": {
+			"walkable": false,
+			"cover": 1
+		},
+		"9,11": {
+			"walkable": false,
+			"cover": 1
+		},
+		"3,11": {
+			"walkable": false,
+			"cover": 1
+		},
+		"4,12": {
+			"walkable": false,
+			"cover": 1
+		},
+		"5,13": {
+			"walkable": false,
+			"cover": 1
+		},
+		"3,14": {
+			"walkable": false,
+			"cover": 1
+		},
+		"5,15": {
+			"walkable": false,
+			"cover": 1
+		},
+		"10,11": {
+			"walkable": false,
+			"cover": 1
+		},
+		"11,12": {
+			"walkable": false,
+			"cover": 1
+		},
+		"12,11": {
+			"walkable": false,
+			"cover": 1
+		},
+		"10,14": {
+			"walkable": false,
+			"cover": 1
+		},
+		"11,15": {
+			"walkable": false,
+			"cover": 1
+		},
+		"12,14": {
+			"walkable": false,
+			"cover": 1
+		},
+		"6,2": {
+			"walkable": false,
+			"cover": 1
+		},
+		"9,3": {
+			"walkable": false,
+			"cover": 1
+		},
+		"6,6": {
+			"walkable": false,
+			"cover": 1
+		},
+		"9,6": {
+			"walkable": false,
+			"cover": 1
+		},
+		"2,10": {
+			"walkable": false,
+			"cover": 1
+		},
+		"13,10": {
+			"walkable": false,
+			"cover": 1
+		},
+		"13,13": {
+			"walkable": false
+		},
+		"13,14": {
+			"walkable": false
+		},
+		"13,15": {
+			"walkable": false
+		},
+		"14,13": {
+			"walkable": false
+		},
+		"14,14": {
+			"walkable": false
+		},
+		"14,15": {
+			"walkable": false
+		},
+		"15,13": {
+			"walkable": false
+		},
+		"15,14": {
+			"walkable": false
+		},
+		"15,15": {
+			"walkable": false
+		}
+	},
+	"anchors": []
+}

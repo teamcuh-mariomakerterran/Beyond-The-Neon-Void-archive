@@ -61,8 +61,36 @@ func run(p_tree: SceneTree) -> int:
 	await test_photo_mode()
 	await test_painter()
 	await test_explore()
+	test_art_drop()
 	print("=== world: %d passed, %d failed ===" % [_passes, _fails])
 	return _fails
+
+
+## The 2026-11-15 art drop: the test map only uses indexed tiles and props that
+## exist, the cut tile sets stay variants (not animations), and the converted
+## enemies load as PixelLab units with all 8 standing facings.
+func test_art_drop() -> void:
+	var m := ContentDB.get_map("art_drop_test")
+	check(not m.is_empty(), "art drop test map loads")
+	var missing_tiles: Array = []
+	for key: String in m.get("tiles", {}):
+		for layer: Array in m["tiles"][key]:
+			if not ContentDB.tiles.has(str(layer[1])):
+				missing_tiles.append(layer[1])
+	check(missing_tiles.is_empty(), "art drop map tiles are all in the tile index (missing %s)" % [missing_tiles.slice(0, 3)])
+	var missing_props: Array = []
+	for o: Dictionary in m.get("objects", []):
+		if not ResourceLoader.exists(str(o["asset"])):
+			missing_props.append(o["asset"])
+	check(missing_props.is_empty() and m.get("objects", []).size() > 40, "art drop map props all exist (missing %s)" % [missing_props.slice(0, 3)])
+	var road: Dictionary = ContentDB.tiles.get("dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye/dark_asphalt_1_plain_asphalt_2_worn_3_wet_4_ye_a", {})
+	check(not road.is_empty() and (road.get("frames", []) as Array).is_empty(), "cut tiles are single variants, not animation frames")
+	for unit: String in ["enemy_daemon", "enemy_digimage_digisummoner", "enemy_factory_security"]:
+		var dir := "res://assets/units/" + unit
+		var rots := 0
+		for st: Dictionary in PixelLab.scan(dir):
+			rots = maxi(rots, (st["rot"] as Dictionary).size())
+		check(PixelLab.is_root(dir) and rots == 8, "%s loads as a PixelLab unit with 8 facings (%d)" % [unit, rots])
 
 
 func check(cond: bool, msg: String) -> void:
@@ -1039,6 +1067,17 @@ func test_signage_slides() -> void:
 	DirAccess.remove_absolute(dir)
 
 
+## Waits `ms` of wall-clock time, frame by frame. Cues times its overrides with
+## Time.get_ticks_msec(), so the cue checks wait on that same clock: a
+## SceneTreeTimer counts frame deltas instead, and the first frame after a slow
+## one (a big asset load in an earlier test) can carry enough delta to fire a
+## 0.12 s timer at once, before any real time has passed.
+func _wait_real(ms: int) -> void:
+	var until := Time.get_ticks_msec() + ms
+	while Time.get_ticks_msec() < until:
+		await tree.process_frame
+
+
 func test_cues() -> void:
 	check(Cues.resolve("hit.crit.fire") == "hit.crit" and Cues.resolve("hit.weird") == "hit" and Cues.resolve("nothing.here") == "", "cue names fall back to their parent")
 	var got := {"id": "", "key": ""}
@@ -1053,13 +1092,13 @@ func test_cues() -> void:
 	Cues.push("time_scale", 0.5, 0.3)
 	Cues.push("time_scale", 0.05, 0.06)
 	check(is_equal_approx(Cues.effective("time_scale", 1.0), 0.05), "hit-stop beats slow-mo while both run")
-	await tree.create_timer(0.12, true, false, true).timeout
+	await _wait_real(120)
 	check(is_equal_approx(Cues.effective("time_scale", 1.0), 0.5), "hit-stop ends, slow-mo still holds")
-	await tree.create_timer(0.35, true, false, true).timeout
+	await _wait_real(350)
 	await tree.process_frame
 	check(is_equal_approx(Engine.time_scale, base), "time scale restored when the stack empties")
 	Cues.push("zoom", 1.2, 0.4, "punch")
-	await tree.create_timer(0.08, true, false, true).timeout
+	await _wait_real(80)
 	check(Cues.effective("zoom", 1.0) > 1.05, "zoom punch snaps in")
 	# Gameplay events become cues.
 	var cd: CharacterData = ContentDB.get_all("characters")[0]

@@ -1,0 +1,651 @@
+{
+  "name": "Low architectural stone partition fence carved fro",
+  "tile_type": "isometric",
+  "tile_size": 64,
+  "view_angle": 30,
+  "pieces": [
+    {
+      "index": 0,
+      "name": "floor",
+      "file": "tiles/00_floor.png",
+      "map_file": "map_tiles/00_floor.png"
+    },
+    {
+      "index": 1,
+      "name": "wall_N",
+      "file": "tiles/01_wall_N.png",
+      "map_file": "map_tiles/01_wall_N.png"
+    },
+    {
+      "index": 2,
+      "name": "wall_E",
+      "file": "tiles/02_wall_E.png",
+      "map_file": "map_tiles/02_wall_E.png"
+    },
+    {
+      "index": 3,
+      "name": "wall_S",
+      "file": "tiles/03_wall_S.png",
+      "map_file": "map_tiles/03_wall_S.png"
+    },
+    {
+      "index": 4,
+      "name": "wall_W",
+      "file": "tiles/04_wall_W.png",
+      "map_file": "map_tiles/04_wall_W.png"
+    },
+    {
+      "index": 5,
+      "name": "corner_NE",
+      "file": "tiles/05_corner_NE.png",
+      "map_file": "map_tiles/05_corner_NE.png"
+    },
+    {
+      "index": 6,
+      "name": "corner_SE",
+      "file": "tiles/06_corner_SE.png",
+      "map_file": "map_tiles/06_corner_SE.png"
+    },
+    {
+      "index": 7,
+      "name": "corner_SW",
+      "file": "tiles/07_corner_SW.png",
+      "map_file": "map_tiles/07_corner_SW.png"
+    },
+    {
+      "index": 8,
+      "name": "corner_NW",
+      "file": "tiles/08_corner_NW.png",
+      "map_file": "map_tiles/08_corner_NW.png"
+    },
+    {
+      "index": 9,
+      "name": "outer_corner_NE",
+      "file": "tiles/09_outer_corner_NE.png",
+      "map_file": "map_tiles/09_outer_corner_NE.png"
+    },
+    {
+      "index": 10,
+      "name": "outer_corner_SE",
+      "file": "tiles/10_outer_corner_SE.png",
+      "map_file": "map_tiles/10_outer_corner_SE.png"
+    },
+    {
+      "index": 11,
+      "name": "outer_corner_SW",
+      "file": "tiles/11_outer_corner_SW.png",
+      "map_file": "map_tiles/11_outer_corner_SW.png"
+    },
+    {
+      "index": 12,
+      "name": "outer_corner_NW",
+      "file": "tiles/12_outer_corner_NW.png",
+      "map_file": "map_tiles/12_outer_corner_NW.png"
+    },
+    {
+      "index": 13,
+      "name": "inner_wall_hub",
+      "file": "tiles/13_inner_wall_hub.png",
+      "map_file": "map_tiles/13_inner_wall_hub.png"
+    },
+    {
+      "index": 14,
+      "name": "inner_wall_N",
+      "file": "tiles/14_inner_wall_N.png",
+      "map_file": "map_tiles/14_inner_wall_N.png"
+    },
+    {
+      "index": 15,
+      "name": "inner_wall_E",
+      "file": "tiles/15_inner_wall_E.png",
+      "map_file": "map_tiles/15_inner_wall_E.png"
+    },
+    {
+      "index": 16,
+      "name": "inner_wall_S",
+      "file": "tiles/16_inner_wall_S.png",
+      "map_file": "map_tiles/16_inner_wall_S.png"
+    },
+    {
+      "index": 17,
+      "name": "inner_wall_W",
+      "file": "tiles/17_inner_wall_W.png",
+      "map_file": "map_tiles/17_inner_wall_W.png"
+    },
+    {
+      "index": 18,
+      "name": "inner_wall_to_wall_N",
+      "file": "tiles/18_inner_wall_to_wall_N.png",
+      "map_file": "map_tiles/18_inner_wall_to_wall_N.png"
+    },
+    {
+      "index": 19,
+      "name": "inner_wall_to_wall_E",
+      "file": "tiles/19_inner_wall_to_wall_E.png",
+      "map_file": "map_tiles/19_inner_wall_to_wall_E.png"
+    },
+    {
+      "index": 20,
+      "name": "inner_wall_to_wall_S",
+      "file": "tiles/20_inner_wall_to_wall_S.png",
+      "map_file": "map_tiles/20_inner_wall_to_wall_S.png"
+    },
+    {
+      "index": 21,
+      "name": "inner_wall_to_wall_W",
+      "file": "tiles/21_inner_wall_to_wall_W.png",
+      "map_file": "map_tiles/21_inner_wall_to_wall_W.png"
+    },
+    {
+      "index": 22,
+      "name": "inner_junction_NE",
+      "file": "tiles/22_inner_junction_NE.png",
+      "map_file": "map_tiles/22_inner_junction_NE.png"
+    },
+    {
+      "index": 23,
+      "name": "inner_junction_NW",
+      "file": "tiles/23_inner_junction_NW.png",
+      "map_file": "map_tiles/23_inner_junction_NW.png"
+    },
+    {
+      "index": 24,
+      "name": "inner_junction_ES",
+      "file": "tiles/24_inner_junction_ES.png",
+      "map_file": "map_tiles/24_inner_junction_ES.png"
+    },
+    {
+      "index": 25,
+      "name": "inner_junction_SW",
+      "file": "tiles/25_inner_junction_SW.png",
+      "map_file": "map_tiles/25_inner_junction_SW.png"
+    },
+    {
+      "index": 26,
+      "name": "inner_junction_NES",
+      "file": "tiles/26_inner_junction_NES.png",
+      "map_file": "map_tiles/26_inner_junction_NES.png"
+    },
+    {
+      "index": 27,
+      "name": "inner_junction_NSW",
+      "file": "tiles/27_inner_junction_NSW.png",
+      "map_file": "map_tiles/27_inner_junction_NSW.png"
+    },
+    {
+      "index": 28,
+      "name": "inner_junction_NEW",
+      "file": "tiles/28_inner_junction_NEW.png",
+      "map_file": "map_tiles/28_inner_junction_NEW.png"
+    },
+    {
+      "index": 29,
+      "name": "inner_junction_ESW",
+      "file": "tiles/29_inner_junction_ESW.png",
+      "map_file": "map_tiles/29_inner_junction_ESW.png"
+    },
+    {
+      "index": 30,
+      "name": "inner_junction_NESW",
+      "file": "tiles/30_inner_junction_NESW.png",
+      "map_file": "map_tiles/30_inner_junction_NESW.png"
+    },
+    {
+      "index": 31,
+      "name": "pillar",
+      "file": "tiles/31_pillar.png",
+      "map_file": "map_tiles/31_pillar.png"
+    },
+    {
+      "index": 32,
+      "name": "door_Na",
+      "file": "tiles/32_door_Na.png",
+      "map_file": "map_tiles/32_door_Na.png"
+    },
+    {
+      "index": 33,
+      "name": "door_Nb",
+      "file": "tiles/33_door_Nb.png",
+      "map_file": "map_tiles/33_door_Nb.png"
+    },
+    {
+      "index": 34,
+      "name": "door_Ea",
+      "file": "tiles/34_door_Ea.png",
+      "map_file": "map_tiles/34_door_Ea.png"
+    },
+    {
+      "index": 35,
+      "name": "door_Eb",
+      "file": "tiles/35_door_Eb.png",
+      "map_file": "map_tiles/35_door_Eb.png"
+    },
+    {
+      "index": 36,
+      "name": "door_Sa",
+      "file": "tiles/36_door_Sa.png",
+      "map_file": "map_tiles/36_door_Sa.png"
+    },
+    {
+      "index": 37,
+      "name": "door_Sb",
+      "file": "tiles/37_door_Sb.png",
+      "map_file": "map_tiles/37_door_Sb.png"
+    },
+    {
+      "index": 38,
+      "name": "door_Wa",
+      "file": "tiles/38_door_Wa.png",
+      "map_file": "map_tiles/38_door_Wa.png"
+    },
+    {
+      "index": 39,
+      "name": "door_Wb",
+      "file": "tiles/39_door_Wb.png",
+      "map_file": "map_tiles/39_door_Wb.png"
+    },
+    {
+      "index": 40,
+      "name": "stairs_low",
+      "file": "tiles/40_stairs_low.png",
+      "map_file": "map_tiles/40_stairs_low.png"
+    },
+    {
+      "index": 41,
+      "name": "stairs_high",
+      "file": "tiles/41_stairs_high.png",
+      "map_file": "map_tiles/41_stairs_high.png"
+    },
+    {
+      "index": 42,
+      "name": "stairs_side_low",
+      "file": "tiles/42_stairs_side_low.png",
+      "map_file": "map_tiles/42_stairs_side_low.png"
+    },
+    {
+      "index": 43,
+      "name": "stairs_side_high",
+      "file": "tiles/43_stairs_side_high.png",
+      "map_file": "map_tiles/43_stairs_side_high.png"
+    },
+    {
+      "index": 44,
+      "name": "upper_floor",
+      "file": "tiles/44_upper_floor.png",
+      "map_file": "map_tiles/44_upper_floor.png"
+    },
+    {
+      "index": 45,
+      "name": "inner_door_Va",
+      "file": "tiles/45_inner_door_Va.png",
+      "map_file": "map_tiles/45_inner_door_Va.png"
+    },
+    {
+      "index": 46,
+      "name": "inner_door_Vb",
+      "file": "tiles/46_inner_door_Vb.png",
+      "map_file": "map_tiles/46_inner_door_Vb.png"
+    },
+    {
+      "index": 47,
+      "name": "inner_door_Ha",
+      "file": "tiles/47_inner_door_Ha.png",
+      "map_file": "map_tiles/47_inner_door_Ha.png"
+    },
+    {
+      "index": 48,
+      "name": "inner_door_Hb",
+      "file": "tiles/48_inner_door_Hb.png",
+      "map_file": "map_tiles/48_inner_door_Hb.png"
+    },
+    {
+      "index": 49,
+      "name": "wall_junction_NES",
+      "file": "tiles/49_wall_junction_NES.png",
+      "map_file": "map_tiles/49_wall_junction_NES.png"
+    },
+    {
+      "index": 50,
+      "name": "wall_junction_NEW",
+      "file": "tiles/50_wall_junction_NEW.png",
+      "map_file": "map_tiles/50_wall_junction_NEW.png"
+    },
+    {
+      "index": 51,
+      "name": "wall_junction_NSW",
+      "file": "tiles/51_wall_junction_NSW.png",
+      "map_file": "map_tiles/51_wall_junction_NSW.png"
+    },
+    {
+      "index": 52,
+      "name": "wall_junction_ESW",
+      "file": "tiles/52_wall_junction_ESW.png",
+      "map_file": "map_tiles/52_wall_junction_ESW.png"
+    },
+    {
+      "index": 53,
+      "name": "wall_junction_NESW",
+      "file": "tiles/53_wall_junction_NESW.png",
+      "map_file": "map_tiles/53_wall_junction_NESW.png"
+    },
+    {
+      "index": 54,
+      "name": "wall_junction_NS",
+      "file": "tiles/54_wall_junction_NS.png",
+      "map_file": "map_tiles/54_wall_junction_NS.png"
+    },
+    {
+      "index": 55,
+      "name": "wall_junction_EW",
+      "file": "tiles/55_wall_junction_EW.png",
+      "map_file": "map_tiles/55_wall_junction_EW.png"
+    },
+    {
+      "index": 56,
+      "name": "slope_low",
+      "file": "tiles/56_slope_low.png",
+      "map_file": "map_tiles/56_slope_low.png"
+    },
+    {
+      "index": 57,
+      "name": "slope_high",
+      "file": "tiles/57_slope_high.png",
+      "map_file": "map_tiles/57_slope_high.png"
+    },
+    {
+      "index": 58,
+      "name": "slope_side_low",
+      "file": "tiles/58_slope_side_low.png",
+      "map_file": "map_tiles/58_slope_side_low.png"
+    },
+    {
+      "index": 59,
+      "name": "slope_side_high",
+      "file": "tiles/59_slope_side_high.png",
+      "map_file": "map_tiles/59_slope_side_high.png"
+    },
+    {
+      "index": 60,
+      "name": "roof_eave_N",
+      "file": "tiles/60_roof_eave_N.png",
+      "map_file": "map_tiles/60_roof_eave_N.png"
+    },
+    {
+      "index": 61,
+      "name": "roof_eave_E",
+      "file": "tiles/61_roof_eave_E.png",
+      "map_file": "map_tiles/61_roof_eave_E.png"
+    },
+    {
+      "index": 62,
+      "name": "roof_eave_S",
+      "file": "tiles/62_roof_eave_S.png",
+      "map_file": "map_tiles/62_roof_eave_S.png"
+    },
+    {
+      "index": 63,
+      "name": "roof_eave_W",
+      "file": "tiles/63_roof_eave_W.png",
+      "map_file": "map_tiles/63_roof_eave_W.png"
+    },
+    {
+      "index": 64,
+      "name": "roof_hip_NE",
+      "file": "tiles/64_roof_hip_NE.png",
+      "map_file": "map_tiles/64_roof_hip_NE.png"
+    },
+    {
+      "index": 65,
+      "name": "roof_hip_SE",
+      "file": "tiles/65_roof_hip_SE.png",
+      "map_file": "map_tiles/65_roof_hip_SE.png"
+    },
+    {
+      "index": 66,
+      "name": "roof_hip_SW",
+      "file": "tiles/66_roof_hip_SW.png",
+      "map_file": "map_tiles/66_roof_hip_SW.png"
+    },
+    {
+      "index": 67,
+      "name": "roof_hip_NW",
+      "file": "tiles/67_roof_hip_NW.png",
+      "map_file": "map_tiles/67_roof_hip_NW.png"
+    },
+    {
+      "index": 68,
+      "name": "roof_valley_NE",
+      "file": "tiles/68_roof_valley_NE.png",
+      "map_file": "map_tiles/68_roof_valley_NE.png"
+    },
+    {
+      "index": 69,
+      "name": "roof_valley_SE",
+      "file": "tiles/69_roof_valley_SE.png",
+      "map_file": "map_tiles/69_roof_valley_SE.png"
+    },
+    {
+      "index": 70,
+      "name": "roof_valley_SW",
+      "file": "tiles/70_roof_valley_SW.png",
+      "map_file": "map_tiles/70_roof_valley_SW.png"
+    },
+    {
+      "index": 71,
+      "name": "roof_valley_NW",
+      "file": "tiles/71_roof_valley_NW.png",
+      "map_file": "map_tiles/71_roof_valley_NW.png"
+    },
+    {
+      "index": 72,
+      "name": "roof_ridge_EW",
+      "file": "tiles/72_roof_ridge_EW.png",
+      "map_file": "map_tiles/72_roof_ridge_EW.png"
+    },
+    {
+      "index": 73,
+      "name": "roof_ridge_NS",
+      "file": "tiles/73_roof_ridge_NS.png",
+      "map_file": "map_tiles/73_roof_ridge_NS.png"
+    },
+    {
+      "index": 74,
+      "name": "roof_end_E",
+      "file": "tiles/74_roof_end_E.png",
+      "map_file": "map_tiles/74_roof_end_E.png"
+    },
+    {
+      "index": 75,
+      "name": "roof_end_W",
+      "file": "tiles/75_roof_end_W.png",
+      "map_file": "map_tiles/75_roof_end_W.png"
+    },
+    {
+      "index": 76,
+      "name": "roof_end_N",
+      "file": "tiles/76_roof_end_N.png",
+      "map_file": "map_tiles/76_roof_end_N.png"
+    },
+    {
+      "index": 77,
+      "name": "roof_end_S",
+      "file": "tiles/77_roof_end_S.png",
+      "map_file": "map_tiles/77_roof_end_S.png"
+    },
+    {
+      "index": 78,
+      "name": "roof_pyramid",
+      "file": "tiles/78_roof_pyramid.png",
+      "map_file": "map_tiles/78_roof_pyramid.png"
+    },
+    {
+      "index": 79,
+      "name": "roof_flat",
+      "file": "tiles/79_roof_flat.png",
+      "map_file": "map_tiles/79_roof_flat.png"
+    }
+  ],
+  "tile_rules": {
+    "arity": 8,
+    "parts": {
+      "roof": {
+        "ends": {
+          "E": 74,
+          "N": 76,
+          "S": 77,
+          "W": 75
+        },
+        "hips": {
+          "NE": 64,
+          "NW": 67,
+          "SE": 65,
+          "SW": 66
+        },
+        "eaves": {
+          "E": 61,
+          "N": 60,
+          "S": 62,
+          "W": 63
+        },
+        "ridges": {
+          "EW": 72,
+          "NS": 73
+        },
+        "peak_px": 32,
+        "profile": "gable",
+        "pyramid": 78,
+        "valleys": {
+          "NE": 68,
+          "NW": 71,
+          "SE": 69,
+          "SW": 70
+        },
+        "interior": 79,
+        "pitch_reach_px": 32
+      },
+      "doors": {
+        "Ea": 34,
+        "Eb": 35,
+        "Na": 32,
+        "Nb": 33,
+        "Sa": 36,
+        "Sb": 37,
+        "Wa": 38,
+        "Wb": 39
+      },
+      "floor": 0,
+      "sides": {
+        "E": 2,
+        "N": 1,
+        "S": 3,
+        "W": 4
+      },
+      "pillar": 31,
+      "slopes": [
+        56,
+        57
+      ],
+      "stairs": [
+        40,
+        41
+      ],
+      "corners": {
+        "NE": 5,
+        "NW": 8,
+        "SE": 6,
+        "SW": 7
+      },
+      "painted": [
+        0,
+        1,
+        4,
+        14,
+        17,
+        31,
+        32,
+        33,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "materials": {
+        "wall": "Low architectural stone partition fence carved from solid matte-black basalt, etched with crisp glowing emerald-green data-glyph runes and sharp technical circuit paths.",
+        "floor": "Monolithic slabs of polished obsidian stone with razor-sharp geometric fracture lines emitting a steady, pulsing purple under-glow",
+        "floor2": "Clean carbon-fiber cap trim running smoothly along the top edge of the rounded stone divider."
+      },
+      "partition": {
+        "E": 15,
+        "N": 14,
+        "S": 16,
+        "W": 17,
+        "hub": 13
+      },
+      "floor_roof": 44,
+      "outer_multi": {
+        "EW": 55,
+        "NS": 54,
+        "ESW": 52,
+        "NES": 49,
+        "NEW": 50,
+        "NSW": 51,
+        "NESW": 53
+      },
+      "slopes_east": [
+        58,
+        59
+      ],
+      "stairs_east": [
+        42,
+        43
+      ],
+      "outer_corners": {
+        "NE": 9,
+        "NW": 12,
+        "SE": 10,
+        "SW": 11
+      },
+      "partition_wall": {
+        "E": 19,
+        "N": 18,
+        "S": 20,
+        "W": 21
+      },
+      "partition_doors": {
+        "Ha": 47,
+        "Hb": 48,
+        "Va": 45,
+        "Vb": 46
+      },
+      "partition_multi": {
+        "ES": 24,
+        "NE": 22,
+        "NW": 23,
+        "SW": 25,
+        "ESW": 29,
+        "NES": 26,
+        "NEW": 28,
+        "NSW": 27,
+        "NESW": 30
+      }
+    },
+    "tiles": {},
+    "terrains": [
+      "wall",
+      "empty"
+    ],
+    "rule_type": "composed",
+    "view_angle": 30,
+    "wall_tiles": 1,
+    "mask_source": "floor_absent",
+    "connectivity": "same",
+    "stack_stride_px": 32
+  }
+}
