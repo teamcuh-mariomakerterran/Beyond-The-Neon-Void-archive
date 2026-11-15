@@ -2809,6 +2809,10 @@ func test_ground_blast() -> void:
 				zs.append((p as VFXClip).z_index if not (p as VFXClip).z_as_relative else -1)
 		check(zs.has(42), "the behind layer sits on the cell's floor (floor_z) under its unit")
 	holder.queue_free()
+	var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/vfx.json"))
+	check(str(raw["abilities"]["scrap_grenade"]["impact"]) == "ground_blast", "the scrap grenade lands with the ground blast")
+	var cues: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/cues.json"))
+	check(str(cues["trap.spring"][0].get("id", "")) == "ground_blast", "a sprung mine plays the ground blast")
 
 
 ## Colour variants are data (data/recolors.json), recoloured as they load,

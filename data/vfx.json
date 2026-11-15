@@ -364,6 +364,7 @@
 		"deploy_turret": {"impact": "droid_build"},
 		"warp_coordinates": {"impact": "teleport_glitch"},
 		"shock_mine": {"impact": "electric_arc", "mode": "arc"},
+		"scrap_grenade": {"impact": "ground_blast"},
 		"void_rift": {"impact": "void_implosion"},
 		"event_horizon": {"impact": "void_implosion"},
 		"neon_fire_trace": {"travel": "plasma_bolt", "impact": "plasma_burst"},
