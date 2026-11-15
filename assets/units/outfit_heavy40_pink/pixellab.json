@@ -1,0 +1,327 @@
+{
+	"_about": "Outfit unit on the base_male_hi body; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
+	"fps": 10,
+	"frames_from": {
+		"walk": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/walk/SE",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/walk/SW",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/walk/NE",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/walk/NW",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			}
+		},
+		"hit": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/hit/SE",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/hit/SW",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/hit/NE",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/hit/NW",
+				"frames": [
+					0,
+					5
+				]
+			}
+		},
+		"death": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/death/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/death/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/death/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/death/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"jump": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/jump/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/jump/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/jump/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/jump/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"cast": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/cast/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/cast/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/cast/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/cast/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"throw": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/throw/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/throw/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/throw/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/throw/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"aim": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"attack": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/attack/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/attack/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/attack/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/attack/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"rest_rifle": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/rest_rifle/SE",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/rest_rifle/SW",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/rest_rifle/NE",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/rest_rifle/NW",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			}
+		},
+		"aim_rifle": {
+			"SE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim_rifle/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim_rifle/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim_rifle/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_heavy40_pink/frames/aim_rifle/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		}
+	},
+	"_recolor": {
+		"from": "outfit_heavy40",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		],
+		"swap": {}
+	}
+}

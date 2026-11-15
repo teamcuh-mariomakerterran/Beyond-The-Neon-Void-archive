@@ -1380,6 +1380,7 @@ func test_gear_items() -> void:
 ## rig points for the gun clips so pistols and rifles sit in the hands.
 func test_outfit_units() -> void:
 	var dirs := Array(DirAccess.get_directories_at("res://assets/units")).filter(func(d: String) -> bool: return d.begins_with("outfit_"))
+	dirs = dirs.filter(func(d: String) -> bool: return not d.ends_with(("_red", "_gold", "_green", "_cyan", "_violet", "_pink")[0]) and not (d.get_slice("_", d.get_slice_count("_") - 1) in ["red", "gold", "green", "cyan", "violet", "pink"]))
 	check(dirs.size() == 14, "14 outfit units packaged (got %d)" % dirs.size())
 	for d: String in dirs:
 		var root := "res://assets/units/" + d

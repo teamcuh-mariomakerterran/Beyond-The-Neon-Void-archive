@@ -1,0 +1,43 @@
+{
+	"actions": {
+		"attack_NE": "Idle/cross_punch_attack",
+		"attack_NW": "Idle/cross_punch_attack",
+		"hit_NE": "Idle/taking_a_punch",
+		"hit_NW": "Idle/taking_a_punch",
+		"death_NE": "Idle/falling_backward",
+		"death_NW": "Idle/falling_backward",
+		"jump_NE": "Idle/two_footed_jump",
+		"jump_NW": "Idle/two_footed_jump"
+	},
+	"_about": "Back facings pinned to the skeleton-v3 takes (tools/pixellab/pool_anims.py); older takes stay in the export as a kit.",
+	"keep_frames": {
+		"death_NE": 5,
+		"death_NW": 5
+	},
+	"_about_keep_frames": "Back-facing deaths end on their last clean frame (cast audit 2026-11-07). Attacks play in full (Brian, 2026-11-07).",
+	"outline": {
+		"color": "#020204",
+		"anims": [
+			"attack",
+			"hit",
+			"death",
+			"jump",
+			"walk"
+		],
+		"sole": true
+	},
+	"_about_outline": "Edge pixels repainted in the standing pose's outline colour (Brian, 2026-11-07).",
+	"_recolor": {
+		"from": "pool_009",
+		"rules": [
+			{
+				"hue": [
+					280,
+					350
+				],
+				"to": 185
+			}
+		],
+		"swap": {}
+	}
+}

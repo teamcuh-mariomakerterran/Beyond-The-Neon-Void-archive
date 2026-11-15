@@ -1,0 +1,327 @@
+{
+	"_about": "Outfit unit on the base_male_hi body; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
+	"fps": 10,
+	"frames_from": {
+		"walk": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/walk/SE",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/walk/SW",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/walk/NE",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/walk/NW",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			}
+		},
+		"hit": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/hit/SE",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/hit/SW",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/hit/NE",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/hit/NW",
+				"frames": [
+					0,
+					5
+				]
+			}
+		},
+		"death": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/death/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/death/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/death/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/death/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"jump": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/jump/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/jump/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/jump/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/jump/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"cast": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/cast/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/cast/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/cast/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/cast/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"throw": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/throw/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/throw/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/throw/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/throw/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"aim": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"attack": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/attack/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/attack/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/attack/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/attack/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"rest_rifle": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/rest_rifle/SE",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/rest_rifle/SW",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/rest_rifle/NE",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/rest_rifle/NW",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			}
+		},
+		"aim_rifle": {
+			"SE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim_rifle/SE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim_rifle/SW",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim_rifle/NE",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/outfit_undercut_gold/frames/aim_rifle/NW",
+				"frames": [
+					0,
+					7
+				]
+			}
+		}
+	},
+	"_recolor": {
+		"from": "outfit_undercut",
+		"rules": [
+			{
+				"hue": [
+					250,
+					320
+				],
+				"to": 45
+			}
+		],
+		"swap": {}
+	}
+}

@@ -12,7 +12,7 @@
 ## Recolours (new characters from animated ones)
 - `tools/pixellab/recolor.py` moves an accent colour band to a new hue. Skin, hair, greys and outlines stay, and the source unit is never touched.
 - **Proposals for every outfit and cast member** (accent to red, gold, green, cyan, violet or pink): `docs/screenshots/recolor_proposals.png`.
-- **Pick the ones you want** (e.g. "neon_coat red, samurai green, pool_024 violet"). I add them to `tools/pixellab/recolors.json` and bake each into its own unit folder, with every animation recoloured. That takes about 1 s each, and a variant is 0.7-1.5 MB.
+- **All baked (Brian, Nov 15):** 126 variants, `assets/units/<unit>_<colour>/`, listed in `tools/pixellab/recolors.json`.
 - **No accent colour to move:** hood_0101, pool_004, pool_005 and pool_021 (camo, khaki). They need an exact colour swap rule instead.
 
 # Nov 14: pistols are items; helmets are head modules (no credits spent)

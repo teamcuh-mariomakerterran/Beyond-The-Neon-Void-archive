@@ -1,0 +1,43 @@
+{
+	"actions": {},
+	"_about": "Back facings pinned to the skeleton-v3 takes (tools/pixellab/pool_anims.py); older takes stay in the export as a kit.",
+	"keep_frames": {
+		"death_NE": 5,
+		"death_NW": 5
+	},
+	"_about_keep_frames": "Back-facing deaths end on their last clean frame (cast audit 2026-11-07). Attacks play in full (Brian, 2026-11-07).",
+	"clean_frames": {
+		"death_NE": [
+			2
+		],
+		"death_NW": [
+			2
+		]
+	},
+	"_about_clean_frames": "Frame 3 of these back deaths had a stray whoosh mark beside the body (Brian, 2026-11-07).",
+	"outline": {
+		"color": "#020302",
+		"anims": [
+			"attack",
+			"hit",
+			"death",
+			"jump",
+			"walk"
+		],
+		"sole": true
+	},
+	"_about_outline": "Edge pixels repainted in the standing pose's outline colour (Brian, 2026-11-07).",
+	"_recolor": {
+		"from": "pool_003",
+		"rules": [
+			{
+				"hue": [
+					340,
+					50
+				],
+				"to": 320
+			}
+		],
+		"swap": {}
+	}
+}
