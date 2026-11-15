@@ -64,6 +64,11 @@ func run(p_tree: SceneTree) -> int:
 	await test_painter()
 	await test_explore()
 	test_art_drop()
+	test_kit_map()
+	test_auto_wall()
+	test_auto_tile()
+	await test_seeing_inside()
+	test_kit_street_demo()
 	print("=== world: %d passed, %d failed ===" % [_passes, _fails])
 	return _fails
 
@@ -2940,3 +2945,195 @@ func test_pause_menu() -> void:
 	check(not PixelMenuLayer.is_open(host) and tree.paused == was, "closing resumes the game")
 	host.queue_free()
 	await tree.process_frame
+
+
+const _KIT := "cyberpunk_building_with_cement_sidewalk_h3"
+
+
+func _kit_world(w: int = 12, d: int = 12) -> WorldMap:
+	var m := WorldMap.new()
+	m.width = w
+	m.depth = d
+	for x in w:
+		for y in d:
+			m.set_tile(Vector2i(x, y), 0, "terrain:concrete")
+	return m
+
+
+## Kit map: every cut kit is mapped, slots resolve per wall height, an empty
+## slot borrows its mirror and then the family's nearest height.
+func test_kit_map() -> void:
+	check(ContentDB.kits.size() >= 38, "every kit sheet in tools/handoff/kits is mapped (%d)" % ContentDB.kits.size())
+	var bad: Array = []
+	for id: String in ContentDB.kits:
+		var k: Dictionary = ContentDB.kits[id]
+		if int(k.get("height", 0)) != int(id.right(1)) or not id.left(-1).ends_with("_h"):
+			bad.append(id + ": height")
+		for s in ["floor", "roof", "wall_ne", "wall_se", "wall_sw", "wall_nw", "corner_out_n", "corner_in_s", "cross", "post", "door_ne", "stairs_a", "ramp_a"]:
+			var t := KitMap.tile(id, s)
+			if t == "" or not FileAccess.file_exists("res://assets/tiles/%s.png" % t):
+				bad.append("%s: %s" % [id, s])
+	check(bad.is_empty(), "kits carry their height and a cut piece for every core slot (%s)" % [bad.slice(0, 3)])
+	var r := KitMap.resolve(_KIT, "wall_se")
+	check(str(r.get("tile", "")).begins_with("kits/" + _KIT) and not bool(r["flip"]) and int(r["height"]) == 3 and str(r["borrowed"]) == "", "a filled slot resolves to its own piece at the kit's height")
+	var keep: Dictionary = (ContentDB.kits[_KIT]["slots"] as Dictionary).duplicate()
+	(ContentDB.kits[_KIT]["slots"] as Dictionary).erase("wall_se")
+	r = KitMap.resolve(_KIT, "wall_se")
+	check(bool(r.get("flip", false)) and str(r["tile"]).ends_with("wall_sw") and str(r["borrowed"]) == "mirror", "a missing slot borrows its mirror first")
+	ContentDB.kits["_test_h1"] = {"family": str(ContentDB.kits[_KIT]["family"]), "height": 1, "slots": {"wall_se": "x_wall", "wall_sw": "y_wall"}}
+	r = KitMap.resolve(_KIT, "wall_se", 1)
+	check(str(r["tile"]) == "kits/_test_h1/x_wall" and int(r["height"]) == 1, "another height in the family is used when asked for")
+	r = KitMap.resolve(_KIT, "floor", 1)
+	check(int(r["height"]) == 3 and str(r["borrowed"]) == "height", "a slot missing at that height borrows the nearest height")
+	ContentDB.kits.erase("_test_h1")
+	ContentDB.kits[_KIT]["slots"] = keep
+	check(KitMap.missing(_KIT).is_empty(), "the pre-filled map leaves no listed slot empty")
+	var an := KitMap.anchor(KitMap.tile(_KIT, "wall_se"))
+	check(is_equal_approx(float(an.get("ax", 0)), 50.5) and is_equal_approx(float(an["ay"]), 120.5) and KitMap.anchor("god_tiles/x").is_empty(), "kit pieces are placed by the kit's anchor; plain tiles have none")
+
+
+## Auto-wall brush: walls build round the painted outline with the right
+## pieces, block movement and sight, doors open them, storeys stack.
+func test_auto_wall() -> void:
+	var m := _kit_world()
+	for x in range(4, 7):
+		for y in range(4, 7):
+			AutoWall.paint(m, Vector2i(x, y), _KIT, 3, 0)
+	check(m.buildings.size() == 1 and (m.buildings[0]["cells"] as Array).size() == 9, "painted cells join one building")
+	var b: Dictionary = m.buildings[0]
+	var slots := AutoWall.ring(AutoWall.cells_of(b))
+	check(slots.size() == 16, "a 3x3 room has a 16-cell wall ring")
+	var want := {Vector2i(5, 3): "wall_sw", Vector2i(7, 5): "wall_nw", Vector2i(5, 7): "wall_ne", Vector2i(3, 5): "wall_se",
+		Vector2i(3, 3): "corner_out_s", Vector2i(7, 7): "corner_out_n", Vector2i(7, 3): "corner_out_w", Vector2i(3, 7): "corner_out_e"}
+	var wrong: Array = []
+	for c: Vector2i in want:
+		if slots.get(c, "") != want[c] or not m.top_tile(c).ends_with(want[c]):
+			wrong.append([c, slots.get(c, ""), m.top_tile(c)])
+	check(wrong.is_empty(), "edges and outer corners get the piece that hugs the floor (%s)" % [wrong.slice(0, 2)])
+	check(m.top_z(Vector2i(5, 3)) == 6 and int(m.tile_opts(Vector2i(5, 3), 6)["rise"]) == 6, "a 3-tile wall is 6 height layers (32 art px = 2 layers at 2x)")
+	check(m.top_z(Vector2i(5, 5)) == 0 and m.roofs.has(Vector2i(5, 5)) and int(m.roofs[Vector2i(5, 5)][0][0]) == 7, "the roof sits in the overlay, so the floor's height is unchanged")
+	var g := m.to_grid()
+	check(not g.get_cell(Vector2i(5, 3)).walkable and g.get_cell(Vector2i(5, 3)).blocks_los and g.get_cell(Vector2i(5, 5)).walkable, "walls block movement and sight; the floor is walkable")
+	check(not g.has_line_of_sight(Vector2i(5, 1), Vector2i(5, 5)) and g.has_line_of_sight(Vector2i(4, 5), Vector2i(6, 5)), "no line of sight through a wall, clear inside the room")
+	# Doors: two cells wide where the wall run allows; a second click closes it.
+	AutoWall.toggle_door(m, Vector2i(5, 7))
+	g = m.to_grid()
+	var door := AutoWall.door_cells(m, b, Vector2i(5, 7))
+	check(door.size() == 2 and g.get_cell(door[0]).walkable and g.get_cell(door[1]).walkable and not g.get_cell(door[0]).blocks_los, "clicking a wall opens a two-cell door you can walk and see through")
+	var frame: Array = m.roofs.get(door[0], []).filter(func(e: Array) -> bool: return str(e[2].get("part", "")) == "door")
+	check(frame.size() == 1 and str(frame[0][1]).ends_with("door_ne") and m.top_z(door[0]) == 0, "the door frame is drawn over the opening, not stacked on it")
+	AutoWall.toggle_door(m, door[1])
+	check((b["doors"] as Array).is_empty() and not m.to_grid().get_cell(door[0]).walkable, "clicking the door again closes it")
+	check(AutoWall.toggle_door(m, Vector2i(3, 3)).is_empty(), "corners can't hold a door")
+	# Inner corner on an L-shaped footprint.
+	AutoWall.paint(m, Vector2i(7, 4), _KIT, 3, 0)
+	check(AutoWall.ring(AutoWall.cells_of(b)).get(Vector2i(7, 5), "") == "corner_in_n", "an L-shaped room gets an inner corner")
+	AutoWall.erase(m, Vector2i(7, 4))
+	# Storeys.
+	AutoWall.add_storey(m, str(b["id"]))
+	var over: Array = m.roofs[Vector2i(5, 3)]
+	var parts: Array = over.map(func(e: Array) -> String: return str(e[2].get("part", "")))
+	check(int(b["storeys"]) == 2 and parts.count("upper") == 2 and parts.count("roof") == 1 and int(over[over.size() - 1][0]) == 14, "add storey stacks the next floor, its walls and a roof (%s)" % [parts])
+	check(m.top_z(Vector2i(5, 5)) == 0, "upper storeys never change the ground floor's height")
+	# Round trip and erase.
+	var m2 := WorldMap.from_dict(JSON.parse_string(JSON.stringify(m.to_dict())))
+	check(m2.buildings.size() == 1 and m2.roofs.size() == m.roofs.size() and AutoWall.inside_id(m2, Vector2i(5, 5)) == str(b["id"]), "buildings and roofs survive save / load")
+	for c: Array in (b["cells"] as Array).duplicate():
+		AutoWall.erase(m, Vector2i(int(c[0]), int(c[1])))
+	var left := 0
+	for c: Vector2i in m.tiles:
+		for e: Array in m.tiles[c]:
+			if e.size() > 2 and (e[2] as Dictionary).has("b"):
+				left += 1
+	check(m.buildings.is_empty() and m.roofs.is_empty() and left == 0 and m.to_grid().get_cell(Vector2i(5, 3)).walkable, "erasing the floor takes the walls, roof and rules with it")
+
+
+## Auto-tile brush: pieces come from the neighbours' corners.
+func test_auto_tile() -> void:
+	check(ContentDB.autotiles.size() >= 10, "every auto-tile sheet is mapped (%d)" % ContentDB.autotiles.size())
+	var set_id := "cyberpunk_cement_sidewalk_to_asphalt_street"
+	var bad: Array = []
+	for id: String in ContentDB.autotiles:
+		for i in 16:
+			if not FileAccess.file_exists("res://assets/tiles/%s.png" % AutoTile.tile(id, i)):
+				bad.append("%s %d" % [id, i])
+	check(bad.is_empty(), "each set has its 16 cut pieces (%s)" % [bad.slice(0, 3)])
+	var m := _kit_world(8, 8)
+	var changed := AutoTile.paint(m, Vector2i(3, 3), set_id, 0)
+	check(changed.size() == 9 and AutoTile.mask(m, Vector2i(3, 3), set_id) == 15, "a painted cell is all raised and re-picks the 8 cells round it")
+	var got := {}
+	for c: Vector2i in [Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(2, 3), Vector2i(4, 3), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]:
+		got[c] = AutoTile.mask(m, c, set_id)
+	check(got[Vector2i(2, 2)] == AutoTile.S and got[Vector2i(4, 4)] == AutoTile.N and got[Vector2i(4, 2)] == AutoTile.W and got[Vector2i(2, 4)] == AutoTile.E, "diagonal neighbours get the one corner that touches")
+	check(got[Vector2i(3, 2)] == (AutoTile.S | AutoTile.W) and got[Vector2i(4, 3)] == (AutoTile.N | AutoTile.W) and got[Vector2i(3, 4)] == (AutoTile.N | AutoTile.E) and got[Vector2i(2, 3)] == (AutoTile.E | AutoTile.S), "side neighbours get the edge that touches")
+	check(m.top_tile(Vector2i(3, 3)).ends_with("at_nesw") and m.top_tile(Vector2i(3, 2)).ends_with("at_ws") and m.top_tile(Vector2i(5, 5)) == "terrain:concrete", "tiles are the set's pieces; cells out of reach keep their own")
+	AutoTile.paint(m, Vector2i(4, 3), set_id, 0)
+	check(m.top_tile(Vector2i(4, 3)).ends_with("at_nesw") and m.top_tile(Vector2i(4, 2)).ends_with("at_ws") and m.top_tile(Vector2i(3, 2)).ends_with("at_ws"), "painting next to it joins the two into one straight edge")
+	AutoTile.paint(m, Vector2i(3, 3), set_id, 0, true)
+	AutoTile.paint(m, Vector2i(4, 3), set_id, 0, true)
+	check(m.autotile.is_empty() and m.top_tile(Vector2i(3, 3)).ends_with("at_o"), "erasing leaves the plain low material")
+
+
+## Seeing inside: the roof and the camera-side (SW / SE) walls of the building
+## someone stands in fade out, and come back when they leave.
+func test_seeing_inside() -> void:
+	var m := _kit_world()
+	for x in range(4, 7):
+		for y in range(4, 7):
+			AutoWall.paint(m, Vector2i(x, y), _KIT, 3, 0)
+	var id := str(m.buildings[0]["id"])
+	check(AutoWall.inside_id(m, Vector2i(5, 5)) == id and AutoWall.inside_id(m, Vector2i(5, 7)) == "" and AutoWall.inside_id(m, Vector2i(1, 1)) == "", "inside means standing on the building's floor")
+	var front := m.tile_opts(Vector2i(5, 7), 6)
+	var back := m.tile_opts(Vector2i(5, 3), 6)
+	var roof: Dictionary = m.roofs[Vector2i(5, 5)][0][2]
+	check(bool(front.get("front", false)) and bool(m.tile_opts(Vector2i(7, 5), 6).get("front", false)) and not back.has("front"), "the SW and SE walls are marked as the camera side")
+	var r := WorldRenderer.new()
+	r.world = m
+	tree.root.add_child(r)
+	await tree.process_frame
+	check(r.building_alpha(roof, true) == 1.0 and r.building_alpha(front, false) == 1.0, "outside: roof and walls are solid")
+	r.set_inside(id, true)
+	check(r.building_alpha(roof, true) == 0.0 and is_equal_approx(r.building_alpha(front, false), WorldRenderer.FRONT_WALL_ALPHA) and r.building_alpha(back, false) == 1.0, "inside: roof gone, camera-side walls faded, back walls stay")
+	r.set_inside("")
+	for i in 60:
+		r._step_open(0.02)
+	check(r.building_alpha(roof, true) == 1.0 and r.building_alpha(front, false) == 1.0 and r._open.is_empty(), "leaving fades them back in")
+	var yard := _kit_world()
+	AutoWall.paint(yard, Vector2i(5, 5), _KIT, 1, 0, false)
+	check(AutoWall.inside_id(yard, Vector2i(5, 5)) == "" and yard.roofs.is_empty(), "an open yard has no roof to fade")
+	r.queue_free()
+	await tree.process_frame
+
+
+## The kit street demo: a street, two buildings (one with two storeys), auto-tiled
+## ground and props, all from the new set, and it plays as a battle map.
+func test_kit_street_demo() -> void:
+	var d := ContentDB.get_map("kit_street_demo")
+	check(not d.is_empty(), "kit street demo map loads")
+	if d.is_empty():
+		return
+	var m := WorldMap.from_dict(d)
+	var storeys: Array = m.buildings.map(func(b: Dictionary) -> int: return int(b.get("storeys", 1)))
+	check(m.buildings.size() >= 2 and storeys.has(2), "two buildings, one with two storeys (%s)" % [storeys])
+	var missing: Array = []
+	var old := 0
+	for stacks: Dictionary in [m.tiles, m.roofs]:
+		for c: Vector2i in stacks:
+			for e: Array in stacks[c]:
+				var t := str(e[1])
+				if not ContentDB.tiles.has(t):
+					missing.append(t)
+				if not (t.begins_with("kits/") or t.begins_with("autotiles/")):
+					old += 1
+	check(missing.is_empty() and old == 0, "the demo only uses the new kit and auto-tile pieces (missing %s, old %d)" % [missing.slice(0, 3), old])
+	var props := 0
+	for o: Dictionary in m.objects:
+		if str(o.get("asset", "")) != "":
+			props += 1
+			check(ResourceLoader.exists(str(o["asset"])), "demo prop exists: %s" % str(o["asset"]).get_file())
+	check(props >= 8 and m.autotile.size() > 50, "props from the new set and auto-tiled ground")
+	var g := m.to_grid()
+	var inside := Vector2i(int(m.spawns["enemy"][0][0]), int(m.spawns["enemy"][0][1]))
+	var outside := Vector2i(int(m.spawns["player"][0][0]), int(m.spawns["player"][0][1]))
+	check(AutoWall.inside_id(m, inside) != "" and g.get_cell(inside).walkable and not g.has_line_of_sight(outside, inside), "an enemy inside a building is out of sight from the street")
+	check(not g.find_path(outside, inside, 99, 2, 0, true).is_empty(), "and can be reached through the door")

@@ -25,13 +25,16 @@ extends HSplitContainer
 
 signal status(text: String, color: Color)
 
-enum Mode { TILES, DETAILS, PARTICLES, OBJECTS, GAMEPLAY, REGIONS, MASKS }
+enum Mode { TILES, DETAILS, PARTICLES, OBJECTS, GAMEPLAY, REGIONS, MASKS, BUILD }
+## BUILD mode brushes: auto-walls from a kit, doors, auto-tiled ground.
+enum Build { WALLS, DOOR, GROUND }
+const BUILD_NAMES := ["WALLS", "DOOR", "GROUND"]
 enum Tool { BRUSH, RECT, FILL, PICK, SELECT, PAN, ERASE, COPY, STAMP, SCULPT, RAMP }
 enum Play { SPAWN, ENEMY, BLOCK, COVER, SIGHT }
 ## Tactical masks: per-cell battle rules + interaction anchors.
 enum Mask { IMPASSABLE, FULL, HALF, SIGHT, GROUP, CLEAR, ANCHOR }
 
-const MODE_NAMES := ["TILES", "DETAILS", "PARTICLES", "OBJECTS", "GAMEPLAY", "REGIONS", "MASKS"]
+const MODE_NAMES := ["TILES", "DETAILS", "PARTICLES", "OBJECTS", "GAMEPLAY", "REGIONS", "MASKS", "BUILD"]
 const TRIGGER_ON := ["enter", "exit", "interact"]
 const TRIGGER_DO := ["toast", "dialog", "cutscene", "battle", "flag", "music", "teleport"]
 const TRIGGER_HINT := {"toast": "text to show", "dialog": "NPC id", "cutscene": "res://data/cutscenes/….json",
@@ -69,6 +72,15 @@ const GHOST := Color(0.25, 1.9, 0.75)
 
 var world: WorldMap = WorldMap.new()
 var mode: Mode = Mode.TILES
+var build_tool: Build = Build.WALLS
+## Kit, wall height (1-3) and roof for new buildings; auto-tile set for ground.
+var sel_kit: String = ""
+var build_height: int = 0
+var build_roof: bool = true
+var sel_autoset: String = ""
+## Building the brush last touched (ADD STOREY acts on it) and the stroke's floor level.
+var build_target: String = ""
+var _build_z: int = 0
 var tool: Tool = Tool.BRUSH
 var play_tool: Play = Play.SPAWN
 var mask_tool: Mask = Mask.IMPASSABLE
@@ -844,6 +856,7 @@ func _build_palette() -> void:
 		Mode.GAMEPLAY: _palette_gameplay()
 		Mode.REGIONS: _palette_regions()
 		Mode.MASKS: _palette_masks()
+		Mode.BUILD: _palette_build()
 
 
 func _tile_groups() -> Dictionary:
@@ -1447,6 +1460,111 @@ func _palette_gameplay() -> void:
 	var t := NeonTheme.label("Spawns and enemies stand on top of each column. BLOCK / COVER / SIGHT override the tile's terrain rules.", 12, NeonTheme.TEXT_DIM)
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_palette.add_child(t)
+
+
+func _palette_build() -> void:
+	if sel_kit == "" and not ContentDB.kits.is_empty():
+		sel_kit = "cyberpunk_building_with_cement_sidewalk_h3" if ContentDB.kits.has("cyberpunk_building_with_cement_sidewalk_h3") else str(ContentDB.kits.keys()[0])
+	if sel_autoset == "" and not ContentDB.autotiles.is_empty():
+		sel_autoset = str(ContentDB.autotiles.keys()[0])
+	if build_height == 0:
+		build_height = int(KitMap.kit(sel_kit).get("height", 1))
+	var grid := GridContainer.new()
+	grid.columns = 3
+	for i in BUILD_NAMES.size():
+		var b := Button.new()
+		b.text = BUILD_NAMES[i]
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_style_toggle(b, build_tool == i)
+		var bi := i
+		b.pressed.connect(func() -> void:
+			build_tool = bi as Build
+			set_tool(Tool.BRUSH)
+			_build_palette())
+		grid.add_child(b)
+	_palette.add_child(grid)
+	_palette.add_child(_section("BUILDING KIT"))
+	var kit_ids: Array = ContentDB.kits.keys()
+	kit_ids.sort()
+	_palette.add_child(ForgeForm._option(kit_ids, sel_kit, func(k: String) -> void:
+		sel_kit = k
+		build_height = int(KitMap.kit(k).get("height", 1))
+		_build_palette()))
+	var preview := KitMap.resolve(sel_kit, "corner_in_n", build_height)
+	if not preview.is_empty():
+		var tr := TextureRect.new()
+		tr.texture = ForgeStore.load_texture("res://assets/tiles/%s.png" % str(preview["tile"]))
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tr.custom_minimum_size = Vector2(0, 150)
+		tr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		_palette.add_child(tr)
+	var hr := HBoxContainer.new()
+	hr.add_child(NeonTheme.label("Wall height (tiles)", 12, NeonTheme.TEXT_DIM))
+	hr.add_child(ForgeForm._spin(build_height, true, func(n: float) -> void: build_height = clampi(int(n), 1, 3)))
+	_palette.add_child(hr)
+	var roof := CheckBox.new()
+	roof.text = "Roofed (fades when someone is inside)"
+	roof.button_pressed = build_roof
+	roof.toggled.connect(func(on: bool) -> void: build_roof = on)
+	_palette.add_child(roof)
+	var sr := HBoxContainer.new()
+	for pair: Array in [["ADD STOREY", 1], ["REMOVE STOREY", -1]]:
+		var sb := Button.new()
+		sb.text = pair[0]
+		sb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var by: int = pair[1]
+		sb.pressed.connect(func() -> void: add_storey(by))
+		sr.add_child(sb)
+	_palette.add_child(sr)
+	_palette.add_child(_section("GROUND (AUTO-TILE)"))
+	var set_ids: Array = ContentDB.autotiles.keys()
+	set_ids.sort()
+	_palette.add_child(ForgeForm._option(set_ids, sel_autoset, func(k: String) -> void:
+		sel_autoset = k
+		_build_palette()))
+	var adef: Dictionary = ContentDB.autotiles.get(sel_autoset, {})
+	_palette.add_child(NeonTheme.label("Paints: %s   over: %s" % [str(adef.get("high", "")).replace("_", " "), str(adef.get("low", "")).replace("_", " ")], 12, NeonTheme.CYAN))
+	var t := NeonTheme.label("WALLS: paint the floor of a room; walls build round the outline, erase takes cells away. A kit height the sheet lacks borrows the nearest one.\nDOOR: click a wall to open a door there (click again to close it).\nADD STOREY: stacks a roof and the next floor on the building you last touched.\nGROUND: paints the raised material; edges and corners pick themselves.", 12, NeonTheme.TEXT_DIM)
+	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_palette.add_child(t)
+
+
+## BUILD brush on a list of cells. Returns the cells that changed.
+func apply_build(cells: Array[Vector2i], erase: bool) -> Array[Vector2i]:
+	var changed: Array[Vector2i] = []
+	for c: Vector2i in cells:
+		if not world.in_bounds(c):
+			continue
+		match build_tool:
+			Build.WALLS:
+				if erase:
+					changed.append_array(AutoWall.erase(world, c))
+				elif AutoWall.wall_owner(world, c).is_empty() or not AutoWall.building_at(world, c).is_empty():
+					changed.append_array(AutoWall.paint(world, c, sel_kit, build_height, _build_z, build_roof))
+				var b := AutoWall.building_at(world, c)
+				if not b.is_empty():
+					build_target = str(b["id"])
+			Build.DOOR:
+				var owner_b := AutoWall.wall_owner(world, c)
+				if not owner_b.is_empty():
+					build_target = str(owner_b["id"])
+					changed.append_array(AutoWall.toggle_door(world, c))
+			Build.GROUND:
+				changed.append_array(AutoTile.paint(world, c, sel_autoset, world.top_z(c, layer), erase))
+	if not changed.is_empty():
+		_renderer.refresh_columns(changed)
+		_minimap.mark_dirty()
+	return changed
+
+
+## ADD / REMOVE STOREY on the building the brush last touched.
+func add_storey(by: int) -> void:
+	if AutoWall.find(world, build_target).is_empty():
+		status.emit("Paint or click a building first.", NeonTheme.MAGENTA)
+		return
+	_push_undo()
+	_renderer.refresh_columns(AutoWall.add_storey(world, build_target, by))
+	status.emit("%d storeys" % int(AutoWall.find(world, build_target).get("storeys", 1)), NeonTheme.CYAN)
 
 
 func _palette_masks() -> void:
@@ -2392,6 +2510,10 @@ func _press() -> void:
 			place_ramps(target_cells())
 		_:
 			_push_undo()
+			if mode == Mode.BUILD:
+				# The stroke keeps the floor level it started on (walls it raises don't lift it).
+				var hb := AutoWall.building_at(world, _hover_cell)
+				_build_z = int(hb["z"]) if not hb.is_empty() else world.top_z(_hover_cell, layer)
 			_apply(target_cells())
 
 
@@ -2402,7 +2524,7 @@ func _drag() -> void:
 		sculpt(target_cells())
 	elif tool == Tool.RAMP:
 		place_ramps(target_cells())
-	elif tool in [Tool.BRUSH, Tool.ERASE] and mode in [Mode.TILES, Mode.PARTICLES, Mode.GAMEPLAY, Mode.REGIONS, Mode.MASKS] and not (mode == Mode.GAMEPLAY and play_tool in [Play.SPAWN, Play.ENEMY]) and not (mode == Mode.MASKS and mask_tool == Mask.ANCHOR):
+	elif tool in [Tool.BRUSH, Tool.ERASE] and mode in [Mode.TILES, Mode.PARTICLES, Mode.GAMEPLAY, Mode.REGIONS, Mode.MASKS, Mode.BUILD] and not (mode == Mode.BUILD and build_tool == Build.DOOR) and not (mode == Mode.GAMEPLAY and play_tool in [Play.SPAWN, Play.ENEMY]) and not (mode == Mode.MASKS and mask_tool == Mask.ANCHOR):
 		_apply(target_cells())
 
 
@@ -2785,6 +2907,14 @@ func _apply(cells: Array[Vector2i]) -> void:
 					continue
 				_last_applied[k2] = true
 				_apply_gameplay(c, erase)
+		Mode.BUILD:
+			var fresh: Array[Vector2i] = []
+			for c: Vector2i in cells:
+				var kb := "%d,%d" % [c.x, c.y]
+				if not _last_applied.has(kb):
+					_last_applied[kb] = true
+					fresh.append(c)
+			apply_build(fresh, erase)
 		Mode.MASKS:
 			if mask_tool == Mask.ANCHOR:
 				if not cells.is_empty():

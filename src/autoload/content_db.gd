@@ -50,6 +50,10 @@ var maps: Dictionary = {}
 var particles: Dictionary = {}
 ## Tile index built by TileIndex.scan() (data/tiles.json); may be empty.
 var tiles: Dictionary = {}
+## Building kits: cut pieces mapped to wall slots (data/kits.json, see KitMap).
+var kits: Dictionary = {}
+## Auto-tile sets: 16 corner pieces per transition sheet (data/autotiles.json, see AutoTile).
+var autotiles: Dictionary = {}
 var load_errors: Array[String] = []
 
 
@@ -73,6 +77,8 @@ func reload() -> void:
 		recipes.merge(_read_dict(dir.path_join("recipes.json")), true)
 		particles.merge(_read_dict(dir.path_join("particles.json")), true)
 		tiles.merge(_read_dict(dir.path_join("tiles.json")), true)
+		kits.merge(_read_dict(dir.path_join("kits.json")), true)
+		autotiles.merge(_read_dict(dir.path_join("autotiles.json")), true)
 		_load_maps(dir.path_join("maps"))
 	for e in load_errors:
 		push_warning("ContentDB: " + e)

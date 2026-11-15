@@ -91,3 +91,13 @@ same preset/layer into one emitter.
 
 ## Assets index: `data/asset_index.json`
 Filled by the drag-and-drop intake wizard: `id -> {path, type, name, role, ...}`.
+
+## Building kits, auto-walls and auto-tiles (built 2026-11-15)
+
+- `data/kits.json` (KitMap, Neon Forge KIT MAP tab): each kit sheet's cut pieces mapped to slots. One kit = one sheet at one wall height (`_hN`); an empty slot borrows its mirror, then the family's nearest height. Pieces live in `assets/tiles/kits/<kit>/NN_<slot>.png` and keep their whole sheet cell, so the kit's `anchor` places every piece. `tools/cut_kits.bat` cuts new sheets and pre-fills the map (edited slots are kept).
+- `data/autotiles.json` (AutoTile): 16 corner pieces per transition sheet, piece = S + 2*W + 4*E + 8*N (corners carrying the raised material).
+- Map fields: `buildings` (`{id, kit, height, z, cells, storeys, roof, doors}`), `roofs` (overlay stacks: roofs, upper storeys, door frames; drawn above units in the same cell and never counted for heights) and `autotile` (`"x,y" -> set id`).
+- Generated tile entries carry `{"b": building id, "part", "rise", "front"}`. `rise` = height layers from the ground to the entry's z (one tile of wall = 32 art px = 2 layers at 2x). Wall cells get `gameplay` overrides (not walkable, block sight); door cells are walkable.
+- Walls stand on the ring of cells just outside the painted floor and hug it. Door pieces are two cells wide.
+- Seeing inside: `WorldRenderer.set_inside(building id)` fades that building's overlay and its `front` (SW / SE) walls; exploration feeds it the player's cell, battles the active unit's.
+- Rebuild the demo and its screenshots: `tests/kit_demo.gd` (map `kit_street_demo`).

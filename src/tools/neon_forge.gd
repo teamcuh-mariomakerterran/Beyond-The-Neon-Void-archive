@@ -15,6 +15,7 @@ const SECTIONS := [
 	["assets", "ASSETS", "assets", ""],
 	["external", "EXTERNAL LIBRARY", "external", ""],
 	["world", "WORLD PAINTER", "world", ""],
+	["kits", "KIT MAP", "kits", ""],
 	["maps", "MAPS (CLASSIC)", "maps", ""],
 	["cutscenes", "CUTSCENES", "cutscenes", ""],
 	["characters", "CHARACTERS", "bucket", "characters"],
@@ -156,6 +157,7 @@ func _count_for(s: Array) -> int:
 		"cutscenes": return ForgeStore.list_cutscenes().size()
 		"dialog": return ContentDB.get_ids("npcs").size()
 		"recolors": return Recolors.data().size()
+		"kits": return ContentDB.kits.size()
 		"external": return ExternalLibrary.folders().size()
 		"assets":
 			var n := 0
@@ -236,6 +238,10 @@ func show_section(id: String) -> void:
 			rs.status.connect(flash)
 			rs.edited.connect(_mark_dirty)
 			_body.add_child(rs)
+		"kits":
+			var km := ForgeKitMap.new()
+			km.status.connect(flash)
+			_body.add_child(km)
 		"world":
 			_world = ForgeWorldPainter.new()
 			_world.status.connect(func(t: String, c: Color) -> void: flash(t, c); _refresh_rail())

@@ -242,6 +242,8 @@ func flash_text(at: Vector2, text: String, color: Color) -> void:
 func redraw_all_columns() -> void:
 	for sv: StripView in _columns.values():
 		sv.queue_redraw()
+		if sv.over:
+			sv.over.queue_redraw()
 
 
 ## X-ray cutaway: tiles and objects in front of `focus` (screen point of the
@@ -280,6 +282,58 @@ func cutaway_alpha(at: Vector2, order: int, z: int) -> float:
 	if cutaway_focus.y < top_y or cutaway_focus.y > base_y:
 		return 1.0
 	return 0.3
+
+
+# --- Seeing inside buildings -------------------------------------------------
+
+## Auto-wall building someone is inside: its roof, upper storeys and its SW / SE
+## (camera-side) walls fade out, and come back when they leave.
+var inside_building: String = ""
+## building id -> how hidden it is now (0 = solid, 1 = fully opened up).
+var _open: Dictionary = {}
+const OPEN_TIME := 0.28
+## What is left of a camera-side wall while the building is open.
+const FRONT_WALL_ALPHA := 0.14
+
+
+## `instant` skips the fade (headless battles, reduce motion, map load).
+func set_inside(building_id: String, instant: bool = false) -> void:
+	if building_id == inside_building:
+		return
+	inside_building = building_id
+	if building_id != "" and not _open.has(building_id):
+		_open[building_id] = 0.0
+	if instant:
+		_open.clear()
+		if building_id != "":
+			_open[building_id] = 1.0
+		redraw_all_columns()
+	set_process(true)
+
+
+func _step_open(d: float) -> void:
+	if _open.is_empty():
+		return
+	for id: String in _open.keys():
+		var goal := 1.0 if id == inside_building else 0.0
+		_open[id] = move_toward(float(_open[id]), goal, d / OPEN_TIME)
+		if goal == 0.0 and float(_open[id]) <= 0.0:
+			_open.erase(id)
+	redraw_all_columns()
+
+
+## Alpha for a generated building piece (1 for anything else).
+func building_alpha(opts: Dictionary, overlay: bool) -> float:
+	if _open.is_empty() or not opts.has("b"):
+		return 1.0
+	var t := float(_open.get(str(opts["b"]), 0.0))
+	if t <= 0.0:
+		return 1.0
+	if overlay and not bool(opts.get("front", false)):
+		return 1.0 - t
+	if bool(opts.get("front", false)):
+		return lerpf(1.0, FRONT_WALL_ALPHA, t)
+	return 1.0
 
 
 # --- Tiles -----------------------------------------------------------------
@@ -361,6 +415,19 @@ static func draw_tile(ci: CanvasItem, w: WorldMap, tile_id: String, center: Vect
 	var tex: Texture2D = frames[0]
 	if frames.size() > 1:
 		tex = frames[SheetSprite.frame_at(now(), frames.size(), tile_fps(tile_id), "loop", phase)]
+	if opts.has("rise"):
+		# Kit and auto-tile pieces keep their whole sheet cell: one anchor (the
+		# ground diamond's centre) places them, `rise` layers below the entry's z.
+		var an := KitMap.anchor(tile_id)
+		if not an.is_empty():
+			var ks: float = w.tile_width / float(an["px"])
+			var ground := center + Vector2(0, float(opts["rise"]) * w.height_step)
+			var size := tex.get_size() * ks
+			if bool(opts.get("flip", false)):
+				ci.draw_set_transform(Vector2(ground.x * 2.0, 0), 0.0, Vector2(-1, 1))
+			ci.draw_texture_rect(tex, Rect2(ground - Vector2(float(an["ax"]), float(an["ay"])) * ks, size), false, col)
+			ci.draw_set_transform(Vector2.ZERO)
+			return
 	var used := fit_rect(tex)
 	var s := w.tile_width / used.size.x
 	var north := center + Vector2(-w.tile_width * 0.5, -w.tile_height * 0.5)
@@ -653,6 +720,7 @@ func _add_particles(groups: Dictionary, parent: Node) -> void:
 # --- Streaming -----------------------------------------------------------------
 
 func _process(_d: float) -> void:
+	_step_open(_d)
 	if streaming and world:
 		update_stream(chunks_per_frame)
 
@@ -867,10 +935,28 @@ class StripView extends Node2D:
 	var key: Vector3i
 	var cells: Dictionary = {}  # Vector2i -> true
 	var _animated: bool = false
+	## Roofs, upper storeys and door frames of these cells: drawn one step
+	## later, so they cover units standing in the same cell.
+	var over: OverlayStrip
 
 	func refresh() -> void:
 		var w := renderer.world
 		z_index = key.x * 2
+		var need := false
+		for c: Vector2i in cells:
+			if w.roofs.has(c):
+				need = true
+				break
+		if need and over == null:
+			over = OverlayStrip.new()
+			over.strip = self
+			over.z_index = 2
+			add_child(over)
+		elif not need and over:
+			over.queue_free()
+			over = null
+		if over:
+			over.queue_redraw()
 		_animated = false
 		for c: Vector2i in cells:
 			for e: Array in w.stack_at(c):
@@ -904,6 +990,7 @@ class StripView extends Node2D:
 				var z := int(e[0])
 				var opts: Dictionary = e[2] if e.size() > 2 and e[2] is Dictionary else {}
 				var a := (1.0 if z <= renderer.dim_above else 0.18) * (cut if z >= renderer.cutaway_z else 1.0)
+				a *= renderer.building_alpha(opts, false)
 				var at := w.to_screen(Vector2(cell), z)
 				var t := renderer.pop_progress(cell, z)
 				if t < 1.0:
@@ -912,6 +999,22 @@ class StripView extends Node2D:
 					at.y -= w.height_step * 1.4 * k * k - sin(t * PI) * 3.0
 					a *= 0.35 + 0.65 * t
 				WorldRenderer.draw_tile(self, w, str(e[1]), at, a, phase, opts)
+
+
+## The overlay half of a strip (WorldMap.roofs).
+class OverlayStrip extends Node2D:
+	var strip: StripView
+
+	func _draw() -> void:
+		var r := strip.renderer
+		var w := r.world
+		for cell: Vector2i in strip.cells:
+			for e: Array in w.roofs.get(cell, []):
+				var z := int(e[0])
+				var opts: Dictionary = e[2] if e.size() > 2 and e[2] is Dictionary else {}
+				var a := (1.0 if z <= r.dim_above else 0.18) * r.building_alpha(opts, true)
+				if a > 0.01:
+					WorldRenderer.draw_tile(self, w, str(e[1]), w.to_screen(Vector2(cell), z), a, 0.0, opts)
 
 
 ## A detail decal or an object sprite (static, sheet-animated or frame list).

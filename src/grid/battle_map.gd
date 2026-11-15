@@ -295,6 +295,7 @@ func _connect_events() -> void:
 		if info.active and u.get("data") and (u.data as CharacterData).id == InfoFilter.RELAY_ID:
 			relay_down("destroyed"))
 	EventBus.unit_moved.connect(func(u: Node, _a: Vector2i, _b: Vector2i) -> void: if u == CombatManager.active_unit: hud.refresh_unit(u))
+	EventBus.unit_moved.connect(func(_u: Node, _a: Vector2i, _b: Vector2i) -> void: _update_inside())
 
 
 func _float(u: Node, text: String, color: Color, crit: bool = false, weight: float = 0.3) -> void:
@@ -319,8 +320,18 @@ func _refresh_tile_corpses() -> void:
 			tiles[c].queue_redraw()
 
 
+## Seeing inside: the building the active unit stands in loses its roof and
+## camera-side walls (WorldRenderer fades them; instant when nothing animates).
+func _update_inside() -> void:
+	var u: Node = CombatManager.active_unit
+	if world_renderer == null or world_map == null or u == null or not is_instance_valid(u):
+		return
+	world_renderer.set_inside(AutoWall.inside_id(world_map, u.cell), not CombatManager.animate or SettingsFlags.reduce_motion)
+
+
 func _on_turn_started(unit: Node) -> void:
 	camera.follow_target = unit
+	_update_inside()
 	hud.update_turn_order(CombatManager.turn_forecast(10))
 	var mine: bool = unit.is_player_controlled
 	hud.show_unit(unit, false)

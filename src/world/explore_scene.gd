@@ -754,6 +754,8 @@ func _process(_delta: float) -> void:
 	_cam.position = _avatar.position
 	# X-ray: whatever stands between the camera and the player turns see-through.
 	_renderer.set_cutaway(_avatar.position + Vector2(0, -world.tile_height * 0.6), cell.x + cell.y, grid.get_height(cell))
+	# Seeing inside: the roof and camera-side walls of the building we stand in fade out.
+	_renderer.set_inside(AutoWall.inside_id(world, cell), SettingsFlags.reduce_motion)
 	_update_labels()
 	if _post:
 		# Keep the player in the sharp band of the tilt-shift.

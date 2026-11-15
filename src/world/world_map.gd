@@ -49,6 +49,13 @@ var anchors: Array = []
 ## Undo journal (big maps): while set, the first change to a column stores its
 ## old stack here (cell -> stack copy, or null if it was empty).
 var journal: Variant = null
+## Auto-wall buildings (see AutoWall): [{id, kit, height, z, cells, storeys, roof, doors}].
+var buildings: Array = []
+## Overlay stacks drawn above the columns and above units in the same cell:
+## roofs, upper storeys, door frames. Same shape as `tiles`; never counted for heights.
+var roofs: Dictionary = {}
+## Cells painted with the auto-tile brush: cell -> auto-tile set id (see AutoTile).
+var autotile: Dictionary = {}
 var _uid: int = 0
 
 
@@ -346,6 +353,15 @@ func load_dict(d: Dictionary, keep_tiles: bool = false) -> void:
 	anchors = (d.get("anchors") as Array).duplicate(true) if d.get("anchors") is Array else []
 	if not keep_tiles:
 		tiles.clear()
+	buildings = (d.get("buildings") as Array).duplicate(true) if d.get("buildings") is Array else []
+	roofs.clear()
+	autotile.clear()
+	if d.get("roofs") is Dictionary:
+		for k: String in d["roofs"]:
+			roofs[parse_key(k)] = (d["roofs"][k] as Array).duplicate(true)
+	if d.get("autotile") is Dictionary:
+		for k: String in d["autotile"]:
+			autotile[parse_key(k)] = str(d["autotile"][k])
 	particles.clear()
 	gameplay.clear()
 	if int(d.get("format", 1)) >= 2:
@@ -428,6 +444,18 @@ func to_dict(with_tiles: bool = true) -> Dictionary:
 		out["cables"] = cables
 	if not anchors.is_empty():
 		out["anchors"] = anchors
+	if not buildings.is_empty():
+		out["buildings"] = buildings
+	if not roofs.is_empty():
+		var r := {}
+		for cell: Vector2i in roofs:
+			r[key(cell)] = roofs[cell]
+		out["roofs"] = r
+	if not autotile.is_empty():
+		var at := {}
+		for cell: Vector2i in autotile:
+			at[key(cell)] = autotile[cell]
+		out["autotile"] = at
 	return out
 
 
