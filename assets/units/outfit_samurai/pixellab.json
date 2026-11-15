@@ -1,0 +1,314 @@
+{
+	"_about": "Outfit unit on the base_male_hi body; clips are our own poses (tools/pixellab/outfit_units.py). Idle is the standing pose; head swapping comes later.",
+	"fps": 10,
+	"frames_from": {
+		"walk": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_walk2_SE_clean",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_walk2_SW_clean",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_walk2_NE_clean",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_walk2_NW_clean",
+				"frames": [
+					0,
+					7
+				],
+				"loop": true
+			}
+		},
+		"hit": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_hit_SE_clean",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_hit_SW_clean",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_hit_NE_clean",
+				"frames": [
+					0,
+					5
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_hit_NW_clean",
+				"frames": [
+					0,
+					5
+				]
+			}
+		},
+		"death": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_death_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_death_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_death_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_death_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"jump": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_jump_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_jump_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_jump_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_jump_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"cast": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_use_item_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_use_item_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_use_item_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_use_item_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"throw": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_throw_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_throw_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_throw_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_throw_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"aim": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"attack": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_pistol_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		},
+		"rest_rifle": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_rest_SE_clean",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_rest_SW_clean",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_rest_NE_clean",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_rest_NW_clean",
+				"frames": [
+					0,
+					2
+				],
+				"loop": true
+			}
+		},
+		"aim_rifle": {
+			"SE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_raise_SE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"SW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_raise_SW_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NE": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_raise_NE_clean",
+				"frames": [
+					0,
+					7
+				]
+			},
+			"NW": {
+				"dir": "res://assets/units/base_male_hi/source/samurai_rifle_raise_NW_clean",
+				"frames": [
+					0,
+					7
+				]
+			}
+		}
+	}
+}

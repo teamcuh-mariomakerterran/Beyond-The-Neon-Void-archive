@@ -1,3 +1,20 @@
+# Nov 15: the 14 outfits are in the game; recolours (no credits spent)
+
+## Outfits as units
+- `assets/units/outfit_<name>/` (14 folders, about 130 KB each), made by `tools/pixellab/outfit_units.py`. They show up in the unit gallery like the cast.
+- **Clips:** idle (the standing pose), walk, hit, death, jump, cast (use_item), throw, attack and aim (pistol), aim_rifle and rest_rifle, all in 4 facings.
+- **No copies:** the frames are the approved ones in `base_male_hi/source`.
+- **Rig:** `rig.json` puts hands, elbows and head on every frame (the poses they were drawn on), so pistols and rifles sit in the hands.
+- **Heads:** each outfit wears its own head; head swapping comes later.
+- **Not in `characters.json` yet:** that needs names and jobs from you. Tell me who's who, or which test fight to drop them into.
+- Test: `test_outfit_units`.
+
+## Recolours (new characters from animated ones)
+- `tools/pixellab/recolor.py` moves an accent colour band to a new hue. Skin, hair, greys and outlines stay, and the source unit is never touched.
+- **Proposals for every outfit and cast member** (accent to red, gold, green, cyan, violet or pink): `docs/screenshots/recolor_proposals.png`.
+- **Pick the ones you want** (e.g. "neon_coat red, samurai green, pool_024 violet"). I add them to `tools/pixellab/recolors.json` and bake each into its own unit folder, with every animation recoloured. That takes about 1 s each, and a variant is 0.7-1.5 MB.
+- **No accent colour to move:** hood_0101, pool_004, pool_005 and pool_021 (camo, khaki). They need an exact colour swap rule instead.
+
 # Nov 14: pistols are items; helmets are head modules (no credits spent)
 
 ## Helmets: head modules that replace the head (redone after your review)

@@ -29,6 +29,7 @@ func run(p_tree: SceneTree) -> int:
 	await test_pixel_matrix()
 	await test_gear_attach()
 	test_gear_items()
+	test_outfit_units()
 	test_aim_kick()
 	test_ui_icons()
 	test_cover()
@@ -1372,6 +1373,28 @@ func test_gear_items() -> void:
 		elif it.equip_type == "helmet":
 			helmets += 1
 	check(pistols == 49 and helmets == 0, "gear items: 49 pistols, no overlay helmets (got %d, %d)" % [pistols, helmets])
+
+
+## The 14 base_male_hi outfits packaged as units (tools/pixellab/outfit_units.py):
+## every clip in all four battle facings, idle from the standing poses, and
+## rig points for the gun clips so pistols and rifles sit in the hands.
+func test_outfit_units() -> void:
+	var dirs := Array(DirAccess.get_directories_at("res://assets/units")).filter(func(d: String) -> bool: return d.begins_with("outfit_"))
+	check(dirs.size() == 14, "14 outfit units packaged (got %d)" % dirs.size())
+	for d: String in dirs:
+		var root := "res://assets/units/" + d
+		check(PixelLab.is_root(root), "%s: a unit folder the loader reads" % d)
+		var us := PixelLab.unit_set(root)
+		var sf: SpriteFrames = us.get("frames")
+		var miss: Array[String] = []
+		for act: String in ["idle", "walk", "hit", "death", "jump", "cast", "throw", "attack", "aim", "aim_rifle", "rest_rifle"]:
+			for f: String in ["SE", "SW", "NE", "NW"]:
+				if sf == null or not sf.has_animation(act + "_" + f) or sf.get_frame_count(act + "_" + f) == 0:
+					miss.append(act + "_" + f)
+		check(bool(us.get("ok", false)) and miss.is_empty(), "%s: every action in every facing (missing %s)" % [d, miss])
+		check(sf != null and sf.get_animation_loop("walk_SE") and sf.get_animation_loop("rest_rifle_SE") and not sf.get_animation_loop("death_SE"), "%s: walk and rifle rest loop, death plays once" % d)
+		var rig := GearAttach.load_rig(root)
+		check(GearAttach.point_at(rig, "hand_r", "aim_SE", 7) != null and GearAttach.point_at(rig, "hand_l", "aim_rifle_SW", 7) != null, "%s: hands rigged on the gun clips" % d)
 
 
 func test_gear_attach() -> void:
