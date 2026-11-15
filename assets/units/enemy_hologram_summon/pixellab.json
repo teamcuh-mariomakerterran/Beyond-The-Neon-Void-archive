@@ -1,0 +1,7 @@
+{
+	"_about": "The hologram daemon (Brian's PixelLab export 'hologram summons spell', 2026-11-15). The scythe swing is its attack; it moves by warping.",
+	"actions": {
+		"attack": "hologram_version/Raise_the_scythe_high_abo_eb0587",
+		"walk": "hologram_version/warp_move"
+	}
+}

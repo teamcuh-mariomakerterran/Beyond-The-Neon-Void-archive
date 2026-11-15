@@ -1848,6 +1848,11 @@ func test_pixellab() -> void:
 		for f: String in ["SE", "SW", "NE", "NW"]:
 			if not ff.has_animation(act + "_" + f):
 				fmiss.append(act + "_" + f)
+	check(LatticeClip.resolve(us, "death", "NW") == ["death_NE", true], "the daemon has no NW death in PixelLab: facing NW plays NE mirrored")
+	var dn := PixelLab.unit_set("res://assets/units/enemy_diginecro")
+	var hs := PixelLab.unit_set("res://assets/units/enemy_hologram_summon")
+	check(dn["ok"] and (dn["frames"] as SpriteFrames).has_animation("walk_NW") and (dn["frames"] as SpriteFrames).has_animation("idle_S"), "Diginecro walks in every facing")
+	check(hs["ok"] and (hs["frames"] as SpriteFrames).has_animation("attack_SW") and (hs["frames"] as SpriteFrames).has_animation("walk_NE"), "Hologram summon: scythe attack and warp move, pinned by pixellab.json")
 	check(fs["ok"] and fmiss.is_empty() and str(fs["actions"]["death"]).begins_with("seriously_injured"), "Factory security: walk, punches, hit and the chosen death in every facing (missing %s)" % [fmiss])
 	var m := ContentDB.get_mission("test_pixellab_skirmish")
 	check(m != null and bool(m.guests[0].get("controlled", false)) and ContentDB.get_npc("kade") != null and ContentDB.vendors.has("test_vendor"), "test skirmish, Kade and his shop are in")

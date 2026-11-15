@@ -1,0 +1,79 @@
+{
+  "group_id": "4579ef78-c812-4a5a-9a9d-0f847d0f3415",
+  "states": [
+    {
+      "character": {
+        "id": "724242e8-c4d6-43f3-a107-e65914e8888c",
+        "name": "walking forward mid",
+        "prompt": "cyberpunk final fantasy tactics styled character 84x84 isometric 2:1 perspective, clean and crisp black 1 pixel outlines, cyberpunk",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "high top-down",
+        "created_at": "2026-11-15T06:36:50.260015+00:00"
+      },
+      "folder": "walking_forward_mid",
+      "frames": {
+        "rotations": {
+          "south": "walking_forward_mid/rotations/south.png",
+          "south-east": "walking_forward_mid/rotations/south-east.png",
+          "east": "walking_forward_mid/rotations/east.png",
+          "north-east": "walking_forward_mid/rotations/north-east.png",
+          "north": "walking_forward_mid/rotations/north.png",
+          "north-west": "walking_forward_mid/rotations/north-west.png",
+          "west": "walking_forward_mid/rotations/west.png",
+          "south-west": "walking_forward_mid/rotations/south-west.png"
+        },
+        "animations": {
+          "Walking": {
+            "south-east": [
+              "walking_forward_mid/animations/Walking/south-east/frame_000.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_001.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_002.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_003.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_004.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_005.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_006.png",
+              "walking_forward_mid/animations/Walking/south-east/frame_007.png"
+            ],
+            "south-west": [
+              "walking_forward_mid/animations/Walking/south-west/frame_000.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_001.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_002.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_003.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_004.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_005.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_006.png",
+              "walking_forward_mid/animations/Walking/south-west/frame_007.png"
+            ],
+            "north-east": [
+              "walking_forward_mid/animations/Walking/north-east/frame_000.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_001.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_002.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_003.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_004.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_005.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_006.png",
+              "walking_forward_mid/animations/Walking/north-east/frame_007.png"
+            ],
+            "north-west": [
+              "walking_forward_mid/animations/Walking/north-west/frame_000.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_001.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_002.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_003.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_004.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_005.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_006.png",
+              "walking_forward_mid/animations/Walking/north-west/frame_007.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T14:58:53.707048"
+}
