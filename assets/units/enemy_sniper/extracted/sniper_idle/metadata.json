@@ -1,0 +1,235 @@
+{
+  "group_id": "8a4f1bed-c963-42be-9de2-68520858d55e",
+  "states": [
+    {
+      "character": {
+        "id": "b3b8f101-db23-415a-92e6-2a67e80bec7a",
+        "name": "Idle",
+        "prompt": "cyberpunk npc main characters ",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-25T10:24:33.655749+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "Two-Footed_Jump": {
+            "south-west": [
+              "Idle/animations/Two-Footed_Jump/south-west/frame_000.png",
+              "Idle/animations/Two-Footed_Jump/south-west/frame_001.png",
+              "Idle/animations/Two-Footed_Jump/south-west/frame_002.png",
+              "Idle/animations/Two-Footed_Jump/south-west/frame_003.png",
+              "Idle/animations/Two-Footed_Jump/south-west/frame_004.png",
+              "Idle/animations/Two-Footed_Jump/south-west/frame_005.png",
+              "Idle/animations/Two-Footed_Jump/south-west/frame_006.png"
+            ],
+            "south-east": [
+              "Idle/animations/Two-Footed_Jump/south-east/frame_000.png",
+              "Idle/animations/Two-Footed_Jump/south-east/frame_001.png",
+              "Idle/animations/Two-Footed_Jump/south-east/frame_002.png",
+              "Idle/animations/Two-Footed_Jump/south-east/frame_003.png",
+              "Idle/animations/Two-Footed_Jump/south-east/frame_004.png",
+              "Idle/animations/Two-Footed_Jump/south-east/frame_005.png",
+              "Idle/animations/Two-Footed_Jump/south-east/frame_006.png"
+            ],
+            "north-east": [
+              "Idle/animations/Two-Footed_Jump/north-east/frame_000.png",
+              "Idle/animations/Two-Footed_Jump/north-east/frame_001.png",
+              "Idle/animations/Two-Footed_Jump/north-east/frame_002.png",
+              "Idle/animations/Two-Footed_Jump/north-east/frame_003.png",
+              "Idle/animations/Two-Footed_Jump/north-east/frame_004.png",
+              "Idle/animations/Two-Footed_Jump/north-east/frame_005.png",
+              "Idle/animations/Two-Footed_Jump/north-east/frame_006.png"
+            ],
+            "north-west": [
+              "Idle/animations/Two-Footed_Jump/north-west/frame_000.png",
+              "Idle/animations/Two-Footed_Jump/north-west/frame_001.png",
+              "Idle/animations/Two-Footed_Jump/north-west/frame_002.png",
+              "Idle/animations/Two-Footed_Jump/north-west/frame_003.png",
+              "Idle/animations/Two-Footed_Jump/north-west/frame_004.png",
+              "Idle/animations/Two-Footed_Jump/north-west/frame_005.png",
+              "Idle/animations/Two-Footed_Jump/north-west/frame_006.png"
+            ]
+          },
+          "Falling_Back_Death": {
+            "south-west": [
+              "Idle/animations/Falling_Back_Death/south-west/frame_000.png",
+              "Idle/animations/Falling_Back_Death/south-west/frame_001.png",
+              "Idle/animations/Falling_Back_Death/south-west/frame_002.png",
+              "Idle/animations/Falling_Back_Death/south-west/frame_003.png",
+              "Idle/animations/Falling_Back_Death/south-west/frame_004.png",
+              "Idle/animations/Falling_Back_Death/south-west/frame_005.png",
+              "Idle/animations/Falling_Back_Death/south-west/frame_006.png"
+            ],
+            "south-east": [
+              "Idle/animations/Falling_Back_Death/south-east/frame_000.png",
+              "Idle/animations/Falling_Back_Death/south-east/frame_001.png",
+              "Idle/animations/Falling_Back_Death/south-east/frame_002.png",
+              "Idle/animations/Falling_Back_Death/south-east/frame_003.png",
+              "Idle/animations/Falling_Back_Death/south-east/frame_004.png",
+              "Idle/animations/Falling_Back_Death/south-east/frame_005.png",
+              "Idle/animations/Falling_Back_Death/south-east/frame_006.png"
+            ],
+            "north-east": [
+              "Idle/animations/Falling_Back_Death/north-east/frame_000.png",
+              "Idle/animations/Falling_Back_Death/north-east/frame_001.png",
+              "Idle/animations/Falling_Back_Death/north-east/frame_002.png",
+              "Idle/animations/Falling_Back_Death/north-east/frame_003.png",
+              "Idle/animations/Falling_Back_Death/north-east/frame_004.png",
+              "Idle/animations/Falling_Back_Death/north-east/frame_005.png",
+              "Idle/animations/Falling_Back_Death/north-east/frame_006.png"
+            ],
+            "north-west": [
+              "Idle/animations/Falling_Back_Death/north-west/frame_000.png",
+              "Idle/animations/Falling_Back_Death/north-west/frame_001.png",
+              "Idle/animations/Falling_Back_Death/north-west/frame_002.png",
+              "Idle/animations/Falling_Back_Death/north-west/frame_003.png",
+              "Idle/animations/Falling_Back_Death/north-west/frame_004.png",
+              "Idle/animations/Falling_Back_Death/north-west/frame_005.png",
+              "Idle/animations/Falling_Back_Death/north-west/frame_006.png"
+            ]
+          },
+          "Taking_Punch": {
+            "north-east": [
+              "Idle/animations/Taking_Punch/north-east/frame_000.png",
+              "Idle/animations/Taking_Punch/north-east/frame_001.png",
+              "Idle/animations/Taking_Punch/north-east/frame_002.png",
+              "Idle/animations/Taking_Punch/north-east/frame_003.png",
+              "Idle/animations/Taking_Punch/north-east/frame_004.png",
+              "Idle/animations/Taking_Punch/north-east/frame_005.png"
+            ],
+            "north-west": [
+              "Idle/animations/Taking_Punch/north-west/frame_000.png",
+              "Idle/animations/Taking_Punch/north-west/frame_001.png",
+              "Idle/animations/Taking_Punch/north-west/frame_002.png",
+              "Idle/animations/Taking_Punch/north-west/frame_003.png",
+              "Idle/animations/Taking_Punch/north-west/frame_004.png",
+              "Idle/animations/Taking_Punch/north-west/frame_005.png"
+            ],
+            "south-east": [
+              "Idle/animations/Taking_Punch/south-east/frame_000.png",
+              "Idle/animations/Taking_Punch/south-east/frame_001.png",
+              "Idle/animations/Taking_Punch/south-east/frame_002.png",
+              "Idle/animations/Taking_Punch/south-east/frame_003.png",
+              "Idle/animations/Taking_Punch/south-east/frame_004.png",
+              "Idle/animations/Taking_Punch/south-east/frame_005.png"
+            ],
+            "south-west": [
+              "Idle/animations/Taking_Punch/south-west/frame_000.png",
+              "Idle/animations/Taking_Punch/south-west/frame_001.png",
+              "Idle/animations/Taking_Punch/south-west/frame_002.png",
+              "Idle/animations/Taking_Punch/south-west/frame_003.png",
+              "Idle/animations/Taking_Punch/south-west/frame_004.png",
+              "Idle/animations/Taking_Punch/south-west/frame_005.png"
+            ]
+          },
+          "Walking": {
+            "north-east": [
+              "Idle/animations/Walking/north-east/frame_000.png",
+              "Idle/animations/Walking/north-east/frame_001.png",
+              "Idle/animations/Walking/north-east/frame_002.png",
+              "Idle/animations/Walking/north-east/frame_003.png",
+              "Idle/animations/Walking/north-east/frame_004.png",
+              "Idle/animations/Walking/north-east/frame_005.png",
+              "Idle/animations/Walking/north-east/frame_006.png",
+              "Idle/animations/Walking/north-east/frame_007.png"
+            ],
+            "south-east": [
+              "Idle/animations/Walking/south-east/frame_000.png",
+              "Idle/animations/Walking/south-east/frame_001.png",
+              "Idle/animations/Walking/south-east/frame_002.png",
+              "Idle/animations/Walking/south-east/frame_003.png",
+              "Idle/animations/Walking/south-east/frame_004.png",
+              "Idle/animations/Walking/south-east/frame_005.png",
+              "Idle/animations/Walking/south-east/frame_006.png",
+              "Idle/animations/Walking/south-east/frame_007.png"
+            ],
+            "north-west": [
+              "Idle/animations/Walking/north-west/frame_000.png",
+              "Idle/animations/Walking/north-west/frame_001.png",
+              "Idle/animations/Walking/north-west/frame_002.png",
+              "Idle/animations/Walking/north-west/frame_003.png",
+              "Idle/animations/Walking/north-west/frame_004.png",
+              "Idle/animations/Walking/north-west/frame_005.png",
+              "Idle/animations/Walking/north-west/frame_006.png",
+              "Idle/animations/Walking/north-west/frame_007.png"
+            ],
+            "south-west": [
+              "Idle/animations/Walking/south-west/frame_000.png",
+              "Idle/animations/Walking/south-west/frame_001.png",
+              "Idle/animations/Walking/south-west/frame_002.png",
+              "Idle/animations/Walking/south-west/frame_003.png",
+              "Idle/animations/Walking/south-west/frame_004.png",
+              "Idle/animations/Walking/south-west/frame_005.png",
+              "Idle/animations/Walking/south-west/frame_006.png",
+              "Idle/animations/Walking/south-west/frame_007.png"
+            ]
+          },
+          "Exhale_deeply_while_knees_bend_slightly_to_lower_t": {
+            "south-east": [
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_000.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_001.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_002.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_003.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_004.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_005.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_006.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_007.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-east/frame_008.png"
+            ],
+            "south-west": [
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_000.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_001.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_002.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_003.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_004.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_005.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_006.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_007.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/south-west/frame_008.png"
+            ],
+            "north-east": [
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_000.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_001.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_002.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_003.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_004.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_005.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_006.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_007.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-east/frame_008.png"
+            ],
+            "north-west": [
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_000.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_001.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_002.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_003.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_004.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_005.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_006.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_007.png",
+              "Idle/animations/Exhale_deeply_while_knees_bend_slightly_to_lower_t/north-west/frame_008.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T15:14:52.904776"
+}

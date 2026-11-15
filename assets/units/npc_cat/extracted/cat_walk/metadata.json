@@ -1,0 +1,79 @@
+{
+  "group_id": "d5d05a95-ac9e-4ae8-8bfa-03e063631473",
+  "states": [
+    {
+      "character": {
+        "id": "b6717ed7-0bae-4887-bc8a-4b92773c6def",
+        "name": "walking",
+        "prompt": "a gray and white medium length haired american tabby cat, has a cyberpunk backpack on its back",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "cat",
+        "directions": 8,
+        "view": "high top-down",
+        "created_at": "2026-10-04T13:24:29.934636+00:00"
+      },
+      "folder": "walking",
+      "frames": {
+        "rotations": {
+          "south": "walking/rotations/south.png",
+          "south-east": "walking/rotations/south-east.png",
+          "east": "walking/rotations/east.png",
+          "north-east": "walking/rotations/north-east.png",
+          "north": "walking/rotations/north.png",
+          "north-west": "walking/rotations/north-west.png",
+          "west": "walking/rotations/west.png",
+          "south-west": "walking/rotations/south-west.png"
+        },
+        "animations": {
+          "Walk": {
+            "north-east": [
+              "walking/animations/Walk/north-east/frame_000.png",
+              "walking/animations/Walk/north-east/frame_001.png",
+              "walking/animations/Walk/north-east/frame_002.png",
+              "walking/animations/Walk/north-east/frame_003.png",
+              "walking/animations/Walk/north-east/frame_004.png",
+              "walking/animations/Walk/north-east/frame_005.png",
+              "walking/animations/Walk/north-east/frame_006.png",
+              "walking/animations/Walk/north-east/frame_007.png"
+            ],
+            "south-west": [
+              "walking/animations/Walk/south-west/frame_000.png",
+              "walking/animations/Walk/south-west/frame_001.png",
+              "walking/animations/Walk/south-west/frame_002.png",
+              "walking/animations/Walk/south-west/frame_003.png",
+              "walking/animations/Walk/south-west/frame_004.png",
+              "walking/animations/Walk/south-west/frame_005.png",
+              "walking/animations/Walk/south-west/frame_006.png",
+              "walking/animations/Walk/south-west/frame_007.png"
+            ],
+            "south-east": [
+              "walking/animations/Walk/south-east/frame_000.png",
+              "walking/animations/Walk/south-east/frame_001.png",
+              "walking/animations/Walk/south-east/frame_002.png",
+              "walking/animations/Walk/south-east/frame_003.png",
+              "walking/animations/Walk/south-east/frame_004.png",
+              "walking/animations/Walk/south-east/frame_005.png",
+              "walking/animations/Walk/south-east/frame_006.png",
+              "walking/animations/Walk/south-east/frame_007.png"
+            ],
+            "north-west": [
+              "walking/animations/Walk/north-west/frame_000.png",
+              "walking/animations/Walk/north-west/frame_001.png",
+              "walking/animations/Walk/north-west/frame_002.png",
+              "walking/animations/Walk/north-west/frame_003.png",
+              "walking/animations/Walk/north-west/frame_004.png",
+              "walking/animations/Walk/north-west/frame_005.png",
+              "walking/animations/Walk/north-west/frame_006.png",
+              "walking/animations/Walk/north-west/frame_007.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T15:11:54.706373"
+}

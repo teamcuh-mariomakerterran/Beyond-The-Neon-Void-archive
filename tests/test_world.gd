@@ -1853,6 +1853,18 @@ func test_pixellab() -> void:
 	var hs := PixelLab.unit_set("res://assets/units/enemy_hologram_summon")
 	check(dn["ok"] and (dn["frames"] as SpriteFrames).has_animation("walk_NW") and (dn["frames"] as SpriteFrames).has_animation("idle_S"), "Diginecro walks in every facing")
 	check(hs["ok"] and (hs["frames"] as SpriteFrames).has_animation("attack_SW") and (hs["frames"] as SpriteFrames).has_animation("walk_NE"), "Hologram summon: scythe attack and warp move, pinned by pixellab.json")
+	var sn := PixelLab.unit_set("res://assets/units/enemy_sniper")
+	var snf: SpriteFrames = sn["frames"]
+	var smiss: Array[String] = []
+	for act: String in ["idle", "walk", "attack", "hit", "death", "jump"]:
+		for f: String in ["SE", "SW", "NE", "NW"]:
+			if not snf.has_animation(act + "_" + f):
+				smiss.append(act + "_" + f)
+	check(sn["ok"] and smiss.is_empty() and str(sn["actions"]["attack"]).begins_with("the_character_aims"), "Sniper: breathing idle, walk, scope attack, hit, death and jump in every facing (missing %s)" % [smiss])
+	var cat := PixelLab.unit_set("res://assets/units/npc_cat")
+	check(cat["ok"] and (cat["frames"] as SpriteFrames).has_animation("walk_SW") and (cat["frames"] as SpriteFrames).has_animation("idle_S"), "the cat NPC walks in every facing")
+	var dsf: SpriteFrames = gs["frames"]
+	check(dsf.has_animation("walk_SE") and dsf.has_animation("walk_NW"), "the digisummoner walks now")
 	check(fs["ok"] and fmiss.is_empty() and str(fs["actions"]["death"]).begins_with("seriously_injured"), "Factory security: walk, punches, hit and the chosen death in every facing (missing %s)" % [fmiss])
 	var m := ContentDB.get_mission("test_pixellab_skirmish")
 	check(m != null and bool(m.guests[0].get("controlled", false)) and ContentDB.get_npc("kade") != null and ContentDB.vendors.has("test_vendor"), "test skirmish, Kade and his shop are in")

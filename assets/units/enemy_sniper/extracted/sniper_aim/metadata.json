@@ -1,0 +1,115 @@
+{
+  "group_id": "8a4f1bed-c963-42be-9de2-68520858d55e",
+  "states": [
+    {
+      "character": {
+        "id": "2128e74f-e40d-4149-bab8-81d787eb2c87",
+        "name": "the character aims t",
+        "prompt": "cyberpunk npc main characters ",
+        "size": {
+          "width": 104,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-11-15T12:59:07.743508+00:00"
+      },
+      "folder": "the_character_aims_t",
+      "frames": {
+        "rotations": {
+          "south": "the_character_aims_t/rotations/south.png",
+          "south-east": "the_character_aims_t/rotations/south-east.png",
+          "east": "the_character_aims_t/rotations/east.png",
+          "north-east": "the_character_aims_t/rotations/north-east.png",
+          "north": "the_character_aims_t/rotations/north.png",
+          "north-west": "the_character_aims_t/rotations/north-west.png",
+          "west": "the_character_aims_t/rotations/west.png",
+          "south-west": "the_character_aims_t/rotations/south-west.png"
+        },
+        "animations": {
+          "Lift_the_head_away_from_the_scope_to_briefly_surve": {
+            "south-west": [
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_000.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_001.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_002.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_003.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_004.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_005.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_006.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_007.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_008.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_009.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_010.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_011.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_012.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_013.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_014.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_015.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-west/frame_016.png"
+            ],
+            "north-west": [
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_000.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_001.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_002.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_003.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_004.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_005.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_006.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_007.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_008.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_009.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_010.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_011.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_012.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_013.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_014.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_015.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-west/frame_016.png"
+            ],
+            "south-east": [
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_000.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_001.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_002.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_003.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_004.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_005.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_006.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_007.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_008.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_009.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_010.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_011.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_012.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_013.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_014.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_015.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/south-east/frame_016.png"
+            ],
+            "north-east": [
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_000.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_001.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_002.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_003.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_004.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_005.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_006.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_007.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_008.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_009.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_010.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_011.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_012.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_013.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_014.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_015.png",
+              "the_character_aims_t/animations/Lift_the_head_away_from_the_scope_to_briefly_surve/north-east/frame_016.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-15T15:15:05.108855"
+}
