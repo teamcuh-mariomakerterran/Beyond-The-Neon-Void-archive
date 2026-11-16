@@ -79,7 +79,7 @@ static func hit_chance(attacker: Node, target: Node, ability: Ability, grid: Iso
 	chance = clampf(chance, 0.05, 0.99)
 	# Optical camo: nothing to aim at from range, a swing in the dark up close.
 	if target.has_method("has_status_tag") and target.has_status_tag("cloaked"):
-		if absi(attacker.cell.x - target.cell.x) + absi(attacker.cell.y - target.cell.y) > 1:
+		if IsometricGrid.distance(attacker.cell, target.cell) > 1:
 			return 0.0
 		chance *= 0.5
 	return chance

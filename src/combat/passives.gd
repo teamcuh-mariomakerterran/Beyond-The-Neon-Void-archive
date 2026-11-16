@@ -181,7 +181,7 @@ static func step_away(battle: Node, unit: Node, attacker: Node, p: PassiveResour
 			continue
 		if not grid.can_climb(unit.cell, n, unit.get_stat("jump")):
 			continue
-		var d := absi(n.x - attacker.cell.x) + absi(n.y - attacker.cell.y)
+		var d := IsometricGrid.distance(n, attacker.cell)
 		if d > best_d:
 			best_d = d
 			best = n

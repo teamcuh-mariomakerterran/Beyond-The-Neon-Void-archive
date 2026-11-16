@@ -3119,7 +3119,7 @@ func test_kit_street_demo() -> void:
 		return
 	var m := WorldMap.from_dict(d)
 	var storeys: Array = m.buildings.map(func(b: Dictionary) -> int: return int(b.get("storeys", 1)))
-	check(m.buildings.size() >= 2 and storeys.has(2), "two buildings, one with two storeys (%s)" % [storeys])
+	check(m.buildings.size() >= 2 and storeys.max() >= 2, "two buildings, one with more than one storey (%s)" % [storeys])
 	var missing: Array = []
 	var old := 0
 	for stacks: Dictionary in [m.tiles, m.roofs]:

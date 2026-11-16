@@ -304,5 +304,57 @@
 		"loot_table_id": "loot_supply_works",
 		"microchip_reward": 1,
 		"story_flags_on_win": []
+	},
+	{
+		"id": "demo_kit_street",
+		"display_name": "Kit Street (stacked floors demo)",
+		"chapter": 1,
+		"map_id": "kit_street_demo",
+		"music_id": "battle_supply_works",
+		"briefing": "Doctrine wardens hold the tower on Kit Street: one in the hall, two on the floors above. Take the stairs.",
+		"enemies": [
+			{
+				"character_id": "doctrine_warden",
+				"cell": [
+					3,
+					2
+				],
+				"level": 1
+			},
+			{
+				"character_id": "factory_marksman",
+				"cell": [
+					3,
+					3,
+					1
+				],
+				"level": 1
+			},
+			{
+				"character_id": "doctrine_warden",
+				"cell": [
+					6,
+					2,
+					2
+				],
+				"level": 1
+			},
+			{
+				"character_id": "doctrine_warden",
+				"cell": [
+					11,
+					8
+				],
+				"level": 1
+			}
+		],
+		"win_condition": "defeat_all",
+		"soul_coin_reward": 300,
+		"xp_reward": 160,
+		"loot_table_id": "loot_supply_works",
+		"microchip_reward": 2,
+		"story_flags_on_win": [
+			"demo_kit_street_done"
+		]
 	}
 ]

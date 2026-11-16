@@ -33,7 +33,8 @@ func refresh() -> void:
 	var c := grid.get_cell(cell)
 	terrain_def = ContentDB.terrain.get(c.terrain, {})
 	position = grid.grid_to_world(cell, false)
-	z_index = IsometricGrid.draw_order(cell) * 2
+	# Upper storeys: above their own floor (drawn one step after the columns).
+	z_index = IsometricGrid.draw_order(cell) * 2 + (2 if IsometricGrid.level_of(cell) > 0 else 0)
 	_texture = null
 	var tex_path := str(terrain_def.get("texture", ""))
 	if c.tile_id != "":

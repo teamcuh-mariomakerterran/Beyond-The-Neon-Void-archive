@@ -218,7 +218,7 @@ func _spawn_units() -> Array[Node]:
 	for c in GameManager.get_party_members().slice(0, mission.max_party_size):
 		if i >= spawns.size():
 			break
-		var pu := _make_unit(c, Unit.Team.PLAYER, Vector2i(spawns[i][0], spawns[i][1]), 0)
+		var pu := _make_unit(c, Unit.Team.PLAYER, _spawn_cell(spawns[i]), 0)
 		if GameManager.drinks.has(c.id):
 			pu.apply_status("buzzed")  # Last Call
 		out.append(pu)
@@ -226,7 +226,7 @@ func _spawn_units() -> Array[Node]:
 	for e: Dictionary in mission.enemies:
 		var data := ContentDB.get_character(str(e["character_id"]))
 		if data:
-			var eu := _make_unit(data, Unit.Team.ENEMY, Vector2i(e["cell"][0], e["cell"][1]), int(e.get("level", 1)))
+			var eu := _make_unit(data, Unit.Team.ENEMY, _spawn_cell(e["cell"]), int(e.get("level", 1)))
 			# Painted extras: a boss that starts shielded, cloaked ambushers…
 			for sid: Variant in e.get("statuses", []):
 				eu.apply_status(str(sid))
@@ -236,7 +236,7 @@ func _spawn_units() -> Array[Node]:
 	for g: Dictionary in mission.guests:
 		var gdata := ContentDB.get_character(str(g["character_id"]))
 		if gdata:
-			var gu := _make_unit(gdata, Unit.Team.PLAYER, Vector2i(g["cell"][0], g["cell"][1]), int(g.get("level", 1)))
+			var gu := _make_unit(gdata, Unit.Team.PLAYER, _spawn_cell(g["cell"]), int(g.get("level", 1)))
 			# "controlled": the player commands this guest (test units, story cameos).
 			gu.is_player_controlled = bool(g.get("controlled", false))
 			for gsid: Variant in g.get("statuses", []):
@@ -318,6 +318,17 @@ func _refresh_tile_corpses() -> void:
 	for c in grid.corpse_cells():
 		if tiles.has(c):
 			tiles[c].queue_redraw()
+
+
+## A spawn is [x, y] or [x, y, storey]: the third number puts the unit on an
+## upper floor of the building there (ground if that floor doesn't exist).
+func _spawn_cell(sp: Array) -> Vector2i:
+	var c := Vector2i(int(sp[0]), int(sp[1]))
+	if sp.size() > 2 and int(sp[2]) > 0:
+		var up := IsometricGrid.at_level(c, int(sp[2]))
+		if grid.is_walkable(up):
+			return up
+	return c
 
 
 ## Seeing inside: the building the active unit stands in loses its roof and
