@@ -25,20 +25,23 @@ const SLOTS: Array[String] = [
 	"corner_out_e", "corner_out_n", "corner_out_s", "corner_out_w",
 	"corner_in_e", "corner_in_n", "corner_in_s", "corner_in_w",
 	"t_se", "t_sw", "cross_a", "cross_b", "t_ne", "t_nw", "cross",
-	"thin_a", "thin_b", "thin_c", "thin_d", "thin_e", "thin_f", "thin_g", "thin_h", "thin_i",
-	"thin_j", "thin_k", "thin_l", "thin_m", "thin_n", "thin_o", "thin_p", "thin_q", "thin_r",
+	"thin_se", "thin_ne", "thin_sw", "thin_nw", "thin_post",
+	"join_se", "join_ne", "join_sw", "join_nw",
+	"thin_se_sw", "thin_ne_se", "thin_ne_nw", "thin_sw_nw",
+	"thin_se_sw_nw", "thin_ne_se_sw", "thin_ne_se_nw", "thin_ne_sw_nw", "thin_cross",
 	"post",
 	"door_se", "door_ne", "door_sw", "door_nw", "door_thin_a", "door_thin_b",
 	"stairs_a", "stairs_b", "ramp_a", "ramp_b",
-	"roof_slope_a", "roof_slope_b", "roof_slope_c", "roof_slope_d", "roof_slope_e",
-	"roof_slope_f", "roof_slope_g", "roof_slope_h", "roof_slope_i", "roof_slope_j",
-	"roof_slope_k", "roof_slope_l", "roof_slope_m", "roof_slope_n", "roof_slope_o",
-	"roof_slope_p", "roof_slope_q", "roof_slope_r", "roof_slope_s", "roof_block",
+	"slope_ne", "slope_se", "slope_nw", "slope_sw",
+	"hip_e", "hip_s", "hip_n", "hip_w",
+	"valley_e", "valley_n", "valley_s", "valley_w",
+	"ridge_x", "ridge_y", "roof_end_se", "roof_end_ne", "roof_end_sw", "roof_end_nw",
+	"roof_pyramid", "roof_block",
 ]
 const UNSURE := [
-	"t_se / t_sw / t_ne / t_nw / cross_a / cross_b: thick junction pieces 15-20 were told apart by eye",
-	"thin_a..thin_r (22-39): partition walls and their junctions are cut but not sorted into directions yet",
-	"roof_slope_a..s and roof_block (51-70) are drawn about 1.6x the size of a tile: anchor and slot are a guess, the brush uses the flat roof (piece 2) until Brian confirms",
+	"t_se / t_sw / t_ne / t_nw / cross_a / cross_b (15-20): thick junction pieces, told apart by eye, not used by the brush",
+	"join_* (27-30), valley_*, ridge_x/y, roof_end_* (59-68): sorted by their outline in the sheet, not by a name list; check them on an L-shaped pitched roof and where a partition meets the outer wall",
+	"stairs_a / ramp_a climb toward NE, stairs_b / ramp_b toward SE (read from the art); the other two directions are their mirrors",
 	"the zip piece lists name 80 pieces, the sheets hold 70 (6 doors not 12, 4 stairs/ramps not 8)",
 ]
 const MASK_NAMES: Array[String] = ["o", "s", "w", "ws", "e", "es", "ew", "esw", "n", "ns", "nw", "nsw", "ne", "nes", "new", "nesw"]
@@ -112,8 +115,9 @@ func _cut_kit(path: String, kits: Dictionary) -> int:
 		_save(piece, KITS_OUT.path_join(id), file + ".png")
 		slots[SLOTS[i]] = file
 		made += 1
-	# Floor slab: how far its top face sits above the level the walls stand on.
-	var floor_top := img.get_region(Rect2i(0, 0, CELL_W, pitch - 1)).get_used_rect().position.y
+	var floor_rect := img.get_region(Rect2i(0, 0, CELL_W, pitch - 1)).get_used_rect()
+	var floor_top := floor_rect.position.y
+	var floor_h := floor_rect.size.y
 	var old: Dictionary = kits.get(id, {})
 	var kept: Dictionary = old.get("slots", {})
 	for s: String in kept:
@@ -122,8 +126,10 @@ func _cut_kit(path: String, kits: Dictionary) -> int:
 	kits[id] = {
 		"name": id.left(-3).replace("_", " "), "family": id.left(-3), "height": h,
 		"sheet": path.trim_prefix("res://"), "px": 64,
-		"anchor": [50.5, 32.0 * h + 24.5],
-		"slab": (32 * h + 8) - floor_top,
+		# The anchor is the centre of the floor piece's top face: the kit's footing.
+		# Walls stand `slab` px below it, on the level the slab's sides reach down to.
+		"anchor": [50.5, floor_top + 16.0],
+		"slab": floor_h - 32,
 		"slots": slots, "flags": old.get("flags", flags),
 	}
 	print("%s: %d pieces, height %d" % [id, made, h])

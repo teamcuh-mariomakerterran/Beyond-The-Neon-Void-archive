@@ -27,8 +27,8 @@ signal status(text: String, color: Color)
 
 enum Mode { TILES, DETAILS, PARTICLES, OBJECTS, GAMEPLAY, REGIONS, MASKS, BUILD }
 ## BUILD mode brushes: auto-walls from a kit, doors, auto-tiled ground.
-enum Build { WALLS, DOOR, GROUND }
-const BUILD_NAMES := ["WALLS", "DOOR", "GROUND"]
+enum Build { WALLS, INNER, DOOR, STAIRS, GROUND, SLOPE }
+const BUILD_NAMES := ["WALLS", "INNER", "DOOR", "STAIRS", "GROUND", "SLOPE"]
 enum Tool { BRUSH, RECT, FILL, PICK, SELECT, PAN, ERASE, COPY, STAMP, SCULPT, RAMP }
 enum Play { SPAWN, ENEMY, BLOCK, COVER, SIGHT }
 ## Tactical masks: per-cell battle rules + interaction anchors.
@@ -77,6 +77,15 @@ var build_tool: Build = Build.WALLS
 var sel_kit: String = ""
 var build_height: int = 0
 var build_roof: bool = true
+## "flat" or "pitched" (sloped roof pieces that overhang the walls).
+var build_roof_style: String = "flat"
+## Which way STAIRS and SLOPE climb: ne / se / sw / nw.
+var build_dir: String = "ne"
+## STAIRS: the storey the run starts on (0 = ground), and stairs or a ramp.
+## SLOPE: "roof" (the sloped roof piece, one cell), "ramp" or "stairs" (two cells).
+var build_level: int = 0
+var build_run: String = "stairs"
+var build_slope: String = "roof"
 var sel_autoset: String = ""
 ## Building the brush last touched (ADD STOREY acts on it) and the stroke's floor level.
 var build_target: String = ""
@@ -1507,6 +1516,29 @@ func _palette_build() -> void:
 	roof.button_pressed = build_roof
 	roof.toggled.connect(func(on: bool) -> void: build_roof = on)
 	_palette.add_child(roof)
+	var rs := HBoxContainer.new()
+	rs.add_child(NeonTheme.label("Roof", 12, NeonTheme.TEXT_DIM))
+	rs.add_child(ForgeForm._option(["flat", "pitched"], build_roof_style, func(k: String) -> void:
+		build_roof_style = k
+		var tb := AutoWall.find(world, build_target)
+		if not tb.is_empty():
+			_push_undo()
+			tb["roof_style"] = k
+			_renderer.refresh_columns(AutoWall.rebuild(world, tb))))
+	_palette.add_child(rs)
+	var dr := HBoxContainer.new()
+	dr.add_child(NeonTheme.label("Stairs / slope climb toward", 12, NeonTheme.TEXT_DIM))
+	dr.add_child(ForgeForm._option(["ne", "se", "sw", "nw"], build_dir, func(k: String) -> void: build_dir = k))
+	_palette.add_child(dr)
+	var lr := HBoxContainer.new()
+	lr.add_child(NeonTheme.label("Stairs start on storey (0 = ground)", 12, NeonTheme.TEXT_DIM))
+	lr.add_child(ForgeForm._spin(build_level, true, func(n: float) -> void: build_level = clampi(int(n), 0, 5)))
+	lr.add_child(ForgeForm._option(["stairs", "ramp"], build_run, func(k: String) -> void: build_run = k))
+	_palette.add_child(lr)
+	var slr := HBoxContainer.new()
+	slr.add_child(NeonTheme.label("Ground slope piece", 12, NeonTheme.TEXT_DIM))
+	slr.add_child(ForgeForm._option(["roof", "ramp", "stairs"], build_slope, func(k: String) -> void: build_slope = k))
+	_palette.add_child(slr)
 	var sr := HBoxContainer.new()
 	for pair: Array in [["ADD STOREY", 1], ["REMOVE STOREY", -1]]:
 		var sb := Button.new()
@@ -1524,7 +1556,7 @@ func _palette_build() -> void:
 		_build_palette()))
 	var adef: Dictionary = ContentDB.autotiles.get(sel_autoset, {})
 	_palette.add_child(NeonTheme.label("Paints: %s   over: %s" % [str(adef.get("high", "")).replace("_", " "), str(adef.get("low", "")).replace("_", " ")], 12, NeonTheme.CYAN))
-	var t := NeonTheme.label("WALLS: paint the floor of a room; walls build round the outline, erase takes cells away. A kit height the sheet lacks borrows the nearest one.\nDOOR: click a wall to open a door there (click again to close it).\nADD STOREY: stacks a roof and the next floor on the building you last touched.\nGROUND: paints the raised material; edges and corners pick themselves.", 12, NeonTheme.TEXT_DIM)
+	var t := NeonTheme.label("WALLS: paint the floor of a room; walls build round the outline, erase takes cells away. A kit height the sheet lacks borrows the nearest one.\nINNER: paint partition walls on a building's floor; they join each other and the outer wall.\nDOOR: click a wall to open a door there (click again to close it).\nSTAIRS: click a floor cell: a two-cell stair run climbs from it to the next storey and opens the floor above (click it again to remove). Every storey is walkable; pick the storey the run starts on to reach the 3rd floor and up (ADD STOREY adds floors).\nSLOPE: a ground ramp (2 layers) from the kit's sloped roof piece; erase removes it.\nADD STOREY: stacks a roof and the next floor on the building you last touched.\nGROUND: paints the raised material; edges and corners pick themselves.", 12, NeonTheme.TEXT_DIM)
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_palette.add_child(t)
 
@@ -1544,8 +1576,28 @@ func apply_build(cells: Array[Vector2i], erase: bool) -> Array[Vector2i]:
 				var b := AutoWall.building_at(world, c)
 				if not b.is_empty():
 					build_target = str(b["id"])
+					if not b.has("roof_style") and build_roof_style != "flat":
+						b["roof_style"] = build_roof_style
+						changed.append_array(AutoWall.rebuild(world, b))
+			Build.INNER:
+				changed.append_array(AutoWall.paint_inner(world, c, erase))
+			Build.STAIRS:
+				var sb2 := AutoWall.building_at(world, c)
+				if not sb2.is_empty():
+					build_target = str(sb2["id"])
+					var got := AutoWall.toggle_stairs(world, c, build_dir, build_level, build_run)
+					if got.is_empty():
+						status.emit("Stairs need a floor cell before them and two after, inside the building.", NeonTheme.MAGENTA)
+					changed.append_array(got)
+			Build.SLOPE:
+				if erase:
+					changed.append_array(AutoWall.remove_slope(world, c))
+				else:
+					changed.append_array(AutoWall.place_slope(world, c, sel_kit, build_dir, _build_z, build_slope))
 			Build.DOOR:
 				var owner_b := AutoWall.wall_owner(world, c)
+				if owner_b.is_empty():
+					owner_b = AutoWall.building_at(world, c)  # a partition wall takes a thin door
 				if not owner_b.is_empty():
 					build_target = str(owner_b["id"])
 					changed.append_array(AutoWall.toggle_door(world, c))
@@ -2514,6 +2566,8 @@ func _press() -> void:
 				# The stroke keeps the floor level it started on (walls it raises don't lift it).
 				var hb := AutoWall.building_at(world, _hover_cell)
 				_build_z = int(hb["z"]) if not hb.is_empty() else world.top_z(_hover_cell, layer)
+				if bool(world.gameplay.get(_hover_cell, {}).get("sl", false)):
+					_build_z = int(world.gameplay[_hover_cell]["height"]) - 1
 			_apply(target_cells())
 
 
@@ -2524,7 +2578,7 @@ func _drag() -> void:
 		sculpt(target_cells())
 	elif tool == Tool.RAMP:
 		place_ramps(target_cells())
-	elif tool in [Tool.BRUSH, Tool.ERASE] and mode in [Mode.TILES, Mode.PARTICLES, Mode.GAMEPLAY, Mode.REGIONS, Mode.MASKS, Mode.BUILD] and not (mode == Mode.BUILD and build_tool == Build.DOOR) and not (mode == Mode.GAMEPLAY and play_tool in [Play.SPAWN, Play.ENEMY]) and not (mode == Mode.MASKS and mask_tool == Mask.ANCHOR):
+	elif tool in [Tool.BRUSH, Tool.ERASE] and mode in [Mode.TILES, Mode.PARTICLES, Mode.GAMEPLAY, Mode.REGIONS, Mode.MASKS, Mode.BUILD] and not (mode == Mode.BUILD and build_tool in [Build.DOOR, Build.STAIRS]) and not (mode == Mode.GAMEPLAY and play_tool in [Play.SPAWN, Play.ENEMY]) and not (mode == Mode.MASKS and mask_tool == Mask.ANCHOR):
 		_apply(target_cells())
 
 

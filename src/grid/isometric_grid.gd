@@ -31,6 +31,52 @@ var source: Callable
 ## Fallen units by cell — targets for revive / reanimate.
 var _corpses: Dictionary = {}
 
+## Stacked floors. A cell on storey L of a building has coords
+## (x + L * LEVEL_STRIDE, y): the same grid, so every rule that works on
+## neighbouring cells keeps working on a floor; `base()` gives where it is on
+## the map and `level_of()` its storey. Storeys meet only through `links`
+## (the top of a stair run <-> the floor it arrives on).
+const LEVEL_STRIDE := 1024
+## cell -> cells joined to it across storeys.
+var links: Dictionary = {}
+## Optional filter for pick_cell: return true to skip a cell (floors hidden by the see-inside fade).
+var pick_skip: Callable
+
+
+static func base(cell: Vector2i) -> Vector2i:
+	return Vector2i(posmod(cell.x, LEVEL_STRIDE), cell.y) if cell.x >= LEVEL_STRIDE else cell
+
+
+static func level_of(cell: Vector2i) -> int:
+	return cell.x / LEVEL_STRIDE if cell.x >= LEVEL_STRIDE else 0
+
+
+static func at_level(cell: Vector2i, level: int) -> Vector2i:
+	var b := base(cell)
+	return Vector2i(b.x + level * LEVEL_STRIDE, b.y)
+
+
+## Adds a cell on an upper storey (see AutoWall.add_levels).
+func add_level_cell(c: Cell) -> void:
+	_cells[c.coords] = c
+
+
+func add_link(a: Vector2i, b: Vector2i) -> void:
+	for pair: Array in [[a, b], [b, a]]:
+		var l: Array = links.get(pair[0], [])
+		if not l.has(pair[1]):
+			l.append(pair[1])
+		links[pair[0]] = l
+
+
+## Where a step from `cell` toward `dir` lands: across a link when a stair run
+## ends there, else the next cell on the same storey.
+func step_to(cell: Vector2i, dir: Vector2i) -> Vector2i:
+	for l: Vector2i in links.get(cell, []):
+		if base(l) - base(cell) == dir:
+			return l
+	return cell + dir
+
 
 class Cell extends RefCounted:
 	var coords: Vector2i
@@ -45,6 +91,16 @@ class Cell extends RefCounted:
 	var hazard_turns: int = 0
 	var prop_id: String = ""
 	var occupant: Node = null
+	## Slope / stairs: the grid direction it climbs toward (ZERO = flat), how
+	## many layers it rises from its low edge to its high edge, and how far its
+	## centre sits above `height` (fractions of a layer, drawing only).
+	var slope: Vector2i = Vector2i.ZERO
+	var slope_rise: int = 0
+	var lift: float = 0.0
+	## Extra draw order for whoever stands here (stairs art spans two cells).
+	var draw_bias: int = 0
+	## Building an upper-storey cell belongs to ("" on the ground).
+	var building: String = ""
 
 	func to_dict() -> Dictionary:
 		var d := {"x": coords.x, "y": coords.y, "h": height, "t": terrain}
@@ -73,6 +129,8 @@ func setup(p_width: int, p_depth: int, terrain: String = "concrete") -> void:
 
 
 func in_bounds(cell: Vector2i) -> bool:
+	if cell.x >= LEVEL_STRIDE:
+		return _cells.has(cell)  # upper storeys only exist where a floor was built
 	return cell.x >= 0 and cell.y >= 0 and cell.x < width and cell.y < depth
 
 
@@ -97,6 +155,9 @@ func all_cells() -> Array[Vector2i]:
 		for x in width:
 			for y in depth:
 				out.append(Vector2i(x, y))
+		for c: Vector2i in _cells:
+			if c.x >= LEVEL_STRIDE:
+				out.append(c)
 		return out
 	out.assign(_cells.keys())
 	return out
@@ -105,6 +166,59 @@ func all_cells() -> Array[Vector2i]:
 func get_height(cell: Vector2i) -> int:
 	var c := get_cell(cell)
 	return c.height if c else 0
+
+
+## Height a unit is drawn at in the middle of a cell (slopes sit between layers).
+func visual_height(cell: Vector2i) -> float:
+	var c := get_cell(cell)
+	return float(c.height) + c.lift if c else 0.0
+
+
+## Height of the walking surface at a fractional grid position: flat cells are
+## level, slopes and stairs rise across the cell toward their high edge.
+func surface_height(p: Vector2, level: int = 0) -> float:
+	var cell := Vector2i(roundi(p.x), roundi(p.y))
+	var c := get_cell(at_level(cell, level))
+	if c == null:
+		return 0.0
+	var h := float(c.height) + c.lift
+	if c.slope != Vector2i.ZERO:
+		h += float(c.slope_rise) * clampf((p - Vector2(cell)).dot(Vector2(c.slope)), -0.5, 0.5)
+	return h
+
+
+## Height of a cell's edge toward `dir` (a neighbour offset).
+func edge_height(cell: Vector2i, dir: Vector2i) -> float:
+	var c := get_cell(cell)
+	if c == null:
+		return 0.0
+	return float(c.height) + c.lift + float(c.slope_rise) * 0.5 * signf(Vector2(dir).dot(Vector2(c.slope)))
+
+
+## True when a slope or stairs joins two neighbouring cells: one of them climbs
+## along the step and their shared edge is level, so no jump is needed.
+func slope_link(a: Vector2i, b: Vector2i) -> bool:
+	var ca := get_cell(a)
+	var cb := get_cell(b)
+	if ca == null or cb == null:
+		return false
+	var d := base(b) - base(a)
+	if level_of(a) != level_of(b) and not (links.get(a, []) as Array).has(b):
+		return false
+	var along := (ca.slope != Vector2i.ZERO and (ca.slope == d or ca.slope == -d)) or (cb.slope != Vector2i.ZERO and (cb.slope == d or cb.slope == -d))
+	return along and absf(edge_height(a, d) - edge_height(b, -d)) <= 0.6
+
+
+## Can a unit with this jump stat step from a to b (neighbours)? Slopes and
+## stairs connect their two heights without a jump check.
+func can_climb(a: Vector2i, b: Vector2i, jump: int) -> bool:
+	return absi(get_height(b) - get_height(a)) <= jump or slope_link(a, b)
+
+
+## Draw order of whoever stands on a cell (see Cell.draw_bias).
+func unit_z(cell: Vector2i) -> int:
+	var c := get_cell(cell)
+	return draw_order(cell) * 2 + 1 + (c.draw_bias if c else 0)
 
 
 func set_height(cell: Vector2i, h: int) -> void:
@@ -168,10 +282,11 @@ func corpse_cells() -> Array[Vector2i]:
 
 ## World position of the centre of a cell's top face.
 func grid_to_world(cell: Vector2i, include_height: bool = true) -> Vector2:
-	var x := (cell.x - cell.y) * tile_width * 0.5
-	var y := (cell.x + cell.y) * tile_height * 0.5
+	var bc := base(cell)
+	var x := (bc.x - bc.y) * tile_width * 0.5
+	var y := (bc.x + bc.y) * tile_height * 0.5
 	if include_height:
-		y -= get_height(cell) * height_step
+		y -= visual_height(cell) * height_step
 	return origin + Vector2(x, y)
 
 
@@ -191,10 +306,12 @@ func pick_cell(world_pos: Vector2) -> Vector2i:
 	var hw := tile_width * 0.5
 	var hh := tile_height * 0.5
 	for cell: Vector2i in _cells:
+		if cell.x >= LEVEL_STRIDE and pick_skip.is_valid() and pick_skip.call(cell):
+			continue
 		var center := grid_to_world(cell)
 		var d := world_pos - center
 		if absf(d.x) / hw + absf(d.y) / hh <= 1.0:
-			var order := float(cell.x + cell.y) + get_height(cell) * 0.01
+			var order := float(draw_order(cell)) + get_height(cell) * 0.01
 			if order > best_order:
 				best_order = order
 				best = cell
@@ -203,17 +320,22 @@ func pick_cell(world_pos: Vector2) -> Vector2i:
 
 ## Draw-order key: larger = drawn later (in front).
 static func draw_order(cell: Vector2i) -> int:
-	return cell.x + cell.y
+	var bc := base(cell)
+	return bc.x + bc.y
 
 
 # --- Distance & ranges -----------------------------------------------------
 
+## Steps on the map between two cells; each storey apart counts as 2 more (no
+## reaching through a floor).
 static func distance(a: Vector2i, b: Vector2i) -> int:
-	return absi(a.x - b.x) + absi(a.y - b.y)
+	var ba := base(a)
+	var bb := base(b)
+	return absi(ba.x - bb.x) + absi(ba.y - bb.y) + 2 * absi(level_of(a) - level_of(b))
 
 
 static func cardinal_direction(from_cell: Vector2i, to_cell: Vector2i) -> Vector2i:
-	var d := to_cell - from_cell
+	var d := base(to_cell) - base(from_cell)
 	if d == Vector2i.ZERO:
 		return Vector2i(1, 0)
 	if absi(d.x) >= absi(d.y):
@@ -227,6 +349,8 @@ func neighbors(cell: Vector2i) -> Array[Vector2i]:
 		var n := cell + dir
 		if in_bounds(n):
 			out.append(n)
+	for l: Vector2i in links.get(cell, []):
+		out.append(l)
 	return out
 
 
@@ -265,7 +389,7 @@ func flood(start: Vector2i, move: int, jump: int, team: int, ignore_units: bool 
 			var nc := get_cell(n)
 			if nc == null or not nc.walkable:
 				continue
-			if absi(nc.height - get_height(current)) > jump:
+			if not can_climb(current, n, jump):
 				continue
 			if not ignore_units:
 				var occ := get_occupant(n)
@@ -333,16 +457,28 @@ static func line_cells(a: Vector2i, b: Vector2i) -> Array[Vector2i]:
 func has_line_of_sight(a: Vector2i, b: Vector2i) -> bool:
 	var ha := get_height(a) + EYE_HEIGHT
 	var hb := get_height(b) + EYE_HEIGHT
-	var total := float(distance(a, b))
-	if total <= 1.0:
+	var la := level_of(a)
+	var lb := level_of(b)
+	var total := float(distance(base(a), base(b)))
+	if total <= 1.0 and la == lb:
 		return true
-	for c in line_cells(a, b):
+	# Across storeys the line runs over the map; a floor between the two heights blocks it.
+	var cross := la != lb
+	var from_c := base(a) if cross else a
+	for c in line_cells(from_c, base(b) if cross else b):
+		if cross:
+			var lo := minf(ha, hb) - EYE_HEIGHT
+			var hi := maxf(ha, hb) - EYE_HEIGHT
+			for lv in range(1, maxi(la, lb) + 1):
+				var deck := get_cell(at_level(c, lv))
+				if deck != null and deck.slope == Vector2i.ZERO and float(deck.height) > lo and float(deck.height) <= hi:
+					return false
 		var cell := get_cell(c)
 		if cell == null:
 			continue
 		if cell.blocks_los:
 			return false
-		var t := float(distance(a, c)) / total
+		var t := float(distance(from_c, c)) / maxf(total, 1.0)
 		if float(cell.height) > lerpf(ha, hb, t):
 			return false
 	return true
@@ -364,7 +500,7 @@ const HEAD_ON := 0.92  # alignment (cos, ~22°) that counts as "straight across 
 func cover_fraction(target_cell: Vector2i, attacker_cell: Vector2i) -> float:
 	if distance(target_cell, attacker_cell) <= 1:
 		return 0.0
-	var v := Vector2(attacker_cell - target_cell).normalized()
+	var v := Vector2(base(attacker_cell) - base(target_cell)).normalized()
 	var th := get_height(target_cell)
 	var best := 0.0
 	for dir: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
@@ -455,8 +591,13 @@ func copy_from(other: IsometricGrid) -> void:
 	tile_width = other.tile_width
 	tile_height = other.tile_height
 	height_step = other.height_step
+	links = other.links.duplicate(true)
 	for coords: Vector2i in other.all_cells():
 		var src := other.get_cell(coords)
+		if src != null and coords.x >= LEVEL_STRIDE and not _cells.has(coords):
+			var nc := Cell.new()
+			nc.coords = coords
+			_cells[coords] = nc
 		var c := get_cell(coords)
 		if src == null or c == null:
 			continue
@@ -470,6 +611,11 @@ func copy_from(other: IsometricGrid) -> void:
 		c.hazard = src.hazard
 		c.hazard_turns = src.hazard_turns
 		c.prop_id = src.prop_id
+		c.slope = src.slope
+		c.slope_rise = src.slope_rise
+		c.lift = src.lift
+		c.draw_bias = src.draw_bias
+		c.building = src.building
 
 
 func load_dict(data: Dictionary, terrain_defs: Dictionary = {}) -> void:

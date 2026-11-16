@@ -289,6 +289,7 @@ func cutaway_alpha(at: Vector2, order: int, z: int) -> float:
 ## Auto-wall building someone is inside: its roof, upper storeys and its SW / SE
 ## (camera-side) walls fade out, and come back when they leave.
 var inside_building: String = ""
+var inside_level: int = 0
 ## building id -> how hidden it is now (0 = solid, 1 = fully opened up).
 var _open: Dictionary = {}
 const OPEN_TIME := 0.28
@@ -296,18 +297,20 @@ const OPEN_TIME := 0.28
 const FRONT_WALL_ALPHA := 0.14
 
 
-## `instant` skips the fade (headless battles, reduce motion, map load).
-func set_inside(building_id: String, instant: bool = false) -> void:
-	if building_id == inside_building:
+## `level` is the storey they stand on (0 = ground): everything above it
+## hides. `instant` skips the fade (headless battles, reduce motion, map load).
+func set_inside(building_id: String, instant: bool = false, level: int = 0) -> void:
+	if building_id == inside_building and level == inside_level:
 		return
 	inside_building = building_id
+	inside_level = level
 	if building_id != "" and not _open.has(building_id):
 		_open[building_id] = 0.0
 	if instant:
 		_open.clear()
 		if building_id != "":
 			_open[building_id] = 1.0
-		redraw_all_columns()
+	redraw_all_columns()
 	set_process(true)
 
 
@@ -322,16 +325,19 @@ func _step_open(d: float) -> void:
 	redraw_all_columns()
 
 
-## Alpha for a generated building piece (1 for anything else).
-func building_alpha(opts: Dictionary, overlay: bool) -> float:
+## Alpha for a generated building piece (1 for anything else). `lv` is the
+## storey a piece belongs to: a roof or floor above the viewer's storey goes,
+## the camera-side walls of their own storey fade, the floor they stand on stays.
+func building_alpha(opts: Dictionary, _overlay: bool = false) -> float:
 	if _open.is_empty() or not opts.has("b"):
 		return 1.0
 	var t := float(_open.get(str(opts["b"]), 0.0))
 	if t <= 0.0:
 		return 1.0
-	if overlay and not bool(opts.get("front", false)):
+	var lv := int(opts.get("lv", 0))
+	if lv > inside_level:
 		return 1.0 - t
-	if bool(opts.get("front", false)):
+	if lv == inside_level and bool(opts.get("front", false)):
 		return lerpf(1.0, FRONT_WALL_ALPHA, t)
 	return 1.0
 
@@ -421,8 +427,16 @@ static func draw_tile(ci: CanvasItem, w: WorldMap, tile_id: String, center: Vect
 		var an := KitMap.anchor(tile_id)
 		if not an.is_empty():
 			var ks: float = w.tile_width / float(an["px"])
-			var ground := center + Vector2(0, float(opts["rise"]) * w.height_step)
+			var ground := center + Vector2(0, float(opts["rise"]) * w.height_step - float(opts.get("up", 0.0)) * ks)
+			if opts.get("at") is Array:
+				# Two-cell pieces (stairs) are stored on their front cell and drawn from their anchor cell.
+				ground += w.to_screen(Vector2(float(opts["at"][0]), float(opts["at"][1])), 0)
 			var size := tex.get_size() * ks
+			if opts.has("under"):
+				# A second piece behind this one (partition walls made of two arms).
+				var ut: Texture2D = (tile_frames(str(opts["under"])) + [null])[0]
+				if ut:
+					ci.draw_texture_rect(ut, Rect2(ground - Vector2(float(an["ax"]), float(an["ay"])) * ks, ut.get_size() * ks), false, col)
 			if bool(opts.get("flip", false)):
 				ci.draw_set_transform(Vector2(ground.x * 2.0, 0), 0.0, Vector2(-1, 1))
 			ci.draw_texture_rect(tex, Rect2(ground - Vector2(float(an["ax"]), float(an["ay"])) * ks, size), false, col)

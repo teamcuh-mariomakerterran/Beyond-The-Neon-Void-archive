@@ -101,3 +101,13 @@ Filled by the drag-and-drop intake wizard: `id -> {path, type, name, role, ...}`
 - Walls stand on the ring of cells just outside the painted floor and hug it. Door pieces are two cells wide.
 - Seeing inside: `WorldRenderer.set_inside(building id)` fades that building's overlay and its `front` (SW / SE) walls; exploration feeds it the player's cell, battles the active unit's.
 - Rebuild the demo and its screenshots: `tests/kit_demo.gd` (map `kit_street_demo`).
+
+### Elevation, stairs and second floors (built 2026-11-16)
+
+- Footing: a kit's `anchor` is the centre of its floor piece's top face; `slab` is the measured slab depth (px). Walls stand `slab` px below it. Thick slabs raise the floor people walk on by `KitMap.floor_layers` (0, 1 or 2 layers) above the building's `z`.
+- Slopes and stairs are rules in the grid: `IsometricGrid.Cell.slope` (direction it climbs), `slope_rise` (layers across the cell), `lift` (drawing only). `can_climb(a, b, jump)` replaces the bare jump check in pathfinding, exploration and reactions: cells joined by a slope (`slope_link`) need no jump. `surface_height(p)` gives the height under a fractional position, so walkers rise and fall across the cell. Painted `ramp` tiles count too.
+- Map `gameplay` overrides carry them: `height`, `lift`, `slope: [dx, dy]`, `rise`, `bias` (draw order for whoever stands there).
+- Ground slopes: `AutoWall.place_slope(world, cell, kit, dir, z)` puts a kit's `slope_*` roof piece on the ground as a 2-layer ramp. The same pieces edge a `roof_style: "pitched"` roof (`slope_*` on edges, `hip_*` on corners, `roof_block` inside), overhanging the wall line.
+- Partitions: building `inner` cells; pieces `thin_<arms>` are sorted by which way their arms run (ne / se / sw / nw). A straight run is two single arms, the back one in `under`.
+- Stairs: building `stairs: [{cell, dir}]`, two cells long, one storey high. With stairs the first upper floor is a real deck in `tiles` (`part: "deck"`, `lv: 1`) everywhere but the hole over the stairs and the hall from the door to their foot. **One walkable height per cell:** rooms under the deck are not walkable (ASK BRIAN: true stacked floors need grid layers).
+- Seeing inside is per storey: pieces carry `lv`; `WorldRenderer.set_inside(id, instant, level)` hides everything above the viewer's storey and fades that storey's camera-side walls.

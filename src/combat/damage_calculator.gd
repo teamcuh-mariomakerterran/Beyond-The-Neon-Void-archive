@@ -26,6 +26,9 @@ static func is_magical(ability: Ability) -> bool:
 
 ## "front", "side" or "back" — where the attacker stands relative to the target's facing.
 static func attack_angle(attacker_cell: Vector2i, target_cell: Vector2i, target_facing: Vector2i) -> String:
+	# Storeys of a building share the map: angles are read on the map, whatever the floor.
+	attacker_cell = IsometricGrid.base(attacker_cell)
+	target_cell = IsometricGrid.base(target_cell)
 	var rel := attacker_cell - target_cell
 	var dot := rel.x * target_facing.x + rel.y * target_facing.y
 	if dot > 0:

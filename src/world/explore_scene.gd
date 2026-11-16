@@ -52,6 +52,9 @@ var _avatar_facing: String = "SE"
 ## Free movement: the avatar's exact spot in grid space (cell centres are
 ## whole numbers) and the height it's drawn at (eases between levels).
 var fpos: Vector2 = Vector2.ZERO
+## Storey of a building the player stands on (0 = ground). `cell` stays a map
+## cell; the grid's cell for it is _g(cell).
+var level: int = 0
 var _draw_h: float = 0.0
 var _anim_now: String = ""
 ## The mount being ridden ("" = on foot); see Mounts / data/mounts.json.
@@ -560,25 +563,34 @@ func run_trigger(action: String, arg: String) -> void:
 
 func _place_avatar() -> void:
 	fpos = Vector2(cell)
-	_draw_h = float(grid.get_height(cell))
-	_avatar.position = world.to_screen(Vector2(cell), grid.get_height(cell))
-	_avatar.z_index = (cell.x + cell.y) * 2 + 1
+	if grid.get_cell(_g(cell)) == null:
+		level = 0
+	_draw_h = grid.visual_height(_g(cell))
+	_avatar.position = world.to_screen(Vector2(cell), _draw_h)
+	_avatar.z_index = grid.unit_z(_g(cell))
 	_cam.position = _avatar.position
+
+
+## The grid cell for a map cell on the storey the player is on.
+func _g(c: Vector2i) -> Vector2i:
+	return IsometricGrid.at_level(c, level)
 
 
 func can_step(from: Vector2i, to: Vector2i) -> bool:
 	if not grid.in_bounds(to):
 		return false
+	var gf := _g(from)
+	var gt := grid.step_to(gf, to - from)
 	if mount_id != "" and Mounts.terrain(mount_id) == "water":
 		if not Mounts.is_water_cell(grid, to):
 			return false  # the sub stays in the water
 	elif mount_id != "" and Mounts.terrain(mount_id) == "any":
 		pass
-	elif not grid.is_walkable(to):
+	elif not grid.is_walkable(gt):
 		return false
-	if absi(grid.get_height(to) - grid.get_height(from)) > Mounts.climb(mount_id, MAX_CLIMB):
+	if not grid.can_climb(gf, gt, Mounts.climb(mount_id, MAX_CLIMB)):
 		return false
-	for o: Dictionary in world.objects_at(to):
+	for o: Dictionary in (world.objects_at(to) if IsometricGrid.level_of(gt) == 0 else []):
 		if str(o.get("kind", "")) in ["structure", "location"]:
 			return false
 	return true
@@ -600,8 +612,10 @@ func _step(dir: Vector2i) -> void:
 		return
 	_moving = true
 	var from_pos := _avatar.position
-	var to_pos := world.to_screen(Vector2(to), grid.get_height(to))
-	_avatar.z_index = maxi(cell.x + cell.y, to.x + to.y) * 2 + 1
+	var gfrom := _g(cell)
+	var gto := grid.step_to(gfrom, dir)
+	var to_pos := world.to_screen(Vector2(to), grid.visual_height(gto))
+	_avatar.z_index = maxi(grid.unit_z(gfrom), grid.unit_z(gto))
 	var run := is_running()
 	# Same screen speed whichever way you go (a diagonal is a longer hop).
 	var t := STEP_TIME * _g2s(Vector2(dir)).length() / _g2s(Vector2(1, 0)).length() / (RUN_MULT if run else 1.0) / Mounts.speed(mount_id)
@@ -611,7 +625,7 @@ func _step(dir: Vector2i) -> void:
 	elif to_pos.x != from_pos.x:
 		_avatar.scale.x = -1 if to_pos.x < from_pos.x else 1
 	var tw := create_tween()
-	var hop := grid.get_height(to) != grid.get_height(cell)
+	var hop := grid.get_height(gto) != grid.get_height(gfrom) and not grid.slope_link(gfrom, gto)
 	if hop:
 		var mid := (from_pos + to_pos) * 0.5 + Vector2(0, -world.height_step * 0.8)
 		tw.tween_property(_avatar, "position", mid, t * 0.5)
@@ -620,10 +634,11 @@ func _step(dir: Vector2i) -> void:
 		tw.tween_property(_avatar, "position", to_pos, t)
 	cell = to
 	fpos = Vector2(to)
-	_draw_h = float(grid.get_height(to))
+	level = IsometricGrid.level_of(gto)
+	_draw_h = grid.visual_height(gto)
 	CampaignManager.current_explore["at"] = cell
 	await tw.finished
-	_avatar.z_index = (cell.x + cell.y) * 2 + 1
+	_avatar.z_index = grid.unit_z(gto)
 	_moving = false
 	if _avatar_sprite and _path.is_empty() and input_vector() == Vector2.ZERO:
 		_play("idle")
@@ -715,6 +730,9 @@ func free_move(gdir: Vector2, delta: float) -> void:
 	_play("run" if run else "walk")
 	var now := Vector2i(roundi(fpos.x), roundi(fpos.y))
 	if now != cell:
+		var landed := grid.step_to(_g(cell), now - cell)
+		if grid.get_cell(landed) != null:
+			level = IsometricGrid.level_of(landed)
 		cell = now
 		CampaignManager.current_explore["at"] = cell
 		_arrived()
@@ -753,9 +771,9 @@ func _process(_delta: float) -> void:
 			return
 	_cam.position = _avatar.position
 	# X-ray: whatever stands between the camera and the player turns see-through.
-	_renderer.set_cutaway(_avatar.position + Vector2(0, -world.tile_height * 0.6), cell.x + cell.y, grid.get_height(cell))
+	_renderer.set_cutaway(_avatar.position + Vector2(0, -world.tile_height * 0.6), cell.x + cell.y, grid.get_height(_g(cell)))
 	# Seeing inside: the roof and camera-side walls of the building we stand in fade out.
-	_renderer.set_inside(AutoWall.inside_id(world, cell), SettingsFlags.reduce_motion)
+	_renderer.set_inside(AutoWall.inside_id(world, cell), SettingsFlags.reduce_motion, level)
 	_update_labels()
 	if _post:
 		# Keep the player in the sharp band of the tilt-shift.
@@ -804,9 +822,10 @@ func _free_frame(delta: float) -> void:
 		if not _path.is_empty():
 			g = (Vector2(_path[0]) - fpos).normalized()
 	free_move(g, delta)
-	_draw_h = move_toward(_draw_h, float(grid.get_height(cell)), delta * 10.0)
+	# Slopes and stairs: follow the surface under the feet; ledges ease as before.
+	_draw_h = move_toward(_draw_h, grid.surface_height(fpos, level), delta * 10.0)
 	_avatar.position = world.to_screen(fpos, _draw_h)
-	_avatar.z_index = (cell.x + cell.y) * 2 + 1
+	_avatar.z_index = grid.unit_z(_g(cell))
 
 
 func _dir_held() -> bool:

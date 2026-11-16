@@ -179,7 +179,7 @@ static func step_away(battle: Node, unit: Node, attacker: Node, p: PassiveResour
 	for n: Vector2i in grid.neighbors(unit.cell):
 		if not grid.is_walkable(n) or grid.get_occupant(n) != null:
 			continue
-		if absi(grid.get_height(n) - grid.get_height(unit.cell)) > unit.get_stat("jump"):
+		if not grid.can_climb(unit.cell, n, unit.get_stat("jump")):
 			continue
 		var d := absi(n.x - attacker.cell.x) + absi(n.y - attacker.cell.y)
 		if d > best_d:

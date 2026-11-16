@@ -326,7 +326,14 @@ func _update_inside() -> void:
 	var u: Node = CombatManager.active_unit
 	if world_renderer == null or world_map == null or u == null or not is_instance_valid(u):
 		return
-	world_renderer.set_inside(AutoWall.inside_id(world_map, u.cell), not CombatManager.animate or SettingsFlags.reduce_motion)
+	world_renderer.set_inside(AutoWall.inside_id(world_map, IsometricGrid.base(u.cell)), not CombatManager.animate or SettingsFlags.reduce_motion, IsometricGrid.level_of(u.cell))
+	if not grid.pick_skip.is_valid():
+		# Upper floors can be clicked when they are in view (the building is open down to them) or someone stands there.
+		grid.pick_skip = func(c: Vector2i) -> bool:
+			var gc := grid.get_cell(c)
+			if gc == null or gc.occupant != null:
+				return false
+			return gc.building != world_renderer.inside_building or IsometricGrid.level_of(c) > world_renderer.inside_level
 
 
 func _on_turn_started(unit: Node) -> void:
@@ -458,7 +465,7 @@ func _update_hover(cell: Vector2i) -> void:
 		return
 	if world_renderer and grid.in_bounds(cell):
 		# X-ray: what stands in front of the hovered tile fades out.
-		world_renderer.set_cutaway(grid.grid_to_world(cell), cell.x + cell.y, grid.get_height(cell))
+		world_renderer.set_cutaway(grid.grid_to_world(cell), IsometricGrid.draw_order(cell), grid.get_height(cell))
 	if tiles.has(hovered_cell):
 		tiles[hovered_cell].hovered = false
 		tiles[hovered_cell].queue_redraw()

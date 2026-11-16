@@ -29,22 +29,33 @@ static func build() -> WorldMap:
 				if not (x >= 9 and x <= 10):
 					AutoTile.paint(w, Vector2i(x, y), GROUND, 0)
 	# Two buildings on the far side of the street, a low planter yard on the near side.
-	for x in range(2, 7):
+	for x in range(2, 8):
 		for y in range(1, 5):
 			AutoWall.paint(w, Vector2i(x, y), KIT_A, 3, 0)
 	var a: Dictionary = AutoWall.building_at(w, Vector2i(2, 1))
-	AutoWall.add_storey(w, str(a["id"]))
-	AutoWall.toggle_door(w, Vector2i(4, 5))
+	a["roof_style"] = "pitched"
+	AutoWall.toggle_door(w, Vector2i(3, 5))
+	AutoWall.toggle_stairs(w, Vector2i(5, 3), "ne")  # up to the second floor
 	for x in range(13, 19):
 		for y in range(2, 5):
 			AutoWall.paint(w, Vector2i(x, y), KIT_B, 2, 0)
 	for x in range(16, 19):
 		AutoWall.paint(w, Vector2i(x, 1), KIT_B, 2, 0)  # an L-shaped footprint: inner corner
 	AutoWall.toggle_door(w, Vector2i(14, 5))
+	for y in range(2, 5):
+		AutoWall.paint_inner(w, Vector2i(16, y))
+	AutoWall.paint_inner(w, Vector2i(16, 3), true)  # a gap to walk through
 	for x in range(3, 7):
 		for y in range(14, 16):
 			AutoWall.paint(w, Vector2i(x, y), KIT_YARD, 1, 0, false)
 	AutoWall.toggle_door(w, Vector2i(4, 13))
+	# A raised walkway on the near side, reached by ground slopes from the kit's roof pieces.
+	for x in range(13, 18):
+		for y in range(13, 16):
+			for z in [1, 2]:
+				w.set_tile(Vector2i(x, y), z, AutoTile.tile(GROUND, 15))
+	for y in range(13, 16):
+		AutoWall.place_slope(w, Vector2i(12, y), KIT_B, "se", 0)
 	# Props from the new set.
 	var props := [
 		["street_cover/cyberpunk_slums_alleyway_1_jury_rigged_barricades_02.png", 8, 9],
@@ -55,11 +66,11 @@ static func build() -> WorldMap:
 		["plants/cyberpunk_outdoor_bushes_just_05.png", 4, 14],
 		["plants/cyberpunk_outdoor_bushes_just_08.png", 6, 15],
 		["plants/cyberpunk_plants_2_1_isometri_02.png", 11, 6],
-		["bar/cyberpunk_futuristic_bar_props_07.png", 3, 2],
-		["bar/a_high_top_cyberpunk_rectangul_5.png", 5, 3],
+		["bar/cyberpunk_futuristic_bar_props_07.png", 2, 2],
+		["bar/a_high_top_cyberpunk_rectangul_5.png", 2, 4],
 		["server/cyberpunk_futuristic_server_ro_08.png", 14, 2],
 		["server/cyberpunk_futuristic_server_ro_2_07.png", 17, 3],
-		["industrial/cyberpunk_factory_assets_04.png", 13, 14],
+		["industrial/cyberpunk_factory_assets_04.png", 20, 14],
 	]
 	for p: Array in props:
 		var o := w.add_object(P + str(p[0]), Vector2i(int(p[1]), int(p[2])), 0, "prop")
@@ -109,18 +120,25 @@ func run(tree: SceneTree) -> void:
 	tree.change_scene_to_file("res://scenes/world/explore.tscn")
 	await _wait(tree, 30)
 	var ex: Node = tree.current_scene
-	for shot: Array in [["street", Vector2i(9, 9)], ["inside", Vector2i(4, 3)], ["inside2", Vector2i(15, 3)]]:
+	for shot: Array in [["street", Vector2i(9, 9)], ["inside", Vector2i(4, 4)], ["stairs", Vector2i(5, 3)], ["upstairs", Vector2i(3, 2)], ["inside2", Vector2i(15, 3)], ["slope", Vector2i(12, 14)]]:
 		ex.set("cell", shot[1])
 		ex.call("_place_avatar")
 		await _wait(tree, 70)
 		tree.root.get_texture().get_image().save_png(S % [out, shot[0]])
-	# Clip: walk from the street through the door, and back out.
-	var n := 0
-	for c: Vector2i in [Vector2i(4, 8), Vector2i(4, 7), Vector2i(4, 6), Vector2i(4, 5), Vector2i(4, 4), Vector2i(4, 3), Vector2i(4, 3), Vector2i(4, 4), Vector2i(4, 5), Vector2i(4, 6), Vector2i(4, 7)]:
-		ex.set("cell", c)
+	# Clips: in through the door, up the stairs to the second floor; then up a ground slope.
+	for clip: Array in [["stairs", Vector2i(4, 8), [Vector2i(0, -1), Vector2i(0, -1), Vector2i(0, -1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, -1), Vector2i(0, -1), Vector2i(-1, 0), Vector2i(-1, 0), Vector2i(0, 1)]],
+			["slope", Vector2i(9, 14), [Vector2i(1, 0), Vector2i(1, 0), Vector2i(1, 0), Vector2i(1, 0), Vector2i(1, 0), Vector2i(1, 0)]]]:
+		ex.set("cell", clip[1])
 		ex.call("_place_avatar")
-		for i in 7:
-			await _wait(tree, 3)
-			tree.root.get_texture().get_image().save_png("%s_clip_%03d.png" % [out, n])
-			n += 1
+		await _wait(tree, 40)
+		var n := 0
+		for d: Vector2i in clip[2]:
+			ex.call("_step", d)
+			for i in 60:
+				await _wait(tree, 1)
+				tree.root.get_texture().get_image().save_png("%s_clip_%s_%03d.png" % [out, clip[0], n])
+				n += 1
+				if not bool(ex.get("_moving")):
+					break
+		print(clip[0], " ends at ", ex.get("cell"))
 	print("saved ", out)

@@ -480,10 +480,12 @@ func to_grid(lazy: bool = false) -> IsometricGrid:
 	var foot := _footprint_rules()
 	if lazy:
 		g.setup_lazy(width, depth, func(cell: Vector2i) -> IsometricGrid.Cell: return _rules_cell(cell, foot))
+		AutoWall.add_levels(self, g)
 		return g
 	g.setup(width, depth)
 	for cell in g.all_cells():
 		_apply_rules(g.get_cell(cell), foot)
+	AutoWall.add_levels(self, g)  # upper storeys of buildings: cells on their own level
 	return g
 
 
@@ -525,6 +527,19 @@ func _apply_rules(c: IsometricGrid.Cell, foot: Dictionary) -> void:
 	if over.has("blocks_los"): c.blocks_los = bool(over["blocks_los"])
 	if over.has("cost"): c.move_cost = int(over["cost"])
 	if over.has("hazard"): c.hazard = str(over["hazard"])
+	# Slopes and stairs (AutoWall): the cell's own height, and which way it climbs.
+	var opts := tile_opts(cell, top_z(cell))
+	if opts.has("ramp"):
+		var rd := str(opts["ramp"])
+		c.slope = (Vector2i(1, 0) if rd.begins_with("x") else Vector2i(0, 1)) * (1 if rd.ends_with("+") else -1)
+		c.slope_rise = 1
+		c.lift = 0.5
+	if over.has("height"): c.height = int(over["height"])
+	if over.has("lift"): c.lift = float(over["lift"])
+	if over.has("bias"): c.draw_bias = int(over["bias"])
+	if over.get("slope") is Array:
+		c.slope = Vector2i(int(over["slope"][0]), int(over["slope"][1]))
+		c.slope_rise = int(over.get("rise", 1))
 	var f: Variant = foot.get(cell)
 	if f == "structure":
 		c.walkable = false

@@ -499,7 +499,7 @@ func place_at(p_cell: Vector2i) -> void:
 		cell = p_cell
 		grid.set_occupant(cell, self)
 		position = grid.grid_to_world(cell)
-		z_index = IsometricGrid.draw_order(cell) * 2 + 1
+		z_index = grid.unit_z(cell)
 
 
 func face_towards(target_cell: Vector2i) -> void:
@@ -520,8 +520,9 @@ func move_along(path: Array[Vector2i], animate: bool = true) -> void:
 		for i in range(1, path.size()):
 			var next := path[i]
 			face_towards(next)
-			z_index = maxi(IsometricGrid.draw_order(next), IsometricGrid.draw_order(cell)) * 2 + 1
-			var hop := grid.get_height(next) != grid.get_height(cell)
+			z_index = maxi(grid.unit_z(next), grid.unit_z(cell))
+			# Slopes and stairs are walked, rising or falling across the cell; only real ledges are hopped.
+			var hop := grid.get_height(next) != grid.get_height(cell) and not grid.slope_link(cell, next)
 			if hop and jump_with_anim and has_anim("jump"):
 				await _jump_to(next)
 				cell = next
@@ -546,7 +547,7 @@ func move_along(path: Array[Vector2i], animate: bool = true) -> void:
 	cell = goal
 	grid.set_occupant(goal, self)
 	position = grid.grid_to_world(goal)
-	z_index = IsometricGrid.draw_order(goal) * 2 + 1
+	z_index = grid.unit_z(goal)
 	has_moved = true
 	move_streak = _straight_run(path)
 	EventBus.unit_moved.emit(self, start, goal)

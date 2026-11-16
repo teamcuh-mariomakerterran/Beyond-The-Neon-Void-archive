@@ -18,19 +18,39 @@ const SLOTS: Array[String] = [
 	"corner_out_n", "corner_out_e", "corner_out_s", "corner_out_w",
 	"corner_in_n", "corner_in_e", "corner_in_s", "corner_in_w",
 	"t_ne", "t_se", "t_sw", "t_nw", "cross", "post",
-	"door_ne", "door_se", "door_sw", "door_nw",
+	"door_ne", "door_se", "door_sw", "door_nw", "door_thin_a", "door_thin_b",
+	"join_ne", "join_se", "join_sw", "join_nw",
+	"thin_ne", "thin_se", "thin_sw", "thin_nw", "thin_post",
+	"thin_ne_se", "thin_se_sw", "thin_sw_nw", "thin_ne_nw",
+	"thin_ne_se_sw", "thin_se_sw_nw", "thin_ne_sw_nw", "thin_ne_se_nw", "thin_cross",
 	"stairs_a", "stairs_b", "ramp_a", "ramp_b",
-	"roof_slope_a", "roof_slope_b", "roof_slope_c", "roof_slope_d", "roof_block",
+	"slope_ne", "slope_se", "slope_sw", "slope_nw",
+	"hip_n", "hip_e", "hip_s", "hip_w", "roof_block",
+	"valley_e", "valley_n", "valley_s", "valley_w", "ridge_x", "ridge_y",
+	"roof_end_se", "roof_end_ne", "roof_end_sw", "roof_end_nw", "roof_pyramid",
 ]
-## Left-right mirror of each directional slot (east <-> west on screen).
-const MIRROR := {
-	"wall_ne": "wall_nw", "wall_nw": "wall_ne", "wall_se": "wall_sw", "wall_sw": "wall_se",
-	"corner_out_e": "corner_out_w", "corner_out_w": "corner_out_e",
-	"corner_in_e": "corner_in_w", "corner_in_w": "corner_in_e",
-	"t_ne": "t_nw", "t_nw": "t_ne", "t_se": "t_sw", "t_sw": "t_se",
-	"door_ne": "door_nw", "door_nw": "door_ne", "door_se": "door_sw", "door_sw": "door_se",
-	"stairs_a": "stairs_b", "stairs_b": "stairs_a", "ramp_a": "ramp_b", "ramp_b": "ramp_a",
-}
+const DIRS: Array[String] = ["ne", "se", "sw", "nw"]
+const _FLIP := {"ne": "nw", "nw": "ne", "se": "sw", "sw": "se", "e": "w", "w": "e"}
+
+
+## Left-right mirror of a directional slot (east <-> west on screen), "" if it has none.
+static func mirror(slot: String) -> String:
+	var parts := slot.split("_")
+	var head: Array[String] = []
+	var dirs: Array[String] = []
+	for p in parts:
+		if _FLIP.has(p):
+			dirs.append(str(_FLIP[p]))
+		elif dirs.is_empty():
+			head.append(p)
+		else:
+			return ""
+	if dirs.is_empty():
+		return ""
+	dirs.sort_custom(func(a: String, b: String) -> bool: return DIRS.find(a) < DIRS.find(b))
+	var out := "_".join(head + dirs)
+	return out if out != slot else ""
+
 
 static var _anchors: Dictionary = {}
 
@@ -76,7 +96,7 @@ static func resolve(kit_id: String, slot: String, height: int = 0) -> Dictionary
 			if not pass_mirror and h != height:
 				continue
 			for flip: bool in [false, true]:
-				var s := str(MIRROR.get(slot, "")) if flip else slot
+				var s := mirror(slot) if flip else slot
 				var t := tile(id, s) if s != "" else ""
 				if t != "":
 					return {"tile": t, "flip": flip, "height": h, "kit": id,
@@ -108,9 +128,15 @@ static func anchor(tile_id: String) -> Dictionary:
 	var out := {}
 	var a: Variant = def.get("anchor")
 	if a is Array and (a as Array).size() == 2:
-		out = {"ax": float(a[0]), "ay": float(a[1]), "px": maxf(float(def.get("px", 64)), 1.0)}
+		out = {"ax": float(a[0]), "ay": float(a[1]), "px": maxf(float(def.get("px", 64)), 1.0), "slab": float(def.get("slab", 0))}
 	_anchors[dir] = out
 	return out
+
+
+## Layers a kit's floor top sits above the ground its walls stand on
+## (thin slabs 0, thick ones 1, block floors 2).
+static func floor_layers(kit_id: String) -> int:
+	return int((float(kit(kit_id).get("slab", 0)) + 4.0) / 16.0)
 
 
 static func clear_cache() -> void:

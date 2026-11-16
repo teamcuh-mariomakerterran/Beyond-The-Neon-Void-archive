@@ -99,7 +99,7 @@ func slot_text(s: String) -> String:
 	if r.is_empty():
 		return "%s  =  EMPTY" % s
 	if str(r["borrowed"]) == "mirror":
-		return "%s  <-  mirror of %s" % [s, str(KitMap.MIRROR.get(s, ""))]
+		return "%s  <-  mirror of %s" % [s, KitMap.mirror(s)]
 	return "%s  <-  h%d (%s)" % [s, int(r["height"]), str(r["kit"])]
 
 
