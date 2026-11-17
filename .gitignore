@@ -18,3 +18,10 @@ tools/chirp_studio/manifest.json
 
 __pycache__/
 *.pyc
+
+# Godot's per-image import settings for the character, gear and VFX art: Godot
+# writes them on every machine that opens the project, so git skips them here
+# (Brian, 2026-11-17). Ones already committed stay tracked.
+assets/units/**/*.import
+assets/gear/**/*.import
+assets/vfx/**/*.import
