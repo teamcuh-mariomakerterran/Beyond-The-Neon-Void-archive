@@ -49,6 +49,13 @@ var anchors: Array = []
 ## Undo journal (big maps): while set, the first change to a column stores its
 ## old stack here (cell -> stack copy, or null if it was empty).
 var journal: Variant = null
+## Auto-wall buildings (see AutoWall): [{id, kit, height, z, cells, storeys, roof, doors}].
+var buildings: Array = []
+## Overlay stacks drawn above the columns and above units in the same cell:
+## roofs, upper storeys, door frames. Same shape as `tiles`; never counted for heights.
+var roofs: Dictionary = {}
+## Cells painted with the auto-tile brush: cell -> auto-tile set id (see AutoTile).
+var autotile: Dictionary = {}
 var _uid: int = 0
 
 
@@ -346,6 +353,15 @@ func load_dict(d: Dictionary, keep_tiles: bool = false) -> void:
 	anchors = (d.get("anchors") as Array).duplicate(true) if d.get("anchors") is Array else []
 	if not keep_tiles:
 		tiles.clear()
+	buildings = (d.get("buildings") as Array).duplicate(true) if d.get("buildings") is Array else []
+	roofs.clear()
+	autotile.clear()
+	if d.get("roofs") is Dictionary:
+		for k: String in d["roofs"]:
+			roofs[parse_key(k)] = (d["roofs"][k] as Array).duplicate(true)
+	if d.get("autotile") is Dictionary:
+		for k: String in d["autotile"]:
+			autotile[parse_key(k)] = str(d["autotile"][k])
 	particles.clear()
 	gameplay.clear()
 	if int(d.get("format", 1)) >= 2:
@@ -428,6 +444,18 @@ func to_dict(with_tiles: bool = true) -> Dictionary:
 		out["cables"] = cables
 	if not anchors.is_empty():
 		out["anchors"] = anchors
+	if not buildings.is_empty():
+		out["buildings"] = buildings
+	if not roofs.is_empty():
+		var r := {}
+		for cell: Vector2i in roofs:
+			r[key(cell)] = roofs[cell]
+		out["roofs"] = r
+	if not autotile.is_empty():
+		var at := {}
+		for cell: Vector2i in autotile:
+			at[key(cell)] = autotile[cell]
+		out["autotile"] = at
 	return out
 
 
@@ -452,10 +480,12 @@ func to_grid(lazy: bool = false) -> IsometricGrid:
 	var foot := _footprint_rules()
 	if lazy:
 		g.setup_lazy(width, depth, func(cell: Vector2i) -> IsometricGrid.Cell: return _rules_cell(cell, foot))
+		AutoWall.add_levels(self, g)
 		return g
 	g.setup(width, depth)
 	for cell in g.all_cells():
 		_apply_rules(g.get_cell(cell), foot)
+	AutoWall.add_levels(self, g)  # upper storeys of buildings: cells on their own level
 	return g
 
 
@@ -463,6 +493,8 @@ func to_grid(lazy: bool = false) -> IsometricGrid:
 func _footprint_rules() -> Dictionary:
 	var out := {}
 	for o: Dictionary in objects:
+		if int(o.get("level", 0)) > 0:
+			continue  # stands on an upper floor (AutoWall.add_levels)
 		var kind_o := str(o.get("kind", ""))
 		for oc in footprint_cells(o):
 			if kind_o in ["structure", "location"]:
@@ -497,6 +529,19 @@ func _apply_rules(c: IsometricGrid.Cell, foot: Dictionary) -> void:
 	if over.has("blocks_los"): c.blocks_los = bool(over["blocks_los"])
 	if over.has("cost"): c.move_cost = int(over["cost"])
 	if over.has("hazard"): c.hazard = str(over["hazard"])
+	# Slopes and stairs (AutoWall): the cell's own height, and which way it climbs.
+	var opts := tile_opts(cell, top_z(cell))
+	if opts.has("ramp"):
+		var rd := str(opts["ramp"])
+		c.slope = (Vector2i(1, 0) if rd.begins_with("x") else Vector2i(0, 1)) * (1 if rd.ends_with("+") else -1)
+		c.slope_rise = 1
+		c.lift = 0.5
+	if over.has("height"): c.height = int(over["height"])
+	if over.has("lift"): c.lift = float(over["lift"])
+	if over.has("bias"): c.draw_bias = int(over["bias"])
+	if over.get("slope") is Array:
+		c.slope = Vector2i(int(over["slope"][0]), int(over["slope"][1]))
+		c.slope_rise = int(over.get("rise", 1))
 	var f: Variant = foot.get(cell)
 	if f == "structure":
 		c.walkable = false

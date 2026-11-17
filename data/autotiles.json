@@ -1,0 +1,332 @@
+{
+	"ancient_sandstone_to_sand": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "ancient_sandstone",
+		"lift": 5,
+		"low": "sand",
+		"name": "ancient sandstone to sand",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/ancient_sandstone_to_sand.png"
+	},
+	"concrete_to_mossy_green_slime": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "concrete",
+		"lift": 5,
+		"low": "mossy_green_slime",
+		"name": "concrete to mossy green slime",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/concrete_to_mossy_green_slime.png"
+	},
+	"cyberpunk_cement_sidewalk_to_asphalt_street": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "cyberpunk_cement_sidewalk",
+		"lift": 5,
+		"low": "asphalt_street",
+		"name": "cyberpunk cement sidewalk to asphalt street",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/cyberpunk_cement_sidewalk_to_asphalt_street.png"
+	},
+	"cyberpunk_concrete_to_asphalt_road": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "cyberpunk_concrete",
+		"lift": 0,
+		"low": "asphalt_road",
+		"name": "cyberpunk concrete to asphalt road",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/cyberpunk_concrete_to_asphalt_road.png"
+	},
+	"cyberpunk_server_room_grating_to_polished_block_ma": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "cyberpunk_server_room_grating",
+		"lift": 3,
+		"low": "polished_block_ma",
+		"name": "cyberpunk server room grating to polished block ma",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/cyberpunk_server_room_grating_to_polished_block_ma.png"
+	},
+	"dark_grey_diamond_plate_steel_flooring_to_polished": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "dark_grey_diamond_plate_steel_flooring",
+		"lift": 3,
+		"low": "polished",
+		"name": "dark grey diamond plate steel flooring to polished",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/dark_grey_diamond_plate_steel_flooring_to_polished.png"
+	},
+	"polished_tile_with_circuitry_to_cement_sidewalk": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "polished_tile_with_circuitry",
+		"lift": 3,
+		"low": "cement_sidewalk",
+		"name": "polished tile with circuitry to cement sidewalk",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/polished_tile_with_circuitry_to_cement_sidewalk.png"
+	},
+	"rocky_foothills_to_dense_forest_completely_filled": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "rocky_foothills",
+		"lift": 8,
+		"low": "dense_forest_completely_filled",
+		"name": "rocky foothills to dense forest completely filled",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/rocky_foothills_to_dense_forest_completely_filled.png"
+	},
+	"scrap_metal_plating_to_dark_ocean_water": {
+		"anchor": [
+			32.0,
+			16.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "scrap_metal_plating",
+		"lift": 8,
+		"low": "dark_ocean_water",
+		"name": "scrap metal plating to dark ocean water",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 64,
+		"sheet": "tools/handoff/autotiles/scrap_metal_plating_to_dark_ocean_water.png"
+	},
+	"scrap_metal_plating_to_dark_ocean_water_v2": {
+		"anchor": [
+			48.0,
+			24.0
+		],
+		"flags": [
+			"layout read from the sheet: piece = S + 2*W + 4*E + 8*N (corners carrying the raised material)"
+		],
+		"high": "scrap_metal_plating",
+		"lift": 12,
+		"low": "dark_ocean_water_v2",
+		"name": "scrap metal plating to dark ocean water v2",
+		"pieces": {
+			"0": "at_o",
+			"1": "at_s",
+			"10": "at_nw",
+			"11": "at_nsw",
+			"12": "at_ne",
+			"13": "at_nes",
+			"14": "at_new",
+			"15": "at_nesw",
+			"2": "at_w",
+			"3": "at_ws",
+			"4": "at_e",
+			"5": "at_es",
+			"6": "at_ew",
+			"7": "at_esw",
+			"8": "at_n",
+			"9": "at_ns"
+		},
+		"px": 96,
+		"sheet": "tools/handoff/autotiles/scrap_metal_plating_to_dark_ocean_water_v2.png"
+	}
+}

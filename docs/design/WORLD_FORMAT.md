@@ -91,3 +91,27 @@ same preset/layer into one emitter.
 
 ## Assets index: `data/asset_index.json`
 Filled by the drag-and-drop intake wizard: `id -> {path, type, name, role, ...}`.
+
+## Building kits, auto-walls and auto-tiles (built 2026-11-15)
+
+- `data/kits.json` (KitMap, Neon Forge KIT MAP tab): each kit sheet's cut pieces mapped to slots. One kit = one sheet at one wall height (`_hN`); an empty slot borrows its mirror, then the family's nearest height. Pieces live in `assets/tiles/kits/<kit>/NN_<slot>.png` and keep their whole sheet cell, so the kit's `anchor` places every piece. `tools/cut_kits.bat` cuts new sheets and pre-fills the map (edited slots are kept).
+- `data/autotiles.json` (AutoTile): 16 corner pieces per transition sheet, piece = S + 2*W + 4*E + 8*N (corners carrying the raised material).
+- Map fields: `buildings` (`{id, kit, height, z, cells, storeys, roof, doors}`), `roofs` (overlay stacks: roofs, upper storeys, door frames; drawn above units in the same cell and never counted for heights) and `autotile` (`"x,y" -> set id`).
+- Generated tile entries carry `{"b": building id, "part", "rise", "front"}`. `rise` = height layers from the ground to the entry's z (one tile of wall = 32 art px = 2 layers at 2x). Wall cells get `gameplay` overrides (not walkable, block sight); door cells are walkable.
+- Walls stand on the ring of cells just outside the painted floor and hug it. Door pieces are two cells wide.
+- Seeing inside: `WorldRenderer.set_inside(building id)` fades that building's overlay and its `front` (SW / SE) walls; exploration feeds it the player's cell, battles the active unit's.
+- Rebuild the demo and its screenshots: `tests/kit_demo.gd` (map `kit_street_demo`).
+
+### Elevation, stairs and second floors (built 2026-11-16)
+
+- Footing: a kit's `anchor` is the centre of its floor piece's top face; `slab` is the measured slab depth (px). Walls stand `slab` px below it. Thick slabs raise the floor people walk on by `KitMap.floor_layers` (0, 1 or 2 layers) above the building's `z`.
+- Slopes and stairs are rules in the grid: `IsometricGrid.Cell.slope` (direction it climbs), `slope_rise` (layers across the cell), `lift` (drawing only). `can_climb(a, b, jump)` replaces the bare jump check in pathfinding, exploration and reactions: cells joined by a slope (`slope_link`) need no jump. `surface_height(p)` gives the height under a fractional position, so walkers rise and fall across the cell. Painted `ramp` tiles count too.
+- Map `gameplay` overrides carry them: `height`, `lift`, `slope: [dx, dy]`, `rise`, `bias` (draw order for whoever stands there).
+- Ground slopes: `AutoWall.place_slope(world, cell, kit, dir, z)` puts a kit's `slope_*` roof piece on the ground as a 2-layer ramp. The same pieces edge a `roof_style: "pitched"` roof (`slope_*` on edges, `hip_*` on corners, `roof_block` inside), overhanging the wall line.
+- Partitions: building `inner` cells; pieces `thin_<arms>` are sorted by which way their arms run (ne / se / sw / nw). A straight run is two single arms, the back one in `under`.
+- Stairs: building `stairs: [{cell, dir, level, kind, len}]` (`level` = the storey the flight starts on, `kind` = `stairs` | `ramp`). One stair piece is two cells long and climbs one tile (2 layers) in every kit, so a flight to the next storey is one piece per tile of wall height, end to end (`len` cells: 2, 4 or 6). A flight opens a hole in the floor above it. Stair art is lifted 16 art px (`AutoWall.STAIR_UP`), checked in five kits.
+- Upper storeys take partitions and thin doors (`inner` / `inner_doors` entries `[x, y, storey]`) and props (`level` + `b` on the object, set with `AutoWall.set_object_level`). Pitched roofs sit on the room cells and overhang the walls. Exploration saves the storey (`current_explore.level`) and click-to-walk paths across storeys (`IsometricGrid.walk`).
+- **Stacked floors:** every storey of a building is walkable. An upper-storey cell lives in the same battle grid at coords `(x + level * IsometricGrid.LEVEL_STRIDE, y)`; `base()`, `level_of()` and `at_level()` convert. `AutoWall.add_levels(world, grid)` (called by `WorldMap.to_grid`) adds one cell per floor cell per storey and `grid.links` joins the top of each stair run to the floor it arrives on. Rules that work on neighbours (pathing, move cost, jump, area reach, hazards, occupants) work per level unchanged; `distance` adds 2 per storey apart; line of sight across storeys is blocked by a floor between the two heights except over stair openings. Maps without buildings have no level cells. Spawn and enemy cells may be `[x, y, storey]`.
+- Exploration keeps `cell` as a map cell plus `level`; battles keep the level in the unit's cell.
+- Partitions take thin doors (`inner_doors`); where a partition meets the outer wall the `join_*` wall piece is used. Pitched roofs pick `valley_*` (inner corners), `ridge_x / ridge_y` and `roof_end_*` (wings three cells wide), `roof_pyramid` (3 x 3).
+- Seeing inside is per storey: pieces carry `lv`; `WorldRenderer.set_inside(id, instant, level)` hides everything above the viewer's storey and fades that storey's camera-side walls.

@@ -55,7 +55,7 @@ func after_battle() -> void:
 		var r := battle_return
 		battle_return = {}
 		explore(str(r["map_id"]), int(r.get("spawn", -1)), _cell(r.get("at")), bool(r.get("from_forge", false)))
-		for k: String in ["threat", "threat_mission", "mount"]:  # what the map needs to settle
+		for k: String in ["threat", "threat_mission", "mount", "level"]:  # what the map needs to settle
 			if r.has(k):
 				current_explore[k] = r[k]
 	else:
@@ -66,7 +66,9 @@ func after_battle() -> void:
 ## Continue from a save: the explore map and cell you saved on, else the hub.
 func resume() -> void:
 	if SceneManager.current_scene_path == EXPLORE_SCENE and not ContentDB.get_map(str(current_explore.get("map_id", ""))).is_empty():
+		var storey := int(current_explore.get("level", 0))
 		explore(str(current_explore["map_id"]), int(current_explore.get("spawn", -1)), _cell(current_explore.get("at")))
+		current_explore["level"] = storey
 	elif SceneManager.current_scene_path == BATTLE_SCENE and not battle_return.is_empty():
 		after_battle()  # saved mid-fight: wake up where the fight started
 	else:
@@ -85,7 +87,10 @@ static func _explore_to_json(d: Dictionary) -> Dictionary:
 	if d.is_empty():
 		return {}
 	var c := _cell(d.get("at"))
-	return {"map_id": str(d.get("map_id", "")), "spawn": int(d.get("spawn", -1)), "at": [c.x, c.y], "mount": str(d.get("mount", ""))}
+	var out := {"map_id": str(d.get("map_id", "")), "spawn": int(d.get("spawn", -1)), "at": [c.x, c.y], "mount": str(d.get("mount", ""))}
+	if int(d.get("level", 0)) > 0:
+		out["level"] = int(d["level"])  # the storey of a building you saved on
+	return out
 
 
 ## Walk a world / city / hub / interior map. `spawn` indexes the map's player

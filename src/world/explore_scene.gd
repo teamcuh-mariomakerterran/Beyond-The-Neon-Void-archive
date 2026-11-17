@@ -52,6 +52,9 @@ var _avatar_facing: String = "SE"
 ## Free movement: the avatar's exact spot in grid space (cell centres are
 ## whole numbers) and the height it's drawn at (eases between levels).
 var fpos: Vector2 = Vector2.ZERO
+## Storey of a building the player stands on (0 = ground). `cell` stays a map
+## cell; the grid's cell for it is _g(cell).
+var level: int = 0
 var _draw_h: float = 0.0
 var _anim_now: String = ""
 ## The mount being ridden ("" = on foot); see Mounts / data/mounts.json.
@@ -87,6 +90,7 @@ func _ready() -> void:
 	if saved_mount != "" and Mounts.owned().has(saved_mount) and mount_allowed(saved_mount):
 		mount_id = saved_mount
 	cell = _start_cell(info)
+	level = int(info.get("level", 0))  # the storey you saved on (dropped by _place_avatar if it is gone)
 	if mount_id != "" and not can_step(cell, cell):
 		mount_id = ""  # e.g. the sub, but you start on land
 	CampaignManager.current_explore["at"] = cell
@@ -560,25 +564,35 @@ func run_trigger(action: String, arg: String) -> void:
 
 func _place_avatar() -> void:
 	fpos = Vector2(cell)
-	_draw_h = float(grid.get_height(cell))
-	_avatar.position = world.to_screen(Vector2(cell), grid.get_height(cell))
-	_avatar.z_index = (cell.x + cell.y) * 2 + 1
+	if grid.get_cell(_g(cell)) == null:
+		level = 0
+	CampaignManager.current_explore["level"] = level
+	_draw_h = grid.visual_height(_g(cell))
+	_avatar.position = world.to_screen(Vector2(cell), _draw_h)
+	_avatar.z_index = grid.unit_z(_g(cell))
 	_cam.position = _avatar.position
+
+
+## The grid cell for a map cell on the storey the player is on.
+func _g(c: Vector2i) -> Vector2i:
+	return IsometricGrid.at_level(c, level)
 
 
 func can_step(from: Vector2i, to: Vector2i) -> bool:
 	if not grid.in_bounds(to):
 		return false
+	var gf := _g(from)
+	var gt := grid.step_to(gf, to - from)
 	if mount_id != "" and Mounts.terrain(mount_id) == "water":
 		if not Mounts.is_water_cell(grid, to):
 			return false  # the sub stays in the water
 	elif mount_id != "" and Mounts.terrain(mount_id) == "any":
 		pass
-	elif not grid.is_walkable(to):
+	elif not grid.is_walkable(gt):
 		return false
-	if absi(grid.get_height(to) - grid.get_height(from)) > Mounts.climb(mount_id, MAX_CLIMB):
+	if not grid.can_climb(gf, gt, Mounts.climb(mount_id, MAX_CLIMB)):
 		return false
-	for o: Dictionary in world.objects_at(to):
+	for o: Dictionary in (world.objects_at(to) if IsometricGrid.level_of(gt) == 0 else []):
 		if str(o.get("kind", "")) in ["structure", "location"]:
 			return false
 	return true
@@ -600,8 +614,10 @@ func _step(dir: Vector2i) -> void:
 		return
 	_moving = true
 	var from_pos := _avatar.position
-	var to_pos := world.to_screen(Vector2(to), grid.get_height(to))
-	_avatar.z_index = maxi(cell.x + cell.y, to.x + to.y) * 2 + 1
+	var gfrom := _g(cell)
+	var gto := grid.step_to(gfrom, dir)
+	var to_pos := world.to_screen(Vector2(to), grid.visual_height(gto))
+	_avatar.z_index = maxi(grid.unit_z(gfrom), grid.unit_z(gto))
 	var run := is_running()
 	# Same screen speed whichever way you go (a diagonal is a longer hop).
 	var t := STEP_TIME * _g2s(Vector2(dir)).length() / _g2s(Vector2(1, 0)).length() / (RUN_MULT if run else 1.0) / Mounts.speed(mount_id)
@@ -611,7 +627,7 @@ func _step(dir: Vector2i) -> void:
 	elif to_pos.x != from_pos.x:
 		_avatar.scale.x = -1 if to_pos.x < from_pos.x else 1
 	var tw := create_tween()
-	var hop := grid.get_height(to) != grid.get_height(cell)
+	var hop := grid.get_height(gto) != grid.get_height(gfrom) and not grid.slope_link(gfrom, gto)
 	if hop:
 		var mid := (from_pos + to_pos) * 0.5 + Vector2(0, -world.height_step * 0.8)
 		tw.tween_property(_avatar, "position", mid, t * 0.5)
@@ -620,10 +636,12 @@ func _step(dir: Vector2i) -> void:
 		tw.tween_property(_avatar, "position", to_pos, t)
 	cell = to
 	fpos = Vector2(to)
-	_draw_h = float(grid.get_height(to))
+	level = IsometricGrid.level_of(gto)
+	CampaignManager.current_explore["level"] = level
+	_draw_h = grid.visual_height(gto)
 	CampaignManager.current_explore["at"] = cell
 	await tw.finished
-	_avatar.z_index = (cell.x + cell.y) * 2 + 1
+	_avatar.z_index = grid.unit_z(gto)
 	_moving = false
 	if _avatar_sprite and _path.is_empty() and input_vector() == Vector2.ZERO:
 		_play("idle")
@@ -715,6 +733,10 @@ func free_move(gdir: Vector2, delta: float) -> void:
 	_play("run" if run else "walk")
 	var now := Vector2i(roundi(fpos.x), roundi(fpos.y))
 	if now != cell:
+		var landed := grid.step_to(_g(cell), now - cell)
+		if grid.get_cell(landed) != null:
+			level = IsometricGrid.level_of(landed)
+			CampaignManager.current_explore["level"] = level
 		cell = now
 		CampaignManager.current_explore["at"] = cell
 		_arrived()
@@ -753,7 +775,9 @@ func _process(_delta: float) -> void:
 			return
 	_cam.position = _avatar.position
 	# X-ray: whatever stands between the camera and the player turns see-through.
-	_renderer.set_cutaway(_avatar.position + Vector2(0, -world.tile_height * 0.6), cell.x + cell.y, grid.get_height(cell))
+	_renderer.set_cutaway(_avatar.position + Vector2(0, -world.tile_height * 0.6), cell.x + cell.y, grid.get_height(_g(cell)))
+	# Seeing inside: the roof and camera-side walls of the building we stand in fade out.
+	_renderer.set_inside(AutoWall.inside_id(world, cell), SettingsFlags.reduce_motion, level)
 	_update_labels()
 	if _post:
 		# Keep the player in the sharp band of the tilt-shift.
@@ -802,9 +826,10 @@ func _free_frame(delta: float) -> void:
 		if not _path.is_empty():
 			g = (Vector2(_path[0]) - fpos).normalized()
 	free_move(g, delta)
-	_draw_h = move_toward(_draw_h, float(grid.get_height(cell)), delta * 10.0)
+	# Slopes and stairs: follow the surface under the feet; ledges ease as before.
+	_draw_h = move_toward(_draw_h, grid.surface_height(fpos, level), delta * 10.0)
 	_avatar.position = world.to_screen(fpos, _draw_h)
-	_avatar.z_index = (cell.x + cell.y) * 2 + 1
+	_avatar.z_index = grid.unit_z(_g(cell))
 
 
 func _dir_held() -> bool:
@@ -832,13 +857,60 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_mount()
 	var mb := event as InputEventMouseButton
 	if mb and mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
-		var hit := world.pick_top(get_global_mouse_position())
-		if not hit.is_empty():
+		var mouse := get_global_mouse_position()
+		var hit := world.pick_top(mouse)
+		var target := click_target(mouse)
+		if target.x >= 0:
+			_path = walk_path(cell, IsometricGrid.base(target), IsometricGrid.level_of(target))
+		elif not hit.is_empty():
 			_path = walk_path(cell, hit[0])
 
 
 ## BFS over steppable columns (climb limit, structures block).
-func walk_path(from: Vector2i, to: Vector2i) -> Array[Vector2i]:
+## The grid cell a click means, on any storey in view: the floors of the
+## building you are in from your own storey down, then the ground. Clicking a
+## stair run means its far end (up when you are below it, down when above).
+## Vector2i(-1, -1) = nothing there.
+func click_target(pos: Vector2) -> Vector2i:
+	var found := Vector2i(-1, -1)
+	var b := AutoWall.find(world, AutoWall.inside_id(world, cell))
+	if not b.is_empty() and level > 0:
+		var p := AutoWall.plan(b)
+		for lv in range(level, 0, -1):
+			var c := world.pick_plane(pos, int(p["zf"]) + lv * int(p["pitch"]))
+			if grid.get_cell(IsometricGrid.at_level(c, lv)) != null:
+				found = IsometricGrid.at_level(c, lv)
+				break
+	if found.x < 0:
+		var hit := world.pick_top(pos)
+		if hit.is_empty():
+			return found
+		found = hit[0]
+	return stair_end(found)
+
+
+## A stair cell stands for the end of its run away from the player.
+func stair_end(target: Vector2i) -> Vector2i:
+	var up := grid.visual_height(_g(cell)) <= grid.visual_height(target)
+	for i in 3:
+		var c := grid.get_cell(target)
+		if c == null or c.slope == Vector2i.ZERO:
+			break
+		var nxt := grid.step_to(target, c.slope if up else -c.slope)
+		if grid.get_cell(nxt) == null:
+			break
+		target = nxt
+	return target
+
+
+## Cells to walk through from `from` (on the player's storey) to `to` on storey
+## `to_level`, as map cells; stairs carry the walk between storeys.
+func walk_path(from: Vector2i, to: Vector2i, to_level: int = 0) -> Array[Vector2i]:
+	if mount_id == "":
+		var out2: Array[Vector2i] = []
+		for gc in grid.walk(_g(from), IsometricGrid.at_level(to, to_level), MAX_CLIMB):
+			out2.append(IsometricGrid.base(gc))
+		return out2
 	var prev := {from: from}
 	var queue: Array[Vector2i] = [from]
 	while not queue.is_empty():

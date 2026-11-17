@@ -105,7 +105,7 @@ def main() -> int:
 
     # ---------- map helpers ----------
     def walkable(mp, cell):
-        x, y = cell
+        x, y = cell[:2]  # [x, y] or [x, y, storey]
         if not (0 <= x < int(mp.get("width", 0)) and 0 <= y < int(mp.get("depth", 0))):
             return False, "out of bounds"
         if int(mp.get("format", 1)) >= 2:

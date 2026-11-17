@@ -26,6 +26,9 @@ static func is_magical(ability: Ability) -> bool:
 
 ## "front", "side" or "back" — where the attacker stands relative to the target's facing.
 static func attack_angle(attacker_cell: Vector2i, target_cell: Vector2i, target_facing: Vector2i) -> String:
+	# Storeys of a building share the map: angles are read on the map, whatever the floor.
+	attacker_cell = IsometricGrid.base(attacker_cell)
+	target_cell = IsometricGrid.base(target_cell)
 	var rel := attacker_cell - target_cell
 	var dot := rel.x * target_facing.x + rel.y * target_facing.y
 	if dot > 0:
@@ -76,7 +79,7 @@ static func hit_chance(attacker: Node, target: Node, ability: Ability, grid: Iso
 	chance = clampf(chance, 0.05, 0.99)
 	# Optical camo: nothing to aim at from range, a swing in the dark up close.
 	if target.has_method("has_status_tag") and target.has_status_tag("cloaked"):
-		if absi(attacker.cell.x - target.cell.x) + absi(attacker.cell.y - target.cell.y) > 1:
+		if IsometricGrid.distance(attacker.cell, target.cell) > 1:
 			return 0.0
 		chance *= 0.5
 	return chance

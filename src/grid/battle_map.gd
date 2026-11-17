@@ -218,7 +218,7 @@ func _spawn_units() -> Array[Node]:
 	for c in GameManager.get_party_members().slice(0, mission.max_party_size):
 		if i >= spawns.size():
 			break
-		var pu := _make_unit(c, Unit.Team.PLAYER, Vector2i(spawns[i][0], spawns[i][1]), 0)
+		var pu := _make_unit(c, Unit.Team.PLAYER, _spawn_cell(spawns[i]), 0)
 		if GameManager.drinks.has(c.id):
 			pu.apply_status("buzzed")  # Last Call
 		out.append(pu)
@@ -226,7 +226,7 @@ func _spawn_units() -> Array[Node]:
 	for e: Dictionary in mission.enemies:
 		var data := ContentDB.get_character(str(e["character_id"]))
 		if data:
-			var eu := _make_unit(data, Unit.Team.ENEMY, Vector2i(e["cell"][0], e["cell"][1]), int(e.get("level", 1)))
+			var eu := _make_unit(data, Unit.Team.ENEMY, _spawn_cell(e["cell"]), int(e.get("level", 1)))
 			# Painted extras: a boss that starts shielded, cloaked ambushers…
 			for sid: Variant in e.get("statuses", []):
 				eu.apply_status(str(sid))
@@ -236,7 +236,7 @@ func _spawn_units() -> Array[Node]:
 	for g: Dictionary in mission.guests:
 		var gdata := ContentDB.get_character(str(g["character_id"]))
 		if gdata:
-			var gu := _make_unit(gdata, Unit.Team.PLAYER, Vector2i(g["cell"][0], g["cell"][1]), int(g.get("level", 1)))
+			var gu := _make_unit(gdata, Unit.Team.PLAYER, _spawn_cell(g["cell"]), int(g.get("level", 1)))
 			# "controlled": the player commands this guest (test units, story cameos).
 			gu.is_player_controlled = bool(g.get("controlled", false))
 			for gsid: Variant in g.get("statuses", []):
@@ -295,6 +295,7 @@ func _connect_events() -> void:
 		if info.active and u.get("data") and (u.data as CharacterData).id == InfoFilter.RELAY_ID:
 			relay_down("destroyed"))
 	EventBus.unit_moved.connect(func(u: Node, _a: Vector2i, _b: Vector2i) -> void: if u == CombatManager.active_unit: hud.refresh_unit(u))
+	EventBus.unit_moved.connect(func(_u: Node, _a: Vector2i, _b: Vector2i) -> void: _update_inside())
 
 
 func _float(u: Node, text: String, color: Color, crit: bool = false, weight: float = 0.3) -> void:
@@ -319,8 +320,36 @@ func _refresh_tile_corpses() -> void:
 			tiles[c].queue_redraw()
 
 
+## A spawn is [x, y] or [x, y, storey]: the third number puts the unit on an
+## upper floor of the building there (ground if that floor doesn't exist).
+func _spawn_cell(sp: Array) -> Vector2i:
+	var c := Vector2i(int(sp[0]), int(sp[1]))
+	if sp.size() > 2 and int(sp[2]) > 0:
+		var up := IsometricGrid.at_level(c, int(sp[2]))
+		if grid.is_walkable(up):
+			return up
+	return c
+
+
+## Seeing inside: the building the active unit stands in loses its roof and
+## camera-side walls (WorldRenderer fades them; instant when nothing animates).
+func _update_inside() -> void:
+	var u: Node = CombatManager.active_unit
+	if world_renderer == null or world_map == null or u == null or not is_instance_valid(u):
+		return
+	world_renderer.set_inside(AutoWall.inside_id(world_map, IsometricGrid.base(u.cell)), not CombatManager.animate or SettingsFlags.reduce_motion, IsometricGrid.level_of(u.cell))
+	if not grid.pick_skip.is_valid():
+		# Upper floors can be clicked when they are in view (the building is open down to them) or someone stands there.
+		grid.pick_skip = func(c: Vector2i) -> bool:
+			var gc := grid.get_cell(c)
+			if gc == null or gc.occupant != null:
+				return false
+			return gc.building != world_renderer.inside_building or IsometricGrid.level_of(c) > world_renderer.inside_level
+
+
 func _on_turn_started(unit: Node) -> void:
 	camera.follow_target = unit
+	_update_inside()
 	hud.update_turn_order(CombatManager.turn_forecast(10))
 	var mine: bool = unit.is_player_controlled
 	hud.show_unit(unit, false)
@@ -447,7 +476,7 @@ func _update_hover(cell: Vector2i) -> void:
 		return
 	if world_renderer and grid.in_bounds(cell):
 		# X-ray: what stands in front of the hovered tile fades out.
-		world_renderer.set_cutaway(grid.grid_to_world(cell), cell.x + cell.y, grid.get_height(cell))
+		world_renderer.set_cutaway(grid.grid_to_world(cell), IsometricGrid.draw_order(cell), grid.get_height(cell))
 	if tiles.has(hovered_cell):
 		tiles[hovered_cell].hovered = false
 		tiles[hovered_cell].queue_redraw()
