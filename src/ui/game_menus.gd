@@ -42,7 +42,6 @@ static func options() -> PixelScreen:
 	_volume_row(s, "MUSIC", "music_db", func() -> void: AudioManager.apply_music_volume())
 	_volume_row(s, "SOUND FX", "sfx_db", func() -> void: AudioManager.play_ui("menu_move"))
 	s.add_row("BATTLE SPEED", flip.call("fast_battles"), func() -> String: return "FAST" if SettingsFlags.fast_battles else "NORMAL")
-	s.add_row("FREE MOVEMENT", flip.call("free_move"), onoff.call("free_move"))
 	s.add_row("REDUCE MOTION", flip.call("reduce_motion"), onoff.call("reduce_motion"))
 	s.add_row("BATTLE BARKS", flip.call("barks"), onoff.call("barks"))
 	s.add_row("AUTO ADDITIONS", flip.call("auto_additions"), onoff.call("auto_additions"))

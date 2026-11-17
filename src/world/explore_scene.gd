@@ -2,10 +2,11 @@ class_name ExploreScene
 extends Node2D
 ## Walkable world / city / hub / interior maps (format 2).
 ##
-## Two movement styles (SettingsFlags.free_move, M switches): CLASSIC steps
-## tile by tile (8 directions: two keys or the stick go straight on screen),
-## FREE walks smoothly and slides along walls; both run with Shift, follow a
-## clicked path, and fire the same per-tile regions / encounters / anchors.
+## Free movement, like Final Fantasy VIII / IX (Brian, 2026-11-17): outside
+## battles you walk smoothly and slide along walls, run with Shift, follow a
+## clicked path, and fire the per-tile regions / encounters / anchors. Grid
+## movement is for battles only (BattleMap). _step() still moves one tile
+## (scripted walks and tests use it).
 ## WASD / arrows / stick move (or click a tile to walk there). Walking
 ## up to a location shows its name above it — or "?" until the first visit.
 ## Confirm (E / Enter / Space) enters: world-map places play their intro
@@ -261,7 +262,7 @@ func _build_hud() -> void:
 	_prompt.position.y -= 60
 	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_prompt)
-	var help := NeonTheme.label("WASD / arrows / stick / click: move   ·   Shift: run   ·   M: free / classic movement   ·   E / Enter: enter · search · talk   ·   Esc: menu", 13, NeonTheme.TEXT_DIM)
+	var help := NeonTheme.label("WASD / arrows / stick / click: move   ·   Shift: run   ·   E / Enter: enter · search · talk   ·   Esc: menu", 13, NeonTheme.TEXT_DIM)
 	help.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	help.position += Vector2(16, -28)
 	_hud.add_child(help)
@@ -752,17 +753,9 @@ func free_ok(p: Vector2) -> bool:
 	return true
 
 
+## Always free outside battles; battles move on the grid (BattleMap).
 func free_mode() -> bool:
-	return SettingsFlags.free_move
-
-
-func toggle_free() -> void:
-	SettingsFlags.free_move = not SettingsFlags.free_move
-	SettingsFlags.save()
-	fpos = Vector2(cell)
-	_path.clear()
-	_place_avatar()
-	_toast_text("MOVEMENT: " + ("FREE" if free_mode() else "CLASSIC (tile steps)"), NeonTheme.CYAN, "movement_mode")
+	return true
 
 
 func _process(_delta: float) -> void:
@@ -846,8 +839,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif k.keycode == KEY_ESCAPE:
 			# The pause menu (same menus as the title); leaving is one of its rows.
 			PixelMenuLayer.open_pause(self, true, [["LEAVE AREA", _leave]])
-		elif k.keycode == KEY_M:
-			toggle_free()
 		elif k.keycode == KEY_R:
 			toggle_mount(k.shift_pressed)
 	var jb := event as InputEventJoypadButton

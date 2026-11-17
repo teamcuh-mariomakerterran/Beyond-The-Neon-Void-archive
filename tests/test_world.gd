@@ -58,6 +58,7 @@ func run(p_tree: SceneTree) -> int:
 	test_pixellab_padding()
 	test_recolors()
 	test_ground_blast()
+	test_stairs_draw_order()
 	test_art_halo()
 	await test_title_screen()
 	await test_pause_menu()
@@ -2799,6 +2800,34 @@ func test_unit_gallery() -> void:
 	await tree.process_frame
 
 
+## Someone on a stair flight draws over the whole flight: its higher pieces are
+## nearer the camera and used to cover their legs (Brian, 2026-11-17).
+## Outside battles movement is always free (FF8 / FF9 style).
+func test_stairs_draw_order() -> void:
+	var g := WorldMap.from_dict(ContentDB.get_map("kit_street_demo")).to_grid()
+	var low := Vector2i(2, 3)
+	var top := Vector2i(7, 3)
+	check(g.get_cell(low) != null and g.get_cell(low).slope != Vector2i.ZERO and g.get_cell(top).slope == g.get_cell(low).slope, "the demo tower has a stair flight from (2,3) to (7,3)")
+	var want := IsometricGrid.draw_order(top) * 2 + 1 + g.get_cell(low).draw_bias
+	var all_same := true
+	for x in range(2, 8):
+		all_same = all_same and g.unit_z(Vector2i(x, 3)) == want
+	check(all_same, "every step of the flight draws its walker over the flight's front piece")
+	var up := IsometricGrid.at_level(Vector2i(7, 1), 1)
+	check(g.unit_z(up) == IsometricGrid.draw_order(up) * 2 + 1 + g.get_cell(up).draw_bias or g.unit_z(up) >= g.unit_z(IsometricGrid.at_level(Vector2i(2, 1), 1)), "the upstairs flight does the same")
+	var flat := Vector2i(1, 3)
+	check(g.unit_z(flat) == IsometricGrid.draw_order(flat) * 2 + 1 + g.get_cell(flat).draw_bias, "flat cells keep their own draw order")
+	var h0 := g.surface_height(Vector2(2.0, 3.0))
+	var rising := true
+	var prev := h0
+	for i in range(1, 51):
+		var hh := g.surface_height(Vector2(2.0 + i * 0.1, 3.0))
+		rising = rising and hh > prev - 0.0001
+		prev = hh
+	check(rising and prev - h0 > 4.9, "walking up the flight the height rises the whole way (%.2f → %.2f)" % [h0, prev])
+	check(ExploreScene.new().free_mode(), "exploration always uses free movement")
+
+
 ## PixelLab VFX Creator exports play as VFX clips: the ground blast for
 ## grenades and mines, its behind layer under the unit, front layer over it.
 func test_ground_blast() -> void:
@@ -2930,8 +2959,8 @@ func test_title_screen() -> void:
 	t.show_options()
 	await tree.process_frame
 	var o := t.screen
-	check(o.rows.size() == 9 and str(o.rows[0]["label"]) == "FULLSCREEN", "Options lists every setting and BACK")
-	o.sel = 6  # BATTLE BARKS
+	check(o.rows.size() == 8 and str(o.rows[0]["label"]) == "FULLSCREEN", "Options lists every setting and BACK")
+	o.sel = 5  # BATTLE BARKS
 	o._call("accept")
 	check(SettingsFlags.barks != keep_barks, "a toggle flips its setting")
 	o._call("accept")

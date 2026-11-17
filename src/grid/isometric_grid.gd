@@ -218,7 +218,30 @@ func can_climb(a: Vector2i, b: Vector2i, jump: int) -> bool:
 ## Draw order of whoever stands on a cell (see Cell.draw_bias).
 func unit_z(cell: Vector2i) -> int:
 	var c := get_cell(cell)
-	return draw_order(cell) * 2 + 1 + (c.draw_bias if c else 0)
+	var order := draw_order(cell)
+	# On stairs or a slope: draw over the whole flight. Its higher pieces sit
+	# nearer the camera and would otherwise cover the legs of someone walking on it.
+	if c and c.slope != Vector2i.ZERO:
+		order = flight_order(cell)
+	return order * 2 + 1 + (c.draw_bias if c else 0)
+
+
+## Front-most draw order of the stair / slope flight through `cell`: the
+## connected cells on its line that climb the same way.
+func flight_order(cell: Vector2i) -> int:
+	var c := get_cell(cell)
+	var best := draw_order(cell)
+	if c == null or c.slope == Vector2i.ZERO:
+		return best
+	for d: Vector2i in [c.slope, -c.slope]:
+		var n := cell + d
+		while true:
+			var nc := get_cell(n)
+			if nc == null or nc.slope != c.slope:
+				break
+			best = maxi(best, draw_order(n))
+			n += d
+	return best
 
 
 func set_height(cell: Vector2i, h: int) -> void:
