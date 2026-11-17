@@ -32,15 +32,15 @@ const SLOTS: Array[String] = [
 	"post",
 	"door_se", "door_ne", "door_sw", "door_nw", "door_thin_a", "door_thin_b",
 	"stairs_a", "stairs_b", "ramp_a", "ramp_b",
-	"slope_ne", "slope_se", "slope_nw", "slope_sw",
-	"hip_e", "hip_s", "hip_n", "hip_w",
+	"slope_se", "slope_ne", "slope_sw", "slope_nw",
+	"hip_e", "hip_n", "hip_s", "hip_w",
 	"valley_e", "valley_n", "valley_s", "valley_w",
 	"ridge_x", "ridge_y", "roof_end_se", "roof_end_ne", "roof_end_sw", "roof_end_nw",
 	"roof_pyramid", "roof_block",
 ]
 const UNSURE := [
 	"t_se / t_sw / t_ne / t_nw / cross_a / cross_b (15-20): thick junction pieces, told apart by eye, not used by the brush",
-	"join_* (27-30), valley_*, ridge_x/y, roof_end_* (59-68): sorted by their outline in the sheet, not by a name list; check them on an L-shaped pitched roof and where a partition meets the outer wall",
+	"join_* (27-30): where a partition meets the outer wall, sorted by outline; roof pieces 51-69 were re-checked against the sheets on 2026-11-17 (slopes 51/52 and 53/54 and hips 56/57 had been swapped)",
 	"stairs_a / ramp_a climb toward NE, stairs_b / ramp_b toward SE (read from the art); the other two directions are their mirrors",
 	"the zip piece lists name 80 pieces, the sheets hold 70 (6 doors not 12, 4 stairs/ramps not 8)",
 ]

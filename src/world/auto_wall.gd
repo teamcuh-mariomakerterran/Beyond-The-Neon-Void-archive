@@ -78,21 +78,52 @@ static func inside_id(world: WorldMap, cell: Vector2i) -> String:
 	return str(b.get("id", "")) if bool(b.get("roof", false)) or int(b.get("storeys", 1)) > 1 else ""
 
 
-## Paints (or erases) a partition wall on a floor cell of a building.
-static func paint_inner(world: WorldMap, cell: Vector2i, erase_it: bool = false) -> Array[Vector2i]:
+## [x, y] is the ground storey, [x, y, n] storey n: the cells of a list on one storey.
+static func cells_on(list: Array, level: int) -> Dictionary:
+	var out := {}
+	for c: Array in list:
+		if (int(c[2]) if c.size() > 2 else 0) == level:
+			out[Vector2i(int(c[0]), int(c[1]))] = true
+	return out
+
+
+static func _key(cell: Vector2i, level: int) -> Array:
+	return [cell.x, cell.y, level] if level > 0 else [cell.x, cell.y]
+
+
+## Paints (or erases) a partition wall on a floor cell of a building, on any storey.
+static func paint_inner(world: WorldMap, cell: Vector2i, erase_it: bool = false, level: int = 0) -> Array[Vector2i]:
 	var b := building_at(world, cell)
-	if b.is_empty():
+	if b.is_empty() or level >= maxi(int(b.get("storeys", 1)), 1):
 		return []
 	var inner: Array = b.get("inner", [])
-	var k := [cell.x, cell.y]
+	var k := _key(cell, level)
 	if erase_it == inner.has(k):
 		if erase_it:
 			inner.erase(k)
+			(b.get("inner_doors", []) as Array).erase(k)
 		else:
 			inner.append(k)
 		b["inner"] = inner
 		return rebuild(world, b)
 	return []
+
+
+## Puts a prop (or any map object) on a storey of the building under it: it is
+## drawn on that floor, hides with it, and blocks that floor's cell only.
+static func set_object_level(world: WorldMap, obj: Dictionary, level: int) -> void:
+	var c: Array = obj.get("cell", [0, 0])
+	var b := building_at(world, Vector2i(int(c[0]), int(c[1])))
+	if b.is_empty() or level <= 0:
+		obj.erase("level")
+		obj.erase("b")
+		obj["z"] = int(plan(b)["zf"]) if not b.is_empty() else int(obj.get("z", 0))
+		return
+	var p := plan(b)
+	level = mini(level, int(p["storeys"]) - 1)
+	obj["level"] = level
+	obj["b"] = str(b["id"])
+	obj["z"] = int(p["zf"]) + level * int(p["pitch"])
 
 
 ## STAIRS: puts a two-cell stair (or ramp) run at `cell` on storey `level`,
@@ -108,7 +139,7 @@ static func toggle_stairs(world: WorldMap, cell: Vector2i, dir: String, level: i
 			runs.erase(r)
 			b["stairs"] = runs
 			return rebuild(world, b)
-	var run := {"cell": [cell.x, cell.y], "dir": dir, "level": level, "kind": kind}
+	var run := {"cell": [cell.x, cell.y], "dir": dir, "level": level, "kind": kind, "len": int(plan(b)["ph"]) * 2}
 	if not _stairs_fit(cells_of(b), run) or not _stairs_clear(runs, run):
 		return []
 	runs.append(run)
@@ -128,33 +159,42 @@ static func _stairs_clear(runs: Array, run: Dictionary) -> bool:
 	var lv := int(run.get("level", 0))
 	var d: Vector2i = DIRV[str(run["dir"])]
 	var cs := stair_cells(run)
-	var mine := [cs[0] - d, cs[0], cs[1], cs[1] + d]
+	var mine: Array = [cs[0] - d] + Array(cs) + [cs[cs.size() - 1] + d]
 	for r: Dictionary in runs:
 		var other := stair_cells(r)
 		var od: Vector2i = DIRV[str(r["dir"])]
 		var olv := int(r.get("level", 0))
-		if olv == lv - 1 and cs.has(other[1] + od):
+		if olv == lv - 1 and cs.has(other[other.size() - 1] + od):
 			return false  # would stand where the run below arrives
 		for c: Vector2i in other:
-			if (olv == lv and cs.has(c)) or (olv == lv - 1 and mine.has(c)) or (olv == lv and c == cs[1] + d):
+			if (olv == lv and cs.has(c)) or (olv == lv - 1 and mine.has(c)) or (olv == lv and c == cs[cs.size() - 1] + d):
 				return false
-		if olv == lv + 1 and (cs.has(other[0] - od) or cs.has(other[0]) or cs.has(other[1])):
+		if olv == lv + 1 and (cs.has(other[0] - od) or other.any(func(oc: Vector2i) -> bool: return cs.has(oc))):
 			return false
-		if olv == lv and (cs.has(other[1] + od) or cs.has(other[0] - od)):
+		if olv == lv and (cs.has(other[other.size() - 1] + od) or cs.has(other[0] - od)):
 			return false
 	return true
 
 
-## [low cell, high cell] of a stair run.
+## The cells of a stair flight, lowest first. One stair piece is two cells long
+## and climbs one tile (2 layers), so a flight to the next storey is one piece
+## per tile of wall height, end to end: `len` cells (2 for a 1-tile wall, 6 for 3).
 static func stair_cells(run: Dictionary) -> Array[Vector2i]:
 	var low := Vector2i(int(run["cell"][0]), int(run["cell"][1]))
-	return [low, low + (DIRV[str(run["dir"])] as Vector2i)]
+	var d: Vector2i = DIRV[str(run["dir"])]
+	var out: Array[Vector2i] = []
+	for i in maxi(int(run.get("len", 2)), 2):
+		out.append(low + d * i)
+	return out
 
 
 static func _stairs_fit(floor_cells: Dictionary, run: Dictionary) -> bool:
 	var cs := stair_cells(run)
 	var d: Vector2i = DIRV[str(run["dir"])]
-	return floor_cells.has(cs[0] - d) and floor_cells.has(cs[0]) and floor_cells.has(cs[1]) and floor_cells.has(cs[1] + d)
+	for c in cs:
+		if not floor_cells.has(c):
+			return false
+	return floor_cells.has(cs[0] - d) and floor_cells.has(cs[cs.size() - 1] + d)
 
 
 ## A ground slope: `cell` climbs toward `dir`. kind "roof" uses the kit's sloped
@@ -190,7 +230,7 @@ static func place_slope(world: WorldMap, cell: Vector2i, kit_id: String, dir: St
 	if front_cell != cell:
 		so["at"] = [-d.x, -d.y]
 	world.set_tile(front_cell, z + 1, str(run_piece["tile"]), so)
-	var rules := _stair_rules({"dir": dir}, z, int(KitMap.kit(str(run_piece["kit"])).get("height", 1)))
+	var rules := _stair_rules({"dir": dir}, z, 2)
 	var cs: Array[Vector2i] = [cell, high]
 	for i in 2:
 		var g: Dictionary = rules[i]
@@ -281,11 +321,11 @@ static func add_storey(world: WorldMap, building_id: String, by: int = 1) -> Arr
 
 ## Clicking a wall: puts a door there, or takes it away. Returns redraw cells.
 ## A partition wall takes a thin door the same way (two cells of a straight run).
-static func toggle_door(world: WorldMap, cell: Vector2i) -> Array[Vector2i]:
+static func toggle_door(world: WorldMap, cell: Vector2i, level: int = 0) -> Array[Vector2i]:
 	var ib := building_at(world, cell)
 	if not ib.is_empty():
 		var idoors: Array = ib.get("inner_doors", [])
-		var k := [cell.x, cell.y]
+		var k := _key(cell, level)
 		if idoors.has(k):
 			idoors.erase(k)
 		elif (ib.get("inner", []) as Array).has(k):
@@ -294,11 +334,10 @@ static func toggle_door(world: WorldMap, cell: Vector2i) -> Array[Vector2i]:
 			# A click on the open half of a thin door closes the door.
 			var hit := false
 			for dc: Array in idoors.duplicate():
-				for off: Vector2i in [NE, SE, SW, NW]:
-					if Vector2i(int(dc[0]), int(dc[1])) + off == cell and world.roofs.has(cell) or world.roofs.has(Vector2i(int(dc[0]), int(dc[1]))) and Vector2i(int(dc[0]), int(dc[1])) + off == cell:
-						idoors.erase(dc)
-						hit = true
-						break
+				if (int(dc[2]) if dc.size() > 2 else 0) == level and absi(int(dc[0]) - cell.x) + absi(int(dc[1]) - cell.y) == 1:
+					idoors.erase(dc)
+					hit = true
+					break
 			if not hit:
 				return []
 		ib["inner_doors"] = idoors
@@ -477,13 +516,13 @@ static func plan(b: Dictionary) -> Dictionary:
 		"storeys": storeys, "floor": floor_cells, "runs": runs, "holes": holes}
 
 
-## Height and slope of the two cells of a stair run standing on a floor at `base_z`.
-static func _stair_rules(run: Dictionary, base_z: int, ph: int) -> Array:
+## Height and slope of each cell of a stair flight standing on a floor at
+## `base_z`: every cell climbs one layer (a two-cell piece climbs one tile).
+static func _stair_rules(run: Dictionary, base_z: int, count: int) -> Array:
 	var d: Vector2i = DIRV[str(run["dir"])]
 	var out: Array = []
-	for i in 2:
-		var mid := float(ph) * (0.5 + i)
-		out.append({"height": base_z + floori(mid), "lift": mid - floorf(mid), "slope": [d.x, d.y], "rise": ph, "bias": 2})
+	for i in count:
+		out.append({"height": base_z + i, "lift": 0.5, "slope": [d.x, d.y], "rise": 1, "bias": 2})
 	return out
 
 
@@ -496,6 +535,11 @@ static func add_levels(world: WorldMap, grid: IsometricGrid) -> void:
 		var id := str(b.get("id", ""))
 		for s in range(1, int(p["storeys"])):
 			var hole: Dictionary = (p["holes"] as Dictionary).get(s, {})
+			var ip := inner_plan(b, p, ring(p["floor"]), {}, s)
+			var blocked := {}
+			for c: Vector2i in ip["inner"]:
+				if not (ip["open"] as Dictionary).has(c):
+					blocked[c] = true
 			for c: Vector2i in p["floor"]:
 				if hole.has(c):
 					continue
@@ -504,14 +548,18 @@ static func add_levels(world: WorldMap, grid: IsometricGrid) -> void:
 				cell.height = clampi(int(p["zf"]) + s * int(p["pitch"]), IsometricGrid.MIN_HEIGHT, IsometricGrid.MAX_HEIGHT)
 				cell.draw_bias = 2
 				cell.building = id
+				if blocked.has(c):
+					cell.walkable = false
+					cell.blocks_los = true
+					cell.cover = IsometricGrid.COVER_FULL
 				grid.add_level_cell(cell)
 		for r: Dictionary in p["runs"]:
 			var lv := int(r.get("level", 0))
 			var cs := stair_cells(r)
 			var d: Vector2i = DIRV[str(r["dir"])]
 			if lv > 0:
-				var rules := _stair_rules(r, int(p["zf"]) + lv * int(p["pitch"]), int(p["ph"]))
-				for i in 2:
+				var rules := _stair_rules(r, int(p["zf"]) + lv * int(p["pitch"]), cs.size())
+				for i in cs.size():
 					var sc := grid.get_cell(IsometricGrid.at_level(cs[i], lv))
 					if sc == null:
 						continue
@@ -519,9 +567,59 @@ static func add_levels(world: WorldMap, grid: IsometricGrid) -> void:
 					sc.lift = float(rules[i]["lift"])
 					sc.slope = d
 					sc.slope_rise = int(rules[i]["rise"])
-			var arrive := IsometricGrid.at_level(cs[1] + d, lv + 1)
+			var arrive := IsometricGrid.at_level(cs[cs.size() - 1] + d, lv + 1)
 			if grid.get_cell(arrive) != null:
-				grid.add_link(IsometricGrid.at_level(cs[1], lv), arrive)
+				grid.add_link(IsometricGrid.at_level(cs[cs.size() - 1], lv), arrive)
+	# Props and structures placed on an upper floor stand on that floor's cell.
+	for o: Dictionary in world.objects:
+		var lv := int(o.get("level", 0))
+		if lv <= 0:
+			continue
+		for oc in WorldMap.footprint_cells(o):
+			var gc := grid.get_cell(IsometricGrid.at_level(oc, lv))
+			if gc == null:
+				continue
+			if str(o.get("kind", "")) in ["structure", "location"]:
+				gc.walkable = false
+				gc.blocks_los = true
+				gc.cover = IsometricGrid.COVER_FULL
+			elif str(o.get("kind", "")) in ["prop", "loot"]:
+				gc.prop_id = str(o.get("id", ""))
+
+
+## Partitions of one storey: {inner (cells), arms (cell -> sides it reaches
+## toward), open (cell -> [anchor cell, door slot] for cells a thin door opens)}.
+static func inner_plan(b: Dictionary, p: Dictionary, ring_cells: Dictionary, wall_open: Dictionary, level: int) -> Dictionary:
+	var floor_cells: Dictionary = p["floor"]
+	var inner := {}
+	for c: Vector2i in cells_on(b.get("inner", []), level):
+		if floor_cells.has(c):
+			inner[c] = true
+	for r: Dictionary in p["runs"]:
+		if int(r.get("level", 0)) == level:
+			for c in stair_cells(r):
+				inner.erase(c)
+	for c: Vector2i in (p["holes"] as Dictionary).get(level, {}):
+		inner.erase(c)
+	var arms_of := {}
+	for c: Vector2i in inner:
+		var arms: Array = []
+		for dn: String in DIRV:
+			var n: Vector2i = c + (DIRV[dn] as Vector2i)
+			if inner.has(n) or (ring_cells.has(n) and not wall_open.has(n)):
+				arms.append(dn)
+		arms_of[c] = arms
+	var inner_open := {}
+	for c: Vector2i in cells_on(b.get("inner_doors", []), level):
+		for axis: Array in [[SE, "door_thin_a", ["se", "nw"]], [NE, "door_thin_b", ["ne", "sw"]]]:
+			var along: Vector2i = axis[0]
+			for anchor: Vector2i in [c, c - along]:
+				if inner_open.has(c) or not inner.has(anchor) or not inner.has(anchor + along):
+					continue
+				if _has_arms(arms_of[anchor], axis[2]) and _has_arms(arms_of[anchor + along], axis[2]) and not inner_open.has(anchor) and not inner_open.has(anchor + along):
+					inner_open[anchor] = [anchor, axis[1]]
+					inner_open[anchor + along] = [anchor, axis[1]]
+	return {"inner": inner, "arms": arms_of, "open": inner_open}
 
 
 ## Rebuilds a building's floor, walls, partitions, doors, stairs, storeys and roof from its record.
@@ -552,54 +650,38 @@ static func rebuild(world: WorldMap, b: Dictionary) -> Array[Vector2i]:
 		if ring_cells.has(pair[0]):
 			for c: Vector2i in pair:
 				open[c] = pair[0]
-	var inner := {}
-	for c: Array in b.get("inner", []):
-		if floor_cells.has(Vector2i(int(c[0]), int(c[1]))):
-			inner[Vector2i(int(c[0]), int(c[1]))] = true
-	for r: Dictionary in runs:
-		if int(r.get("level", 0)) == 0:
-			for c in stair_cells(r):
-				inner.erase(c)
 	for c: Vector2i in floor_cells:
 		if floor_tile != "":
 			world.set_tile(c, zf, floor_tile, {"b": id, "part": "floor"})
-	# Doors in partitions: two cells along a straight run, like the outer doors.
-	var arms_of := {}
-	for c: Vector2i in inner:
-		var arms: Array = []
-		for dn: String in DIRV:
-			var n: Vector2i = c + (DIRV[dn] as Vector2i)
-			if inner.has(n) or (ring_cells.has(n) and not open.has(n)):
-				arms.append(dn)
-		arms_of[c] = arms
-	var inner_open := {}  # cell -> [anchor cell, slot]
-	for dc: Array in b.get("inner_doors", []):
-		var c := Vector2i(int(dc[0]), int(dc[1]))
-		for axis: Array in [[SE, "door_thin_a", ["se", "nw"]], [NE, "door_thin_b", ["ne", "sw"]]]:
-			var along: Vector2i = axis[0]
-			for anchor: Vector2i in [c, c - along]:
-				if inner_open.has(c) or not inner.has(anchor) or not inner.has(anchor + along):
-					continue
-				if _has_arms(arms_of[anchor], axis[2]) and _has_arms(arms_of[anchor + along], axis[2]) and not inner_open.has(anchor) and not inner_open.has(anchor + along):
-					inner_open[anchor] = [anchor, axis[1]]
-					inner_open[anchor + along] = [anchor, axis[1]]
-	for c: Vector2i in inner:
-		if inner_open.has(c):
-			if inner_open[c][0] == c:
-				var td := KitMap.resolve(kit_id, str(inner_open[c][1]), want_h)
-				if not td.is_empty():
-					_overlay(world, c, zf + 1, str(td["tile"]), {"b": id, "part": "door", "rise": 1})
-			continue
-		var part := partition(kit_id, arms_of[c], want_h)
-		if str(part.get("tile", "")) == "":
-			continue
-		var po := {"b": id, "part": "inner", "rise": 1}
-		if part.has("under"):
-			po["under"] = part["under"]
-		if bool(part.get("flip", false)):
-			po["flip"] = true
-		world.set_tile(c, zf + 1, str(part["tile"]), po)
-		world.gameplay[c] = {"walkable": false, "blocks_los": true, "cover": 2, "b": id}
+	# Partition walls and the thin doors in them, storey by storey.
+	var inner_by := {}  # storey -> inner_plan
+	for s in storeys:
+		var ip := inner_plan(b, p, ring_cells, open if s == 0 else {}, s)
+		inner_by[s] = ip
+		var base_z := zf + s * pitch
+		for c: Vector2i in ip["inner"]:
+			if (ip["open"] as Dictionary).has(c):
+				if ip["open"][c][0] == c:
+					var td := KitMap.resolve(kit_id, str(ip["open"][c][1]), want_h)
+					if not td.is_empty():
+						_overlay(world, c, base_z + 1, str(td["tile"]), {"b": id, "part": "door", "rise": 1, "lv": s})
+				continue
+			var part := partition(kit_id, ip["arms"][c], want_h)
+			if str(part.get("tile", "")) == "":
+				continue
+			var po := {"b": id, "part": "inner", "rise": 1}
+			if part.has("under"):
+				po["under"] = part["under"]
+			if bool(part.get("flip", false)):
+				po["flip"] = true
+			if s == 0:
+				world.set_tile(c, zf + 1, str(part["tile"]), po)
+				world.gameplay[c] = {"walkable": false, "blocks_los": true, "cover": 2, "b": id}
+			else:
+				po["lv"] = s
+				_overlay(world, c, base_z + 1, str(part["tile"]), po)  # add_levels blocks the cell
+	var inner: Dictionary = inner_by[0]["inner"]
+	var inner_open: Dictionary = inner_by[0]["open"]
 	for r: Dictionary in runs:
 		var cs := stair_cells(r)
 		var dname := str(r["dir"])
@@ -608,22 +690,25 @@ static func rebuild(world: WorldMap, b: Dictionary) -> Array[Vector2i]:
 		var base_z := zf + lv * pitch
 		var info: Array = STAIR_PIECE[dname]
 		var piece := KitMap.resolve(kit_id, ("ramp_" if str(r.get("kind", "stairs")) == "ramp" else "stairs_") + str(info[0]), want_h)
-		if not piece.is_empty():
+		# One piece per tile of height, each two cells further on and one tile higher.
+		for j in (cs.size() / 2 if not piece.is_empty() else 0):
 			var so := {"b": id, "part": "stairs", "rise": 1, "up": slab + STAIR_UP}
 			if bool(info[1]) != bool(piece["flip"]):
 				so["flip"] = true
 			# Stored on the cell nearer the camera so the other cell's floor can't cover it.
-			var front_cell := cs[1] if d.x + d.y > 0 else cs[0]
-			if front_cell != cs[0]:
+			var first := cs[j * 2]
+			var front_cell := cs[j * 2 + 1] if d.x + d.y > 0 else first
+			if front_cell != first:
 				so["at"] = [-d.x, -d.y]
-			if lv == 0:
-				world.set_tile(front_cell, zf + 1, str(piece["tile"]), so)
+			var pz := base_z + 1 + j * LAYERS_PER_TILE
+			if lv == 0 and j == 0:
+				world.set_tile(front_cell, pz, str(piece["tile"]), so)
 			else:
 				so["lv"] = lv
-				_overlay(world, front_cell, base_z + 1, str(piece["tile"]), so)
+				_overlay(world, front_cell, pz, str(piece["tile"]), so)
 		if lv == 0:
-			var rules := _stair_rules(r, zf, ph)
-			for i in 2:
+			var rules := _stair_rules(r, zf, cs.size())
+			for i in cs.size():
 				var g: Dictionary = rules[i]
 				g["walkable"] = true
 				g["b"] = id
@@ -655,8 +740,18 @@ static func rebuild(world: WorldMap, b: Dictionary) -> Array[Vector2i]:
 			world.gameplay[c] = {"walkable": false, "blocks_los": true, "cover": 2, "b": id}
 			if not piece.is_empty():
 				world.set_tile(c, z0 + pitch, str(piece["tile"]), _opts(id, slot, pitch - fl, bool(piece["flip"]), front, 0))
-		# Upper storeys repeat the wall (no doors up there).
+		# Upper storeys repeat the wall (no outer doors up there), with the join where a partition meets it.
+		var plain := KitMap.resolve(kit_id, slot, want_h)
+		if plain.is_empty():
+			plain = piece
 		for s in range(1, storeys):
+			piece = plain
+			if slot.begins_with("wall_"):
+				var to_room: Vector2i = c + (DIRV[slot.trim_prefix("wall_")] as Vector2i)
+				if (inner_by[s]["inner"] as Dictionary).has(to_room) and not (inner_by[s]["open"] as Dictionary).has(to_room):
+					var upper_join := KitMap.resolve(kit_id, "join_" + slot.trim_prefix("wall_"), want_h)
+					if not upper_join.is_empty():
+						piece = upper_join
 			if not piece.is_empty():
 				_overlay(world, c, z0 + (s + 1) * pitch, str(piece["tile"]), _opts(id, "upper", pitch - fl, bool(piece["flip"]), front, s))
 	# The floor of every upper storey: walkable (add_levels), open over the stairs that reach it.
@@ -667,13 +762,14 @@ static func rebuild(world: WorldMap, b: Dictionary) -> Array[Vector2i]:
 				_overlay(world, c, zf + s * pitch, floor_tile, {"b": id, "part": "deck", "lv": s})
 	if bool(b.get("roof", true)):
 		var top := zf + storeys * pitch
-		var region := {}
-		for c: Vector2i in cells:
-			region[c] = true
-		for c: Vector2i in cells:
+		# A pitched roof sits on the room itself: each piece's core covers its cell and
+		# its overhang reaches out over the wall. A flat roof is a slab over room and walls.
+		var pitched := str(b.get("roof_style", "flat")) == "pitched"
+		var region: Dictionary = floor_cells
+		for c: Vector2i in (floor_cells.keys() if pitched else cells):
 			var o := {"b": id, "part": "roof", "lv": storeys}
 			var t := roof_tile
-			if str(b.get("roof_style", "flat")) == "pitched":
+			if pitched:
 				var rp := KitMap.resolve(kit_id, roof_slot(region, c), want_h)
 				if not rp.is_empty():
 					t = str(rp["tile"])
@@ -690,9 +786,11 @@ const STAIR_UP := 16.0
 
 
 ## Pitched roof piece for a cell of the roof's area, from which sides are open:
-## none = the block (a valley where only one diagonal is open), one = a slope
-## falling that way, two neighbours = a hip, two opposite = a ridge, three = a
-## ridge end, four = the pyramid.
+## none = the flat-topped block (a valley where only one diagonal is open),
+## one = a slope falling that way, two neighbours = a hip, two opposite = a
+## ridge (a wing one cell wide), three = a ridge end, four = the pyramid.
+## The pieces are flat on top with the slope at the open edge, so they join
+## into one roof line: block, slope, hip and valley all meet at the same height.
 static func roof_slot(region: Dictionary, cell: Vector2i) -> String:
 	var open_sides: Array[String] = []
 	for dn in KitMap.DIRS:
@@ -704,18 +802,7 @@ static func roof_slot(region: Dictionary, cell: Vector2i) -> String:
 			for dv: Vector2i in VALLEY_SLOT:
 				if not region.has(cell + dv):
 					diag.append(dv)
-			if diag.size() == 1:
-				return str(VALLEY_SLOT[diag[0]])
-			# A wing three cells wide: its middle row is the ridge, ending in a ridge end (or a pyramid on a 3 x 3 roof).
-			var narrow_x := not region.has(cell + NE * 2) and not region.has(cell + SW * 2)
-			var narrow_y := not region.has(cell + SE * 2) and not region.has(cell + NW * 2)
-			if narrow_x and narrow_y:
-				return "roof_pyramid"
-			if narrow_x:
-				return "roof_end_nw" if not region.has(cell + SE * 2) else ("roof_end_se" if not region.has(cell + NW * 2) else "ridge_x")
-			if narrow_y:
-				return "roof_end_sw" if not region.has(cell + NE * 2) else ("roof_end_ne" if not region.has(cell + SW * 2) else "ridge_y")
-			return "roof_block"
+			return str(VALLEY_SLOT[diag[0]]) if diag.size() == 1 else "roof_block"
 		1:
 			return "slope_" + open_sides[0]
 		2:

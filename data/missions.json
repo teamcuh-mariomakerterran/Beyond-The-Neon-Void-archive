@@ -324,8 +324,8 @@
 			{
 				"character_id": "factory_marksman",
 				"cell": [
-					3,
-					3,
+					6,
+					4,
 					1
 				],
 				"level": 1
@@ -334,7 +334,7 @@
 				"character_id": "doctrine_warden",
 				"cell": [
 					6,
-					2,
+					3,
 					2
 				],
 				"level": 1

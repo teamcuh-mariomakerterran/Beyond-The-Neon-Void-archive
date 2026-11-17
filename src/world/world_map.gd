@@ -493,6 +493,8 @@ func to_grid(lazy: bool = false) -> IsometricGrid:
 func _footprint_rules() -> Dictionary:
 	var out := {}
 	for o: Dictionary in objects:
+		if int(o.get("level", 0)) > 0:
+			continue  # stands on an upper floor (AutoWall.add_levels)
 		var kind_o := str(o.get("kind", ""))
 		for oc in footprint_cells(o):
 			if kind_o in ["structure", "location"]:

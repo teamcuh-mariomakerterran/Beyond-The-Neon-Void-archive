@@ -74,6 +74,7 @@ func run(p_tree: SceneTree) -> int:
 	test_second_floor()
 	test_slope_roof_and_ramp()
 	test_roof_shapes_and_inner_doors()
+	test_upper_floor_rooms_and_walk()
 	print("=== world: %d passed, %d failed ===" % [_passes, _fails])
 	return _fails
 
@@ -3175,15 +3176,16 @@ func test_slope_walk() -> void:
 	check(not m.gameplay.has(Vector2i(3, 3)) and m.top_z(Vector2i(3, 3)) == 0, "erasing the slope restores the ground")
 
 
-## A 5 x 5 house, three storeys: stairs from the ground at (5, 6) and from the second floor at (7, 6).
+## An 8 x 5 house, three storeys of 3-tile walls. A flight is one stair piece
+## per tile of height (6 cells): from the ground along row 6, from the 2nd floor back along row 4.
 func _stair_house() -> WorldMap:
-	var m := _kit_world(12, 12)
-	for x in range(3, 8):
+	var m := _kit_world(14, 12)
+	for x in range(3, 11):
 		for y in range(3, 8):
 			AutoWall.paint(m, Vector2i(x, y), _KIT, 3, 0)
 	AutoWall.toggle_door(m, Vector2i(4, 8))
-	AutoWall.toggle_stairs(m, Vector2i(5, 6), "ne")
-	AutoWall.toggle_stairs(m, Vector2i(7, 6), "ne", 1)
+	AutoWall.toggle_stairs(m, Vector2i(4, 6), "se")
+	AutoWall.toggle_stairs(m, Vector2i(9, 4), "nw", 1)
 	return m
 
 
@@ -3204,16 +3206,23 @@ func _unit_at(g: IsometricGrid, cell: Vector2i, team: int) -> Unit:
 func test_stairs_battle_path() -> void:
 	var m := _stair_house()
 	var b: Dictionary = m.buildings[0]
-	check((b["stairs"] as Array).size() == 2 and int(b["storeys"]) == 3, "STAIRS places a run per storey and adds the storey it leads to")
+	check((b["stairs"] as Array).size() == 2 and int(b["storeys"]) == 3 and AutoWall.stair_cells(b["stairs"][0]).size() == 6, "STAIRS places a flight per storey (one piece per tile of wall height) and adds the storey it leads to")
 	var g := m.to_grid()
-	var low := g.get_cell(Vector2i(5, 6))
-	check(low.slope == Vector2i(0, -1) and low.slope_rise == 3 and is_equal_approx(g.visual_height(Vector2i(5, 6)), 1.5) and is_equal_approx(g.visual_height(Vector2i(5, 5)), 4.5), "the two stair cells climb one storey between them")
-	var top := _lv(5, 4, 1)
-	check(g.get_height(top) == 6 and g.is_walkable(top) and g.step_to(Vector2i(5, 5), Vector2i(0, -1)) == top, "the top of the stairs joins the second floor, 6 layers up")
-	var path := g.find_path(Vector2i(5, 9), top, 30, 0, 0, true)
-	check(not path.is_empty() and path.has(Vector2i(5, 6)) and path.has(Vector2i(5, 5)), "with jump 0 the path climbs the stairs (%s)" % [path])
-	check(g.can_climb(Vector2i(5, 7), Vector2i(5, 6), 0) and g.can_climb(Vector2i(5, 5), top, 0) and not g.can_climb(Vector2i(5, 5), Vector2i(5, 4), 2), "stairs need no jump; the room under the landing is a different level")
-	check(g.flood(Vector2i(5, 7), 4, 0, 0, true).has(top) and g.get_cell(Vector2i(5, 6)).move_cost == 1, "movement cost on stairs is one per cell")
+	var low := g.get_cell(Vector2i(4, 6))
+	check(low.slope == Vector2i(1, 0) and low.slope_rise == 1 and is_equal_approx(g.visual_height(Vector2i(4, 6)), 0.5) and is_equal_approx(g.visual_height(Vector2i(9, 6)), 5.5), "each stair cell climbs one layer: six cells for a 3-tile storey")
+	var art := 0
+	for c: Vector2i in [Vector2i(4, 6), Vector2i(5, 6), Vector2i(6, 6), Vector2i(7, 6), Vector2i(8, 6), Vector2i(9, 6)]:
+		for stack: Array in [m.stack_at(c), m.roofs.get(c, [])]:
+			for e: Array in stack:
+				if e.size() > 2 and str(e[2].get("part", "")) == "stairs" and int(e[2].get("lv", 0)) == 0:
+					art += 1
+	check(art == 3, "the flight is three stair pieces end to end, each one tile higher (%d)" % art)
+	var top := _lv(10, 6, 1)
+	check(g.get_height(top) == 6 and g.is_walkable(top) and g.step_to(Vector2i(9, 6), Vector2i(1, 0)) == top, "the top of the stairs joins the second floor, 6 layers up")
+	var path := g.find_path(Vector2i(5, 9), top, 40, 0, 0, true)
+	check(not path.is_empty() and path.has(Vector2i(4, 6)) and path.has(Vector2i(9, 6)), "with jump 0 the path climbs the stairs (%s)" % [path])
+	check(g.can_climb(Vector2i(3, 6), Vector2i(4, 6), 0) and g.can_climb(Vector2i(9, 6), top, 0) and not g.can_climb(Vector2i(9, 6), Vector2i(10, 6), 2), "stairs need no jump; the room under the landing is a different level")
+	check(g.flood(Vector2i(3, 6), 8, 0, 0, true).has(top) and g.get_cell(Vector2i(5, 6)).move_cost == 1, "movement cost on stairs is one per cell")
 	check(g.is_walkable(Vector2i(3, 3)) and g.get_height(Vector2i(3, 3)) == 0 and not g.find_path(Vector2i(5, 9), Vector2i(3, 3), 30, 1, 0, true).is_empty(), "rooms under the upper floors stay walkable")
 
 
@@ -3225,39 +3234,41 @@ func test_second_floor() -> void:
 	var b: Dictionary = m.buildings[0]
 	var id := str(b["id"])
 	var g := m.to_grid()
-	var here := Vector2i(4, 4)
-	check(g.is_walkable(here) and g.is_walkable(_lv(4, 4, 1)) and g.is_walkable(_lv(4, 4, 2)) and g.get_height(here) == 0 and g.get_height(_lv(4, 4, 1)) == 6 and g.get_height(_lv(4, 4, 2)) == 12, "one cell holds three walkable levels, each at its own height")
-	check(g.get_cell(_lv(5, 6, 1)) == null and g.get_cell(_lv(7, 6, 2)) == null and g.get_cell(_lv(5, 6, 2)) != null and g.get_cell(_lv(2, 4, 1)) == null, "floors are open over the stairs that reach them, and stop at the walls")
+	var here := Vector2i(5, 5)
+	check(g.is_walkable(here) and g.is_walkable(_lv(5, 5, 1)) and g.is_walkable(_lv(5, 5, 2)) and g.get_height(here) == 0 and g.get_height(_lv(5, 5, 1)) == 6 and g.get_height(_lv(5, 5, 2)) == 12, "one cell holds three walkable levels, each at its own height")
+	check(g.get_cell(_lv(5, 6, 1)) == null and g.get_cell(_lv(5, 4, 2)) == null and g.get_cell(_lv(5, 6, 2)) != null and g.get_cell(_lv(2, 4, 1)) == null, "floors are open over the stairs that reach them, and stop at the walls")
 	var copy := IsometricGrid.new()
 	copy.copy_from(g)
-	check(copy.is_walkable(_lv(4, 4, 2)) and copy.step_to(Vector2i(5, 5), Vector2i(0, -1)) == _lv(5, 4, 1), "the battle's copy of the grid keeps the levels and their links")
+	check(copy.is_walkable(_lv(5, 5, 2)) and copy.step_to(Vector2i(9, 6), Vector2i(1, 0)) == _lv(10, 6, 1), "the battle's copy of the grid keeps the levels and their links")
 	# Units on different floors of the same cell.
-	var foe := _unit_at(g, _lv(4, 4, 1), 1)
+	var foe := _unit_at(g, _lv(5, 5, 1), 1)
 	var mine := _unit_at(g, here, 1)
-	check(g.get_occupant(here) == mine and g.get_occupant(_lv(4, 4, 1)) == foe and g.get_occupant(_lv(4, 4, 2)) == null, "each level of a cell has its own occupant")
-	check(g.find_path(Vector2i(4, 6), Vector2i(4, 3), 9, 1, 0).has(here) == false and not g.find_path(Vector2i(4, 6), Vector2i(4, 3), 9, 1, 0).is_empty(), "an enemy blocks the cell on its own floor")
+	check(g.get_occupant(here) == mine and g.get_occupant(_lv(5, 5, 1)) == foe and g.get_occupant(_lv(5, 5, 2)) == null, "each level of a cell has its own occupant")
+	check(g.find_path(Vector2i(4, 5), Vector2i(6, 5), 9, 1, 0).has(here) == false and not g.find_path(Vector2i(4, 5), Vector2i(6, 5), 9, 1, 0).is_empty(), "an enemy blocks the cell on its own floor")
 	g.clear_occupant(here, mine)
-	check(g.find_path(Vector2i(4, 6), Vector2i(4, 3), 9, 1, 0).has(here), "an enemy on the floor above the same cell doesn't block the floor below")
-	check(IsometricGrid.distance(here, _lv(4, 4, 1)) == 2 and IsometricGrid.distance(_lv(4, 4, 1), _lv(5, 4, 1)) == 1 and not g.cells_in_range(_lv(4, 4, 1), 0, 1).has(here), "reach is counted per level: nothing reaches through a floor")
+	check(g.find_path(Vector2i(4, 5), Vector2i(6, 5), 9, 1, 0).has(here), "an enemy on the floor above the same cell doesn't block the floor below")
+	check(IsometricGrid.distance(here, _lv(5, 5, 1)) == 2 and IsometricGrid.distance(_lv(5, 5, 1), _lv(6, 5, 1)) == 1 and not g.cells_in_range(_lv(5, 5, 1), 0, 1).has(here), "reach is counted per level: nothing reaches through a floor")
 	# From the street to the 3rd floor.
-	var goal := _lv(3, 3, 2)
-	var path := g.find_path(Vector2i(5, 9), goal, 60, 0, 0, true)
-	check(not path.is_empty() and path.has(Vector2i(5, 5)) and path.has(_lv(7, 5, 1)) and path[path.size() - 1] == goal, "a jump-0 path runs from the street up two stair runs to the 3rd floor (%d steps)" % path.size())
+	var goal := _lv(5, 3, 2)
+	var path := g.find_path(Vector2i(5, 9), goal, 90, 0, 0, true)
+	check(not path.is_empty() and path.has(Vector2i(9, 6)) and path.has(_lv(4, 4, 1)) and path[path.size() - 1] == goal, "a jump-0 path runs from the street up two stair flights to the 3rd floor (%d steps)" % path.size())
 	var walker := Unit.new()
 	walker.grid = g
 	walker.cell = Vector2i(5, 9)
 	walker.move_along(path, false)
-	check(walker.cell == goal and g.get_height(walker.cell) == 12 and is_equal_approx(walker.position.y, g.grid_to_world(Vector2i(3, 3), false).y - 12.0 * g.height_step), "a unit walks it and stands 12 layers up, over the same map cell")
+	check(walker.cell == goal and g.get_height(walker.cell) == 12 and is_equal_approx(walker.position.y, g.grid_to_world(Vector2i(5, 3), false).y - 12.0 * g.height_step), "a unit walks it and stands 12 layers up, over the same map cell")
+	var steps := g.walk_distances([_lv(5, 5, 1)], 1)
+	check(int(steps[here]) > 10 and int(steps[Vector2i(5, 6)]) < int(steps[here]) and int(steps[_lv(6, 5, 1)]) == 1, "the AI's marching distance to a unit on the floor above is the walk round by the stairs, not 2")
 	# Line of sight between floors.
-	check(not g.has_line_of_sight(Vector2i(3, 6), _lv(3, 3, 1)) and not g.has_line_of_sight(_lv(3, 3, 2), _lv(3, 6, 1)), "a floor between two levels blocks sight")
-	check(g.has_line_of_sight(Vector2i(5, 7), _lv(5, 4, 1)) and g.has_line_of_sight(_lv(3, 3, 1), _lv(6, 3, 1)), "sight passes through the stair opening, and along a floor")
+	check(not g.has_line_of_sight(Vector2i(3, 7), _lv(3, 5, 1)) and not g.has_line_of_sight(_lv(3, 3, 2), _lv(3, 6, 1)), "a floor between two levels blocks sight")
+	check(g.has_line_of_sight(Vector2i(6, 7), _lv(6, 5, 1)) and g.has_line_of_sight(_lv(3, 3, 1), _lv(8, 3, 1)), "sight passes through the stair opening, and along a floor")
 	# Height advantage from a higher floor.
-	var shooter := _unit_at(g, _lv(5, 4, 1), 0)
-	var target := _unit_at(g, Vector2i(5, 7), 1)
-	var level_shot := _unit_at(g, Vector2i(5, 4), 0)
+	var shooter := _unit_at(g, _lv(6, 5, 1), 0)
+	var target := _unit_at(g, Vector2i(6, 7), 1)
+	var level_shot := _unit_at(g, Vector2i(6, 5), 0)
 	var shot: Ability = ContentDB.get_ability(str(ContentDB.get_ids("abilities")[0]))
 	check(g.get_height(shooter.cell) - g.get_height(target.cell) == 6 and DamageCalculator.hit_chance(shooter, target, shot, g) > DamageCalculator.hit_chance(level_shot, target, shot, g), "an attack from a higher floor gets the height advantage over the same shot from the floor below")
-	check(DamageCalculator.attack_angle(_lv(5, 4, 1), Vector2i(5, 7), Vector2i(0, 1)) == DamageCalculator.attack_angle(Vector2i(5, 4), Vector2i(5, 7), Vector2i(0, 1)), "facing is read on the map, whatever the floor")
+	check(DamageCalculator.attack_angle(_lv(6, 5, 1), Vector2i(6, 7), Vector2i(0, 1)) == DamageCalculator.attack_angle(Vector2i(6, 5), Vector2i(6, 7), Vector2i(0, 1)), "facing is read on the map, whatever the floor")
 	for u: Unit in [foe, mine, walker, shooter, target, level_shot]:
 		u.free()
 	# Seeing inside, per storey.
@@ -3282,11 +3293,11 @@ func test_second_floor() -> void:
 	r.free()
 	# Save / load keeps the levels; taking the stairs away keeps the floors but cuts them off.
 	var m2 := WorldMap.from_dict(JSON.parse_string(JSON.stringify(m.to_dict())))
-	check(not m2.to_grid().find_path(Vector2i(5, 9), goal, 60, 0, 0, true).is_empty() and m2.to_grid(true).is_walkable(goal), "save / load keeps the storeys and stairs (lazy explore grids too)")
-	AutoWall.toggle_stairs(m, Vector2i(5, 5), "ne")
-	check((b["stairs"] as Array).size() == 1 and m.to_grid().find_path(Vector2i(5, 9), goal, 60, 0, 0, true).is_empty(), "taking a stair run away cuts the floors above off")
+	check(not m2.to_grid().find_path(Vector2i(5, 9), goal, 90, 0, 0, true).is_empty() and m2.to_grid(true).is_walkable(goal), "save / load keeps the storeys and stairs (lazy explore grids too)")
+	AutoWall.toggle_stairs(m, Vector2i(6, 6), "se")
+	check((b["stairs"] as Array).size() == 1 and m.to_grid().find_path(Vector2i(5, 9), goal, 90, 0, 0, true).is_empty(), "taking a stair flight away cuts the floors above off")
 	AutoWall.add_storey(m, id)
-	check(int(b["storeys"]) == 4 and m.to_grid().is_walkable(_lv(4, 4, 3)), "ADD STOREY builds a 4th walkable floor")
+	check(int(b["storeys"]) == 4 and m.to_grid().is_walkable(_lv(5, 5, 3)), "ADD STOREY builds a 4th walkable floor")
 	# Maps without levels are untouched.
 	var old := WorldMap.from_dict(ContentDB.get_map("vault_breach_demo"))
 	var og := old.to_grid()
@@ -3308,10 +3319,27 @@ func test_roof_shapes_and_inner_doors() -> void:
 			if str(e[2].get("part", "")) == "roof":
 				return str(e[1]).get_file().substr(3)
 		return ""
-	check(roof_at.call(Vector2i(5, 5)) == "valley_s", "an L-shaped pitched roof has a valley in its inner corner (%s)" % roof_at.call(Vector2i(5, 5)))
-	check(roof_at.call(Vector2i(6, 4)) == "ridge_x" and roof_at.call(Vector2i(4, 7)) == "ridge_y", "its wings carry a ridge along their middle (%s, %s)" % [roof_at.call(Vector2i(6, 4)), roof_at.call(Vector2i(4, 7))])
-	check(roof_at.call(Vector2i(8, 4)) == "roof_end_nw" and roof_at.call(Vector2i(4, 8)) == "roof_end_ne", "each ridge stops in a ridge end (%s, %s)" % [roof_at.call(Vector2i(8, 4)), roof_at.call(Vector2i(4, 8))])
-	check(roof_at.call(Vector2i(6, 3)) == "slope_ne" and roof_at.call(Vector2i(9, 5)) == "hip_s" and roof_at.call(Vector2i(3, 3)) == "hip_n", "edges are slopes and outer corners hips")
+	check(roof_at.call(Vector2i(6, 4)) == "ridge_x" and roof_at.call(Vector2i(4, 7)) == "ridge_y", "an L-shaped pitched roof with wings one cell wide carries a ridge along each (%s, %s)" % [roof_at.call(Vector2i(6, 4)), roof_at.call(Vector2i(4, 7))])
+	check(roof_at.call(Vector2i(8, 4)) == "roof_end_nw" and roof_at.call(Vector2i(4, 8)) == "roof_end_ne" and roof_at.call(Vector2i(4, 4)) == "hip_n", "each ridge stops in a ridge end, and the wings meet in a hip (%s, %s, %s)" % [roof_at.call(Vector2i(8, 4)), roof_at.call(Vector2i(4, 8)), roof_at.call(Vector2i(4, 4))])
+	# A thick L: slopes on the edges, hips on outer corners, a valley in the inner corner.
+	var m3 := _kit_world(14, 14)
+	for x in range(4, 8):
+		for y in range(4, 8):
+			if x < 6 or y < 6:
+				AutoWall.paint(m3, Vector2i(x, y), _KIT, 3, 0)
+	m3.buildings[0]["roof_style"] = "pitched"
+	AutoWall.rebuild(m3, m3.buildings[0])
+	var thick := func(c: Vector2i) -> String:
+		for e: Array in m3.roofs.get(c, []):
+			if str(e[2].get("part", "")) == "roof":
+				return str(e[1]).get_file().substr(3)
+		return ""
+	check(thick.call(Vector2i(5, 5)) == "valley_s", "a thick L has a valley in its inner corner (%s)" % thick.call(Vector2i(5, 5)))
+	check(thick.call(Vector2i(5, 4)) == "slope_ne" and thick.call(Vector2i(4, 5)) == "slope_nw" and thick.call(Vector2i(7, 5)) == "hip_s" and thick.call(Vector2i(4, 4)) == "hip_n" and thick.call(Vector2i(7, 4)) == "hip_e", "its edges are slopes and its outer corners hips")
+	var files := {}
+	for slot: String in ["slope_se", "slope_ne", "slope_sw", "slope_nw", "hip_n", "hip_s"]:
+		files[slot] = KitMap.tile(_KIT, slot).get_file().left(2)
+	check(files == {"slope_se": "51", "slope_ne": "52", "slope_sw": "53", "slope_nw": "54", "hip_n": "56", "hip_s": "57"}, "slope and hip slots point at the sheet pieces re-checked by eye (%s)" % [files])
 	var hut := _kit_world(8, 8)
 	AutoWall.paint(hut, Vector2i(4, 4), _KIT, 3, 0)
 	hut.buildings[0]["roof_style"] = "pitched"
@@ -3341,7 +3369,7 @@ func test_roof_shapes_and_inner_doors() -> void:
 	# Ramp pieces in the SLOPE tool: a two-cell run, one tile of wall height per cell.
 	var cs := AutoWall.place_slope(h, Vector2i(10, 6), _KIT, "ne", 0, "ramp")
 	g = h.to_grid()
-	check(cs == [Vector2i(10, 6), Vector2i(10, 5)] and h.top_tile(Vector2i(10, 6)).ends_with("ramp_a") and g.get_cell(Vector2i(10, 5)).slope == Vector2i(0, -1) and is_equal_approx(g.edge_height(Vector2i(10, 5), Vector2i(0, -1)), 6.0), "the SLOPE tool lays the kit's two-cell ramp, climbing one storey")
+	check(cs == [Vector2i(10, 6), Vector2i(10, 5)] and h.top_tile(Vector2i(10, 6)).ends_with("ramp_a") and g.get_cell(Vector2i(10, 5)).slope == Vector2i(0, -1) and is_equal_approx(g.edge_height(Vector2i(10, 5), Vector2i(0, -1)), 2.0), "the SLOPE tool lays the kit's two-cell ramp, climbing one tile")
 	AutoWall.remove_slope(h, Vector2i(10, 5))
 	check(not h.gameplay.has(Vector2i(10, 6)) and not h.gameplay.has(Vector2i(10, 5)), "erasing either cell removes the whole ramp")
 
@@ -3358,9 +3386,9 @@ func test_slope_roof_and_ramp() -> void:
 	AutoWall.rebuild(m, b)
 	var roof_at := func(c: Vector2i) -> Array:
 		return (m.roofs[c] as Array).filter(func(e: Array) -> bool: return str(e[2].get("part", "")) == "roof")[0]
-	var edge: Array = roof_at.call(Vector2i(5, 7))
+	var edge: Array = roof_at.call(Vector2i(5, 6))
 	check(str(edge[1]).ends_with("slope_sw") and int(edge[2]["rise"]) == 0 and int(edge[0]) == 6, "a pitched roof's edge is the slope falling outward, sitting on the wall top")
-	check(str(roof_at.call(Vector2i(7, 7))[1]).ends_with("hip_s") and str(roof_at.call(Vector2i(5, 5))[1]).ends_with("roof_block") and str(roof_at.call(Vector2i(3, 5))[1]).ends_with("slope_nw"), "corners get hips, the middle the block")
+	check(str(roof_at.call(Vector2i(6, 6))[1]).ends_with("hip_s") and str(roof_at.call(Vector2i(5, 5))[1]).ends_with("roof_block") and str(roof_at.call(Vector2i(4, 5))[1]).ends_with("slope_nw") and not m.roofs.get(Vector2i(5, 7), []).any(func(e: Array) -> bool: return str(e[2].get("part", "")) == "roof"), "corners get hips, the middle the block")
 	var tex := ForgeStore.load_texture("res://assets/tiles/%s.png" % str(edge[1]))
 	var an := KitMap.anchor(str(edge[1]))
 	var used := WorldRenderer.fit_rect(tex)
@@ -3386,3 +3414,45 @@ func test_slope_roof_and_ramp() -> void:
 	var straight := m.tile_opts(Vector2i(5, 4), m.top_z(Vector2i(5, 4)))
 	check(m.top_tile(Vector2i(5, 4)).ends_with("thin_sw") and str(straight.get("under", "")).ends_with("thin_ne"), "a straight run is two arms, the back one drawn under the front one")
 	check(KitMap.mirror("thin_ne_se_sw") == "thin_se_sw_nw" and KitMap.mirror("slope_ne") == "slope_nw" and KitMap.mirror("hip_n") == "" and KitMap.mirror("floor") == "", "mirrors swap east and west")
+
+
+## Upper floors take partitions, doors and props like the ground floor;
+## click-to-walk paths across storeys; the storey is saved with the position.
+func test_upper_floor_rooms_and_walk() -> void:
+	var m := _stair_house()
+	var b: Dictionary = m.buildings[0]
+	for y in range(5, 8):
+		AutoWall.paint_inner(m, Vector2i(7, y), false, 2)
+	var g := m.to_grid()
+	check(not g.is_walkable(_lv(7, 5, 2)) and g.get_cell(_lv(7, 5, 2)).blocks_los and g.is_walkable(_lv(7, 5, 1)) and g.is_walkable(Vector2i(7, 5)), "a partition on the 3rd floor blocks that floor only")
+	check(g.walk(_lv(6, 6, 2), _lv(8, 6, 2), 2).size() != 2, "there is no walking straight through it")
+	var wall: Array = (m.roofs[Vector2i(7, 6)] as Array).filter(func(e: Array) -> bool: return str(e[2].get("part", "")) == "inner")
+	check(wall.size() == 1 and int(wall[0][2]["lv"]) == 2 and int(wall[0][0]) == 13, "its wall is drawn on that floor and hides with it")
+	var joined: Array = (m.roofs[Vector2i(7, 8)] as Array).filter(func(e: Array) -> bool: return str(e[1]).ends_with("join_ne"))
+	check(joined.size() == 1 and int(joined[0][2].get("lv", 0)) == 2, "where it meets the outer wall upstairs, that storey's wall piece has the stub")
+	AutoWall.toggle_door(m, Vector2i(7, 6), 2)
+	g = m.to_grid()
+	check(g.is_walkable(_lv(7, 6, 2)) and g.is_walkable(_lv(7, 7, 2)) and g.walk(_lv(6, 6, 2), _lv(8, 6, 2), 2).size() == 2, "DOOR opens a thin door in an upstairs partition: straight through")
+	# A prop on the 2nd floor.
+	var crate := m.add_object("res://assets/props/junk/cyberpunk_junkpile_props_2_1_03.png", Vector2i(3, 5), 0, "prop")
+	AutoWall.set_object_level(m, crate, 1)
+	g = m.to_grid()
+	check(int(crate["z"]) == 6 and int(crate["level"]) == 1 and g.get_cell(_lv(3, 5, 1)).prop_id == str(crate["id"]) and g.get_cell(Vector2i(3, 5)).prop_id == "", "a prop set on the 2nd floor stands at that floor's height and belongs to that floor's cell")
+	var r := WorldRenderer.new()
+	r.world = m
+	tree.root.add_child(r)
+	r.set_inside(str(b["id"]), true, 0)
+	var node := r.object_node(str(crate["id"]))
+	check(node != null and node.modulate.a == 0.0 and node.z_index == (3 + 5) * 2 + 3, "seen from the ground floor it hides with the floor it stands on")
+	r.set_inside(str(b["id"]), true, 1)
+	check(node.modulate.a == 1.0, "and shows when you are on its floor")
+	r.queue_free()
+	# Click-to-walk across storeys.
+	var route := g.walk(Vector2i(5, 9), _lv(5, 3, 2), 2)
+	check(not route.is_empty() and route[route.size() - 1] == _lv(5, 3, 2) and route.has(_lv(4, 4, 1)), "a walk from the street to the 3rd floor runs up both stair flights (%d cells)" % route.size())
+	check(g.walk(_lv(5, 3, 2), Vector2i(5, 9), 2).size() == route.size() and g.walk(Vector2i(5, 9), _lv(5, 6, 1), 2).is_empty(), "and back down; there is no way to a cell that isn't there")
+	# The storey is saved with the explore position.
+	var saved: Dictionary = CampaignManager._explore_to_json({"map_id": "kit_street_demo", "spawn": 0, "at": Vector2i(3, 2), "level": 2})
+	check(int(saved.get("level", 0)) == 2 and not CampaignManager._explore_to_json({"map_id": "x", "at": Vector2i(1, 1)}).has("level"), "saving on an upper floor writes the storey; ground saves are unchanged")
+	var m2 := WorldMap.from_dict(JSON.parse_string(JSON.stringify(m.to_dict())))
+	check(not m2.to_grid().is_walkable(_lv(7, 5, 2)) and m2.to_grid().is_walkable(_lv(7, 6, 2)) and int(m2.objects[0].get("level", 0)) == 1, "upstairs partitions, doors and props survive save / load")

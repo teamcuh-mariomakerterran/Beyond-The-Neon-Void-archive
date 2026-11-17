@@ -311,6 +311,7 @@ func set_inside(building_id: String, instant: bool = false, level: int = 0) -> v
 		if building_id != "":
 			_open[building_id] = 1.0
 	redraw_all_columns()
+	_fade_level_props()
 	set_process(true)
 
 
@@ -323,6 +324,14 @@ func _step_open(d: float) -> void:
 		if goal == 0.0 and float(_open[id]) <= 0.0:
 			_open.erase(id)
 	redraw_all_columns()
+	_fade_level_props()
+
+
+## Props standing on upper floors hide with their floor.
+func _fade_level_props() -> void:
+	for n: WorldSprite in _obj_nodes.values():
+		if n.data.has("b"):
+			n.modulate.a = building_alpha({"b": n.data["b"], "lv": int(n.data.get("level", 0))})
 
 
 ## Alpha for a generated building piece (1 for anything else). `lv` is the
@@ -1096,7 +1105,10 @@ class WorldSprite extends Node2D:
 			cell_f -= Vector2(_foot - 1, _foot - 1) * 0.5
 		var off: Array = data.get("offset", [0, 0])
 		position = w.to_screen(cell_f, z) + Vector2(float(off[0]), float(off[1]))
-		z_index = order * 2 + 1
+		# On an upper floor: above that floor (drawn a step after the columns), and hidden with it.
+		z_index = order * 2 + 1 + (2 if int(data.get("level", 0)) > 0 else 0)
+		if data.has("b"):
+			modulate.a = renderer.building_alpha({"b": data["b"], "lv": int(data.get("level", 0))})
 		set_process(_frames.size() > 1 or bool(_clip.get("ok", false)))
 		_refresh_unit(asset)
 		_refresh_screen()

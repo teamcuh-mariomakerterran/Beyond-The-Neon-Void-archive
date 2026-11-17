@@ -90,6 +90,7 @@ func _ready() -> void:
 	if saved_mount != "" and Mounts.owned().has(saved_mount) and mount_allowed(saved_mount):
 		mount_id = saved_mount
 	cell = _start_cell(info)
+	level = int(info.get("level", 0))  # the storey you saved on (dropped by _place_avatar if it is gone)
 	if mount_id != "" and not can_step(cell, cell):
 		mount_id = ""  # e.g. the sub, but you start on land
 	CampaignManager.current_explore["at"] = cell
@@ -565,6 +566,7 @@ func _place_avatar() -> void:
 	fpos = Vector2(cell)
 	if grid.get_cell(_g(cell)) == null:
 		level = 0
+	CampaignManager.current_explore["level"] = level
 	_draw_h = grid.visual_height(_g(cell))
 	_avatar.position = world.to_screen(Vector2(cell), _draw_h)
 	_avatar.z_index = grid.unit_z(_g(cell))
@@ -635,6 +637,7 @@ func _step(dir: Vector2i) -> void:
 	cell = to
 	fpos = Vector2(to)
 	level = IsometricGrid.level_of(gto)
+	CampaignManager.current_explore["level"] = level
 	_draw_h = grid.visual_height(gto)
 	CampaignManager.current_explore["at"] = cell
 	await tw.finished
@@ -733,6 +736,7 @@ func free_move(gdir: Vector2, delta: float) -> void:
 		var landed := grid.step_to(_g(cell), now - cell)
 		if grid.get_cell(landed) != null:
 			level = IsometricGrid.level_of(landed)
+			CampaignManager.current_explore["level"] = level
 		cell = now
 		CampaignManager.current_explore["at"] = cell
 		_arrived()
@@ -853,13 +857,60 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_mount()
 	var mb := event as InputEventMouseButton
 	if mb and mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
-		var hit := world.pick_top(get_global_mouse_position())
-		if not hit.is_empty():
+		var mouse := get_global_mouse_position()
+		var hit := world.pick_top(mouse)
+		var target := click_target(mouse)
+		if target.x >= 0:
+			_path = walk_path(cell, IsometricGrid.base(target), IsometricGrid.level_of(target))
+		elif not hit.is_empty():
 			_path = walk_path(cell, hit[0])
 
 
 ## BFS over steppable columns (climb limit, structures block).
-func walk_path(from: Vector2i, to: Vector2i) -> Array[Vector2i]:
+## The grid cell a click means, on any storey in view: the floors of the
+## building you are in from your own storey down, then the ground. Clicking a
+## stair run means its far end (up when you are below it, down when above).
+## Vector2i(-1, -1) = nothing there.
+func click_target(pos: Vector2) -> Vector2i:
+	var found := Vector2i(-1, -1)
+	var b := AutoWall.find(world, AutoWall.inside_id(world, cell))
+	if not b.is_empty() and level > 0:
+		var p := AutoWall.plan(b)
+		for lv in range(level, 0, -1):
+			var c := world.pick_plane(pos, int(p["zf"]) + lv * int(p["pitch"]))
+			if grid.get_cell(IsometricGrid.at_level(c, lv)) != null:
+				found = IsometricGrid.at_level(c, lv)
+				break
+	if found.x < 0:
+		var hit := world.pick_top(pos)
+		if hit.is_empty():
+			return found
+		found = hit[0]
+	return stair_end(found)
+
+
+## A stair cell stands for the end of its run away from the player.
+func stair_end(target: Vector2i) -> Vector2i:
+	var up := grid.visual_height(_g(cell)) <= grid.visual_height(target)
+	for i in 3:
+		var c := grid.get_cell(target)
+		if c == null or c.slope == Vector2i.ZERO:
+			break
+		var nxt := grid.step_to(target, c.slope if up else -c.slope)
+		if grid.get_cell(nxt) == null:
+			break
+		target = nxt
+	return target
+
+
+## Cells to walk through from `from` (on the player's storey) to `to` on storey
+## `to_level`, as map cells; stairs carry the walk between storeys.
+func walk_path(from: Vector2i, to: Vector2i, to_level: int = 0) -> Array[Vector2i]:
+	if mount_id == "":
+		var out2: Array[Vector2i] = []
+		for gc in grid.walk(_g(from), IsometricGrid.at_level(to, to_level), MAX_CLIMB):
+			out2.append(IsometricGrid.base(gc))
+		return out2
 	var prev := {from: from}
 	var queue: Array[Vector2i] = [from]
 	while not queue.is_empty():

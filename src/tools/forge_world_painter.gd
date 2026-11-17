@@ -1531,7 +1531,7 @@ func _palette_build() -> void:
 	dr.add_child(ForgeForm._option(["ne", "se", "sw", "nw"], build_dir, func(k: String) -> void: build_dir = k))
 	_palette.add_child(dr)
 	var lr := HBoxContainer.new()
-	lr.add_child(NeonTheme.label("Stairs start on storey (0 = ground)", 12, NeonTheme.TEXT_DIM))
+	lr.add_child(NeonTheme.label("Storey for INNER / DOOR / STAIRS (0 = ground)", 12, NeonTheme.TEXT_DIM))
 	lr.add_child(ForgeForm._spin(build_level, true, func(n: float) -> void: build_level = clampi(int(n), 0, 5)))
 	lr.add_child(ForgeForm._option(["stairs", "ramp"], build_run, func(k: String) -> void: build_run = k))
 	_palette.add_child(lr)
@@ -1580,7 +1580,7 @@ func apply_build(cells: Array[Vector2i], erase: bool) -> Array[Vector2i]:
 						b["roof_style"] = build_roof_style
 						changed.append_array(AutoWall.rebuild(world, b))
 			Build.INNER:
-				changed.append_array(AutoWall.paint_inner(world, c, erase))
+				changed.append_array(AutoWall.paint_inner(world, c, erase, build_level))
 			Build.STAIRS:
 				var sb2 := AutoWall.building_at(world, c)
 				if not sb2.is_empty():
@@ -1600,7 +1600,7 @@ func apply_build(cells: Array[Vector2i], erase: bool) -> Array[Vector2i]:
 					owner_b = AutoWall.building_at(world, c)  # a partition wall takes a thin door
 				if not owner_b.is_empty():
 					build_target = str(owner_b["id"])
-					changed.append_array(AutoWall.toggle_door(world, c))
+					changed.append_array(AutoWall.toggle_door(world, c, build_level))
 			Build.GROUND:
 				changed.append_array(AutoTile.paint(world, c, sel_autoset, world.top_z(c, layer), erase))
 	if not changed.is_empty():
@@ -3363,6 +3363,13 @@ func _sprite_inspector(o: Dictionary, detail: bool) -> void:
 	prev.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	prev.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_inspector.add_child(prev)
+	if not detail and o.get("cell") is Array and not AutoWall.building_at(world, Vector2i(int(o["cell"][0]), int(o["cell"][1]))).is_empty():
+		# Inside a building: which storey the object stands on (0 = ground).
+		_inspector.add_child(_row("storey", ForgeForm._spin(int(o.get("level", 0)), true, func(n: float) -> void:
+			_push_undo()
+			AutoWall.set_object_level(world, o, int(n))
+			_renderer.refresh_object(o)
+			dirty = true)))
 	var fields := {}
 	var keys: Array = ["asset", "z", "scale", "flip"]
 	if not detail:

@@ -416,6 +416,50 @@ func reachable_cells(start: Vector2i, move: int, jump: int, team: int, ignore_un
 	return out
 
 
+## Shortest walk from one cell to another for exploration (no units, no move
+## budget): 4-way steps that `climb` allows, across storeys by the stair links.
+## Returns the cells after `from` up to `to`, or [] if there is no way.
+func walk(from: Vector2i, to: Vector2i, climb: int) -> Array[Vector2i]:
+	var prev := {from: from}
+	var queue: Array[Vector2i] = [from]
+	while not queue.is_empty() and not prev.has(to):
+		var c: Vector2i = queue.pop_front()
+		for d in DIRECTIONS:
+			var n := step_to(c, d)
+			if not prev.has(n) and is_walkable(n) and can_climb(c, n, climb):
+				prev[n] = c
+				queue.append(n)
+	var out: Array[Vector2i] = []
+	if not prev.has(to):
+		return out
+	var cur := to
+	while cur != from:
+		out.push_front(cur)
+		cur = prev[cur]
+	return out
+
+
+## Walking steps from every cell to the nearest of `sources` (units ignored):
+## {cell: steps}. On maps with storeys the AI marches by this, so it heads for
+## the stairs instead of standing under a target it can't reach.
+func walk_distances(sources: Array[Vector2i], jump: int) -> Dictionary:
+	var dist := {}
+	var queue: Array[Vector2i] = []
+	for s in sources:
+		if not dist.has(s):
+			dist[s] = 0
+			queue.append(s)
+	var head := 0
+	while head < queue.size():
+		var c: Vector2i = queue[head]
+		head += 1
+		for n in neighbors(c):
+			if not dist.has(n) and is_walkable(n) and can_climb(c, n, jump):
+				dist[n] = int(dist[c]) + 1
+				queue.append(n)
+	return dist
+
+
 ## Path from start to goal (inclusive of both), or [] if unreachable within `move`.
 func find_path(start: Vector2i, goal: Vector2i, move: int, jump: int, team: int, ignore_units: bool = false) -> Array[Vector2i]:
 	var flooded := flood(start, move, jump, team, ignore_units)

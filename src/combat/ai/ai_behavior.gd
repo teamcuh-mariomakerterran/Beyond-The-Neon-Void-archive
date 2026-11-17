@@ -94,8 +94,15 @@ func plan_turn(unit: Node, battle: Node) -> Dictionary:
 		for c in moves:
 			pos_scores[c] -= approach_weight * IsometricGrid.distance(c, gcell)
 	elif not any_action and not foes.is_empty():
+		# Buildings with storeys: march by walking distance (round to the stairs), not as the crow flies.
+		var by_foot := {}
+		if not grid.links.is_empty():
+			var at: Array[Vector2i] = []
+			for f in foes:
+				at.append(f.cell)
+			by_foot = grid.walk_distances(at, int(unit.get_stat("jump")))
 		for c in moves:
-			pos_scores[c] -= approach_weight * _nearest_dist(c, foes)
+			pos_scores[c] -= approach_weight * (int(by_foot[c]) if by_foot.has(c) else _nearest_dist(c, foes))
 	for c in moves:
 		var act: Dictionary = acts[c]
 		var total: float = pos_scores[c] + act["score"]
